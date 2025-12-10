@@ -38,11 +38,13 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Handle auth pages - no profile checks needed
+  // Handle auth pages - no profile checks needed, but check if user is already authenticated
   if (request.nextUrl.pathname === "/login" || request.nextUrl.pathname === "/register") {
     if (user) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
+    // Allow the request to proceed to the login page
+    // The page will handle loading from auth service
     return supabaseResponse;
   }
 

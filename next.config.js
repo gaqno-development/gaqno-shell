@@ -16,14 +16,8 @@ const nextConfig = {
     const PDV_URL = process.env.PDV_SERVICE_URL || 'http://localhost:3008';
 
     return [
-      {
-        source: "/login",
-        destination: `${AUTH_URL}/login`,
-      },
-      {
-        source: "/register",
-        destination: `${AUTH_URL}/register`,
-      },
+      // Note: /login and /register are handled by pages in src/app/login and src/app/register
+      // They proxy to the auth service client-side to handle errors gracefully
       // App Asset Rewrites
       {
         source: "/auth/_next/:path*",
