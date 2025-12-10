@@ -4,11 +4,10 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@gaqno-dev/core/utils/supabase/client'
 
-const AUTH_SERVICE_URL = process.env.NEXT_PUBLIC_AUTH_SERVICE_URL || 'http://localhost:3001'
-
 export default function LoginPage() {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -41,11 +40,12 @@ export default function LoginPage() {
 
   return (
     <iframe
-      src={`${AUTH_SERVICE_URL}/login`}
+      src="/api/auth-proxy?path=login"
       className="w-full h-screen border-0"
       title="Login"
+      onLoad={() => setError(null)}
       onError={() => {
-        console.error('Error loading auth service iframe')
+        setError('Erro ao carregar página de login')
       }}
     />
   )
