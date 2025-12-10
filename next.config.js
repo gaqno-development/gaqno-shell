@@ -12,7 +12,6 @@ const nextConfig = {
     const CRM_URL = process.env.CRM_SERVICE_URL || 'http://localhost:3004';
     const ERP_URL = process.env.ERP_SERVICE_URL || 'http://localhost:3005';
     const FINANCE_URL = process.env.FINANCE_SERVICE_URL || 'http://localhost:3006';
-    const PLATFORM_URL = process.env.PLATFORM_SERVICE_URL || 'http://localhost:3007';
     const PDV_URL = process.env.PDV_SERVICE_URL || 'http://localhost:3008';
 
     return [

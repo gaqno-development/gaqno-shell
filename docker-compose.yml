@@ -19,7 +19,6 @@ services:
       - CRM_SERVICE_URL=${CRM_SERVICE_URL:-http://localhost:3004}
       - ERP_SERVICE_URL=${ERP_SERVICE_URL:-http://localhost:3005}
       - FINANCE_SERVICE_URL=${FINANCE_SERVICE_URL:-http://localhost:3006}
-      - PLATFORM_SERVICE_URL=${PLATFORM_SERVICE_URL:-http://localhost:3007}
       - PDV_SERVICE_URL=${PDV_SERVICE_URL:-http://localhost:3008}
     env_file:
       - .env.local  # Local env file (or set in Coolify)

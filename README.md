@@ -61,7 +61,6 @@ build:
 - `CRM_SERVICE_URL` - Default: `http://localhost:3004`
 - `ERP_SERVICE_URL` - Default: `http://localhost:3005`
 - `FINANCE_SERVICE_URL` - Default: `http://localhost:3006`
-- `PLATFORM_SERVICE_URL` - Default: `http://localhost:3007`
 - `PDV_SERVICE_URL` - Default: `http://localhost:3008`
 
 ### For Coolify
@@ -76,7 +75,12 @@ ADMIN_SERVICE_URL=http://admin:3002
 
 The Shell app routes requests based on path patterns:
 
-- `/login`, `/register` → Auth app
+- `/login`, `/register` → Shell app (native)
+- `/dashboard` → Shell app (native - main dashboard)
+- `/dashboard/manager` → Shell app (native - manager dashboard)
+- `/dashboard/user` → Shell app (native - user dashboard)
+- `/dashboard/settings` → Shell app (native - settings)
+- `/dashboard/users` → Shell app (native - user management)
 - `/admin/*` → Admin app
 - `/dashboard/admin/*` → Admin app
 - `/dashboard/finance/*` → Finance app
@@ -84,7 +88,6 @@ The Shell app routes requests based on path patterns:
 - `/dashboard/erp/*` → ERP app
 - `/dashboard/books/*` → AI app
 - `/pdv/*` → PDV app
-- `/dashboard/*` → Platform app (fallback)
 
 ## Deployment
 
