@@ -35,12 +35,13 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy public folder if it exists
+# Copy public folder if it exists (using BuildKit mount)
+# Note: This requires DOCKER_BUILDKIT=1
 RUN mkdir -p ./public
-RUN --mount=from=builder,source=/app,target=/src \
-    if [ -d /src/public ] && [ "$(ls -A /src/public 2>/dev/null)" ]; then \
-      cp -r /src/public/* ./public/; \
-    fi
+RUN --mount=type=bind,from=builder,source=/app/public,target=/tmp/public \
+    if [ -d /tmp/public ] && [ "$(ls -A /tmp/public 2>/dev/null)" ]; then \
+      cp -r /tmp/public/* ./public/; \
+    fi || true
 
 # Copy standalone build
 # Next.js standalone output structure:
