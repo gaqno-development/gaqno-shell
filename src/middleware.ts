@@ -53,15 +53,26 @@ export async function middleware(request: NextRequest) {
 
   // Fetch profile only for authenticated users on protected routes
   if (user && (request.nextUrl.pathname.startsWith("/dashboard") || request.nextUrl.pathname.startsWith("/admin"))) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("tenant_id, role, is_root_admin, feature_permissions")
-      .eq("user_id", user.id)
-      .single();
+    try {
+      const profilePromise = supabase
+        .from("profiles")
+        .select("tenant_id, role, is_root_admin, feature_permissions")
+        .eq("user_id", user.id)
+        .single();
+      
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error("Profile fetch timeout")), 3000)
+      );
+      
+      const { data: profile, error } = await Promise.race([
+        profilePromise,
+        timeoutPromise
+      ]) as { data: any; error: any };
 
-    if (!profile) {
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
+      if (error || !profile) {
+        console.error("Profile fetch error:", error);
+        return NextResponse.redirect(new URL("/login", request.url));
+      }
 
     if (request.nextUrl.pathname.startsWith("/admin")) {
       if (!profile.is_root_admin) {
@@ -97,6 +108,10 @@ export async function middleware(request: NextRequest) {
           break;
         }
       }
+    } catch (error) {
+      console.error("Middleware error:", error);
+      // On error, allow request to proceed (fail open) to avoid blocking
+      return supabaseResponse;
     }
   }
 
