@@ -8,6 +8,7 @@ const config: Config = {
     "./node_modules/@gaqno-dev/ui/src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   presets: [sharedConfig],
+  plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar')],
 };
 
 export default config;

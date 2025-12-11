@@ -1,12 +1,12 @@
 'use client'
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@gaqno-dev/ui/components/ui'
 import { Button } from '@gaqno-dev/ui/components/ui'
 import { AlertCircle, Home, RefreshCw } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function ErrorPage() {
+function ErrorContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const service = searchParams.get('service') || 'serviço'
@@ -54,6 +54,20 @@ export default function ErrorPage() {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+export default function ErrorPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="animate-pulse text-center">
+          <p className="text-muted-foreground">Carregando...</p>
+        </div>
+      </div>
+    }>
+      <ErrorContent />
+    </Suspense>
   )
 }
 
