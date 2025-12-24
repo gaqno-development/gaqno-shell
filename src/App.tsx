@@ -1,11 +1,11 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@gaqno-dev/frontcore/components/providers'
 import { QueryProvider } from '@gaqno-dev/frontcore/components/providers'
 import { AuthProvider } from '@gaqno-dev/frontcore/contexts'
 import { ToastContainer } from '@gaqno-dev/frontcore/components/ui'
-import { MicroFrontendErrorBoundary } from '@/components/microfrontend-error-boundary'
 import { ShellLayoutWrapper } from '@/components/shell-layout-wrapper'
+import { RouteErrorElement } from '@/components/route-error-element'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
@@ -49,6 +49,159 @@ function LoadingFallback() {
   )
 }
 
+const router = createBrowserRouter([
+  {
+    Component: ShellLayoutWrapper,
+    errorElement: <RouteErrorElement />,
+    children: [
+      { path: '/', Component: HomePage },
+      { path: '/login', Component: LoginPage },
+      { path: '/register', Component: RegisterPage },
+      { path: '/dashboard', Component: DashboardPage },
+      { path: '/dashboard/manager', Component: ManagerDashboardPage },
+      { path: '/dashboard/user', Component: UserDashboardPage },
+      { path: '/dashboard/settings', Component: SettingsPage },
+      { path: '/unauthorized', Component: UnauthorizedPage },
+      { path: '/error', Component: ErrorPage },
+      {
+        path: '/ai',
+        errorElement: <RouteErrorElement />,
+        Component: AIPage,
+        children: [
+          {
+            path: 'books',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <BooksPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'books/:id/chapters',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <BookChaptersPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'books/:id/cover',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <BookCoverPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'books/:id/export',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <BookExportPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: 'books/:id',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <BookDetailPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '*',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <AIPage />
+              </Suspense>
+            ),
+          },
+        ],
+      },
+      {
+        path: '/crm',
+        errorElement: <RouteErrorElement />,
+        children: [
+          {
+            path: '*',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <CRMPage />
+              </Suspense>
+            ),
+          },
+        ],
+      },
+      {
+        path: '/erp',
+        errorElement: <RouteErrorElement />,
+        children: [
+          {
+            path: '*',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <ERPPage />
+              </Suspense>
+            ),
+          },
+        ],
+      },
+      {
+        path: '/finance',
+        errorElement: <RouteErrorElement />,
+        children: [
+          {
+            path: '*',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <FinancePage />
+              </Suspense>
+            ),
+          },
+        ],
+      },
+      {
+        path: '/pdv',
+        errorElement: <RouteErrorElement />,
+        children: [
+          {
+            path: '*',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <PDVPage />
+              </Suspense>
+            ),
+          },
+        ],
+      },
+      {
+        path: '/sso',
+        errorElement: <RouteErrorElement />,
+        children: [
+          {
+            path: '*',
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <SSOPage />
+              </Suspense>
+            ),
+          },
+        ],
+      },
+      { path: '/admin/domains', Component: DomainsPage },
+      { path: '/admin/domains/new', Component: DomainFormPage },
+      { path: '/admin/domains/:id/edit', Component: DomainEditPage },
+      { path: '/admin/domains/ssl', Component: SSLStatusPage },
+      { path: '/admin/tenants', Component: TenantsPage },
+      { path: '/admin/tenants/costs', Component: TenantCostsPage },
+      { path: '/admin/tenants/:tenantId/costs', Component: TenantCostsPage },
+      { path: '/admin/branches', Component: BranchesPage },
+      { path: '/admin/users', Component: UsersPage },
+      { path: '/admin/settings', Component: AdminSettingsPage },
+    ],
+  },
+])
+
 export default function App() {
   return (
     <ThemeProvider
@@ -59,142 +212,8 @@ export default function App() {
     >
       <QueryProvider>
         <AuthProvider>
-          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-            <ShellLayoutWrapper>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/dashboard/manager" element={<ManagerDashboardPage />} />
-                <Route path="/dashboard/user" element={<UserDashboardPage />} />
-                <Route path="/dashboard/settings" element={<SettingsPage />} />
-                <Route path="/unauthorized" element={<UnauthorizedPage />} />
-                <Route path="/error" element={<ErrorPage />} />
-                <Route 
-                  path="/ai/books" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <BooksPage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route 
-                  path="/ai/books/:id/chapters" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <BookChaptersPage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route 
-                  path="/ai/books/:id/cover" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <BookCoverPage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route 
-                  path="/ai/books/:id/export" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <BookExportPage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route 
-                  path="/ai/books/:id" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <BookDetailPage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route 
-                  path="/ai/*" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <AIPage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route 
-                  path="/crm/*" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <CRMPage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route 
-                  path="/erp/*" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <ERPPage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route 
-                  path="/finance/*" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <FinancePage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route 
-                  path="/pdv/*" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <PDVPage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route 
-                  path="/sso/*" 
-                  element={
-                    <MicroFrontendErrorBoundary>
-                      <Suspense fallback={<LoadingFallback />}>
-                        <SSOPage />
-                      </Suspense>
-                    </MicroFrontendErrorBoundary>
-                  } 
-                />
-                <Route path="/admin/domains" element={<DomainsPage />} />
-                <Route path="/admin/domains/new" element={<DomainFormPage />} />
-                <Route path="/admin/domains/:id/edit" element={<DomainEditPage />} />
-                <Route path="/admin/domains/ssl" element={<SSLStatusPage />} />
-                <Route path="/admin/tenants" element={<TenantsPage />} />
-                <Route path="/admin/tenants/costs" element={<TenantCostsPage />} />
-                <Route path="/admin/tenants/:tenantId/costs" element={<TenantCostsPage />} />
-                <Route path="/admin/branches" element={<BranchesPage />} />
-                <Route path="/admin/users" element={<UsersPage />} />
-                <Route path="/admin/settings" element={<AdminSettingsPage />} />
-              </Routes>
-            </ShellLayoutWrapper>
-            <ToastContainer />
-          </BrowserRouter>
+          <RouterProvider router={router} />
+          <ToastContainer />
         </AuthProvider>
       </QueryProvider>
     </ThemeProvider>

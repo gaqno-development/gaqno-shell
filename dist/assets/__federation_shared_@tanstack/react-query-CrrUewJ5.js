@@ -1,4 +1,4 @@
-import { i as importShared } from '../_virtual___federation_fn_import-DHV1XhJ7.js';
+import { i as importShared } from '../_virtual___federation_fn_import-JyBdRaqf.js';
 import { j as jsxRuntimeExports } from '../jsx-runtime-CMWGVW1u.js';
 
 // src/subscribable.ts

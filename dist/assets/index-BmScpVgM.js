@@ -1,4 +1,4 @@
-import { i as importShared } from './_virtual___federation_fn_import-DHV1XhJ7.js';
+import { i as importShared } from './_virtual___federation_fn_import-JyBdRaqf.js';
 import { r as reactExports, g as getDefaultExportFromCjs, c as commonjsGlobal } from './index-CetfBc-a.js';
 import { r as reactDomExports } from './index-DeQGn_Du.js';
 import { j as jsxRuntimeExports } from './jsx-runtime-CMWGVW1u.js';
@@ -958,7 +958,7 @@ const remotesMap = {
 
                 const wrapShareModule = remoteFrom => {
                   return merge$1({
-                    'react':{'18.3.1':{get:()=>get$1(new URL('__federation_shared_react-z-BZoSEI.js', import.meta.url).href, remoteFrom), loaded:1}},'react-dom':{'18.3.1':{get:()=>get$1(new URL('__federation_shared_react-dom-KmrQF9Fk.js', import.meta.url).href, remoteFrom), loaded:1}},'tailwindcss':{'4.1.18':{get:()=>get$1(new URL('__federation_shared_tailwindcss-DUFRkgTj.js', import.meta.url).href, remoteFrom), loaded:1}},'react-router-dom':{'6.30.2':{get:()=>get$1(new URL('__federation_shared_react-router-dom-CjrlCwlf.js', import.meta.url).href, remoteFrom), loaded:1}},'@tanstack/react-query':{'5.90.12':{get:()=>get$1(new URL('__federation_shared_@tanstack/react-query-CmXtza7B.js', import.meta.url).href, remoteFrom), loaded:1}},'tailwindcss':{'4.1.18':{get:()=>get$1(new URL('__federation_shared_tailwindcss-DUFRkgTj.js', import.meta.url).href, remoteFrom), loaded:1}}
+                    'react':{'18.3.1':{get:()=>get$1(new URL('__federation_shared_react-z-BZoSEI.js', import.meta.url).href, remoteFrom), loaded:1}},'react-dom':{'18.3.1':{get:()=>get$1(new URL('__federation_shared_react-dom-KmrQF9Fk.js', import.meta.url).href, remoteFrom), loaded:1}},'react-router-dom':{'6.30.2':{get:()=>get$1(new URL('__federation_shared_react-router-dom-DhnZ9-H4.js', import.meta.url).href, remoteFrom), loaded:1}},'@tanstack/react-query':{'5.90.12':{get:()=>get$1(new URL('__federation_shared_@tanstack/react-query-CrrUewJ5.js', import.meta.url).href, remoteFrom), loaded:1}}
                   }, (globalThis.__federation_shared__ || {})['default'] || {});
                 };
 
@@ -8486,7 +8486,7 @@ const ROUTES = {
   LOGIN: "/login",
   DASHBOARD: "/dashboard"};
 
-const {useNavigate: useNavigate$b} = await importShared('react-router-dom');
+const {useNavigate: useNavigate$c} = await importShared('react-router-dom');
 
 const {useEffect: useEffect$b} = await importShared('react');
 
@@ -9761,7 +9761,7 @@ const ThemeProvider = ({ children, attribute, defaultTheme, enableSystem, disabl
   }, [theme]);
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children }, void 0, false, {
     fileName: "/home/kursk/coding/gaqno_server/@gaqno-frontcore/src/components/providers/theme-provider.tsx",
-    lineNumber: 52,
+    lineNumber: 53,
     columnNumber: 10
   }, undefined);
 };
@@ -14915,6 +14915,7 @@ const Button = React$W.forwardRef(
         ref,
         "aria-busy": loading ? true : void 0,
         disabled: props.disabled || !!loading,
+        "data-variant": `${variant}-${size}`,
         ...props
       },
       void 0,
@@ -27046,556 +27047,11 @@ const Toggle = React$2.forwardRef(({ className, variant, size, ...props }, ref) 
 ));
 Toggle.displayName = Root.displayName;
 
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-const toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
-const toCamelCase = (string) => string.replace(
-  /^([A-Z])|[\s-_]+(\w)/g,
-  (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase()
-);
-const toPascalCase = (string) => {
-  const camelCase = toCamelCase(string);
-  return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
-};
-const mergeClasses = (...classes) => classes.filter((className, index, array) => {
-  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
-}).join(" ").trim();
-const hasA11yProp = (props) => {
-  for (const prop in props) {
-    if (prop.startsWith("aria-") || prop === "role" || prop === "title") {
-      return true;
-    }
-  }
-};
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-var defaultAttributes = {
-  xmlns: "http://www.w3.org/2000/svg",
-  width: 24,
-  height: 24,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 2,
-  strokeLinecap: "round",
-  strokeLinejoin: "round"
-};
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-const {forwardRef: forwardRef$1,createElement: createElement$1} = await importShared('react');
-
-const Icon = forwardRef$1(
-  ({
-    color = "currentColor",
-    size = 24,
-    strokeWidth = 2,
-    absoluteStrokeWidth,
-    className = "",
-    children,
-    iconNode,
-    ...rest
-  }, ref) => createElement$1(
-    "svg",
-    {
-      ref,
-      ...defaultAttributes,
-      width: size,
-      height: size,
-      stroke: color,
-      strokeWidth: absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size) : strokeWidth,
-      className: mergeClasses("lucide", className),
-      ...!children && !hasA11yProp(rest) && { "aria-hidden": "true" },
-      ...rest
-    },
-    [
-      ...iconNode.map(([tag, attrs]) => createElement$1(tag, attrs)),
-      ...Array.isArray(children) ? children : [children]
-    ]
-  )
-);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-const {forwardRef,createElement} = await importShared('react');
-
-const createLucideIcon = (iconName, iconNode) => {
-  const Component = forwardRef(
-    ({ className, ...props }, ref) => createElement(Icon, {
-      ref,
-      iconNode,
-      className: mergeClasses(
-        `lucide-${toKebabCase(toPascalCase(iconName))}`,
-        `lucide-${iconName}`,
-        className
-      ),
-      ...props
-    })
-  );
-  Component.displayName = toPascalCase(iconName);
-  return Component;
-};
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$d = [
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
-  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
-  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
-];
-const CircleAlert = createLucideIcon("circle-alert", __iconNode$d);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$c = [
-  ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
-  ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
-];
-const CircleCheckBig = createLucideIcon("circle-check-big", __iconNode$c);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$b = [
-  ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }],
-  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
-];
-const Clock = createLucideIcon("clock", __iconNode$b);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$a = [
-  [
-    "path",
-    {
-      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
-      key: "1oefj6"
-    }
-  ],
-  ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5", key: "wfsgrz" }],
-  ["path", { d: "M10 9H8", key: "b1mrlr" }],
-  ["path", { d: "M16 13H8", key: "t4e002" }],
-  ["path", { d: "M16 17H8", key: "z1uh3a" }]
-];
-const FileText = createLucideIcon("file-text", __iconNode$a);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$9 = [
-  [
-    "path",
-    {
-      d: "M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z",
-      key: "1fr9dc"
-    }
-  ],
-  ["path", { d: "M8 10v4", key: "tgpxqk" }],
-  ["path", { d: "M12 10v2", key: "hh53o1" }],
-  ["path", { d: "M16 10v6", key: "1d6xys" }]
-];
-const FolderKanban = createLucideIcon("folder-kanban", __iconNode$9);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$8 = [
-  ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
-  [
-    "path",
-    {
-      d: "M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
-      key: "r6nss1"
-    }
-  ]
-];
-const House = createLucideIcon("house", __iconNode$8);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$7 = [
-  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
-  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
-];
-const Lock = createLucideIcon("lock", __iconNode$7);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$6 = [
-  ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
-  ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
-];
-const Mail = createLucideIcon("mail", __iconNode$6);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$5 = [
-  ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
-  ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
-  ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
-  ["path", { d: "M8 16H3v5", key: "1cv678" }]
-];
-const RefreshCw = createLucideIcon("refresh-cw", __iconNode$5);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$4 = [
-  [
-    "path",
-    {
-      d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
-      key: "1i5ecw"
-    }
-  ],
-  ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
-];
-const Settings = createLucideIcon("settings", __iconNode$4);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$3 = [
-  [
-    "path",
-    {
-      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
-      key: "oel41y"
-    }
-  ]
-];
-const Shield = createLucideIcon("shield", __iconNode$3);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$2 = [
-  [
-    "path",
-    {
-      d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
-      key: "r04s7s"
-    }
-  ]
-];
-const Star = createLucideIcon("star", __iconNode$2);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode$1 = [
-  ["path", { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2", key: "975kel" }],
-  ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
-];
-const User = createLucideIcon("user", __iconNode$1);
-
-/**
- * @license lucide-react v0.560.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const __iconNode = [
-  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
-  ["path", { d: "M16 3.128a4 4 0 0 1 0 7.744", key: "16gr8j" }],
-  ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
-  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
-];
-const Users = createLucideIcon("users", __iconNode);
-
-const {Component} = await importShared('react');
-const SERVICE_NAMES = {
-  "/dashboard/finance": "Finance",
-  "/dashboard/crm": "CRM",
-  "/dashboard/erp": "ERP",
-  "/dashboard/books": "AI/Books",
-  "/dashboard/admin": "Admin",
-  "/admin": "Admin",
-  "/pdv": "PDV",
-  "/crm": "CRM",
-  "/erp": "ERP",
-  "/finance": "Finance",
-  "/ai": "AI"
-};
-function getServiceName(pathname) {
-  for (const [route, name] of Object.entries(SERVICE_NAMES)) {
-    if (pathname.startsWith(route)) {
-      return name;
-    }
-  }
-  return "serviço";
-}
-class MicroFrontendErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hasError: false,
-      error: null,
-      serviceName: "serviço"
-    };
-  }
-  static getDerivedStateFromError(error) {
-    return {
-      hasError: true,
-      error
-    };
-  }
-  componentDidCatch(error, errorInfo) {
-    console.error("Micro-frontend error:", error, errorInfo);
-    const pathname = window.location.pathname;
-    this.setState({
-      serviceName: getServiceName(pathname),
-      error
-    });
-  }
-  render() {
-    if (this.state.hasError) {
-      if (this.props.fallback) {
-        return this.props.fallback;
-      }
-      return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-        MicroFrontendErrorFallback,
-        {
-          serviceName: this.state.serviceName,
-          error: this.state.error
-        },
-        void 0,
-        false,
-        {
-          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-          lineNumber: 74,
-          columnNumber: 9
-        },
-        this
-      );
-    }
-    return this.props.children;
-  }
-}
-function MicroFrontendErrorFallback({ serviceName, error }) {
-  const handleGoToDashboard = () => {
-    window.location.href = "/dashboard";
-  };
-  return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "flex items-center justify-center p-6", children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Card, { className: "w-full max-w-md", children: [
-    /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CardHeader, { className: "text-center", children: [
-      /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10", children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CircleAlert, { className: "h-6 w-6 text-destructive" }, void 0, false, {
-        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-        lineNumber: 100,
-        columnNumber: 13
-      }, this) }, void 0, false, {
-        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-        lineNumber: 99,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CardTitle, { className: "text-2xl", children: "Serviço Indisponível" }, void 0, false, {
-        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-        lineNumber: 102,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CardDescription, { children: [
-        "O ",
-        serviceName,
-        " não está disponível no momento"
-      ] }, void 0, true, {
-        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-        lineNumber: 103,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, true, {
-      fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-      lineNumber: 98,
-      columnNumber: 9
-    }, this),
-    /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CardContent, { className: "space-y-4", children: [
-      /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "rounded-md bg-muted p-4 text-sm", children: [
-        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { className: "font-medium mb-2", children: "O que aconteceu?" }, void 0, false, {
-          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-          lineNumber: 109,
-          columnNumber: 13
-        }, this),
-        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { className: "text-muted-foreground", children: "O serviço que você está tentando acessar não está respondendo. Isso pode acontecer se o serviço não estiver em execução ou se houver um problema de conexão." }, void 0, false, {
-          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-          lineNumber: 110,
-          columnNumber: 13
-        }, this),
-        error && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { className: "mt-2 text-xs text-muted-foreground font-mono", children: error.message }, void 0, false, {
-          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-          lineNumber: 116,
-          columnNumber: 15
-        }, this)
-      ] }, void 0, true, {
-        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-        lineNumber: 108,
-        columnNumber: 11
-      }, this),
-      /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "flex flex-col gap-2", children: [
-        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-          Button,
-          {
-            onClick: handleGoToDashboard,
-            className: "w-full",
-            children: [
-              /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(House, { className: "mr-2 h-4 w-4" }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-                lineNumber: 127,
-                columnNumber: 15
-              }, this),
-              "Voltar ao Dashboard"
-            ]
-          },
-          void 0,
-          true,
-          {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-            lineNumber: 123,
-            columnNumber: 13
-          },
-          this
-        ),
-        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-          Button,
-          {
-            variant: "outline",
-            onClick: () => window.location.reload(),
-            className: "w-full",
-            children: [
-              /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RefreshCw, { className: "mr-2 h-4 w-4" }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-                lineNumber: 135,
-                columnNumber: 15
-              }, this),
-              "Tentar Novamente"
-            ]
-          },
-          void 0,
-          true,
-          {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-            lineNumber: 130,
-            columnNumber: 13
-          },
-          this
-        )
-      ] }, void 0, true, {
-        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-        lineNumber: 122,
-        columnNumber: 11
-      }, this)
-    ] }, void 0, true, {
-      fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-      lineNumber: 107,
-      columnNumber: 9
-    }, this)
-  ] }, void 0, true, {
-    fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-    lineNumber: 97,
-    columnNumber: 7
-  }, this) }, void 0, false, {
-    fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/microfrontend-error-boundary.tsx",
-    lineNumber: 96,
-    columnNumber: 5
-  }, this);
-}
-
 const {useState: useState$8} = await importShared('react');
-const {useNavigate: useNavigate$a,useParams: useParams$1} = await importShared('react-router-dom');
+const {useNavigate: useNavigate$b,useParams: useParams$1} = await importShared('react-router-dom');
 const DomainForm = ({ tenantId }) => {
   const { id } = useParams$1();
-  const navigate = useNavigate$a();
+  const navigate = useNavigate$b();
   const { domains, createDomain, updateDomain } = useDomains(tenantId);
   const isEdit = !!id;
   const existingDomain = isEdit ? domains.find((d) => d.id === id) : null;
@@ -28063,11 +27519,11 @@ const SSLChecker = ({ tenantId }) => {
   }, undefined);
 };
 
-const {useNavigate: useNavigate$9} = await importShared('react-router-dom');
+const {useNavigate: useNavigate$a} = await importShared('react-router-dom');
 
 const DomainsList = ({ tenantId }) => {
   const { domains, isLoading, checkSsl } = useDomains(tenantId);
-  const navigate = useNavigate$9();
+  const navigate = useNavigate$a();
   const getStatusBadge = (domain) => {
     if (!domain.isActive) {
       return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Badge, { variant: "secondary", children: "Inactive" }, void 0, false, {
@@ -28552,9 +28008,9 @@ const React$1 = await importShared('react');
 const {useState: useState$6} = React$1;
 
 const {Link: Link$2} = await importShared('react-router-dom');
-const {useLocation: useLocation$3} = await importShared('react-router-dom');
+const {useLocation: useLocation$4} = await importShared('react-router-dom');
 const AppSidebar = ({ customMenuItems }) => {
-  const location = useLocation$3();
+  const location = useLocation$4();
   const pathname = location.pathname;
   const backendMenuItems = useFilteredMenu();
   const { config: whiteLabel } = useWhiteLabel();
@@ -29091,12 +28547,12 @@ const useBranding = (tenantId) => {
   };
 };
 
-const {useNavigate: useNavigate$8,useLocation: useLocation$2} = await importShared('react-router-dom');
+const {useNavigate: useNavigate$9,useLocation: useLocation$3} = await importShared('react-router-dom');
 const {useMemo: useMemo$1} = await importShared('react');
 
 const useHeader = () => {
-  const navigate = useNavigate$8();
-  const location = useLocation$2();
+  const navigate = useNavigate$9();
+  const location = useLocation$3();
   const pathname = location.pathname;
   const { signOut, profile, user } = useAuth();
   const { config: whiteLabelConfig } = useWhiteLabel();
@@ -29220,13 +28676,13 @@ const ThemeToggle = () => {
 };
 ThemeToggle.displayName = "ThemeToggle";
 
-const {useLocation: useLocation$1,useNavigate: useNavigate$7} = await importShared('react-router-dom');
+const {useLocation: useLocation$2,useNavigate: useNavigate$8} = await importShared('react-router-dom');
 const Header = () => {
   const { profile, user, handleSignOut, whiteLabelConfig } = useHeader();
-  const location = useLocation$1();
+  const location = useLocation$2();
   const pathname = location.pathname;
   const { state } = useSidebar();
-  const navigate = useNavigate$7();
+  const navigate = useNavigate$8();
   const isTenantDetailsPage = pathname.includes("/admin/tenants/") && pathname.split("/").length > 4;
   const handleProfileClick = () => {
     navigate("/dashboard/profile");
@@ -29554,17 +29010,17 @@ const DashboardLayout = ({ children, menuItems }) => {
 };
 DashboardLayout.displayName = "DashboardLayout";
 
-const {useNavigate: useNavigate$6} = await importShared('react-router-dom');
+const {useNavigate: useNavigate$7} = await importShared('react-router-dom');
 
 const {useEffect: useEffect$3} = await importShared('react');
 
-const {useNavigate: useNavigate$5} = await importShared('react-router-dom');
+const {useNavigate: useNavigate$6} = await importShared('react-router-dom');
 
 const {useEffect: useEffect$2} = await importShared('react');
 
 const {useEffect: useEffect$1,useState: useState$4} = await importShared('react');
 
-const {useLocation} = await importShared('react-router-dom');
+const {useLocation: useLocation$1,Outlet} = await importShared('react-router-dom');
 const AUTHENTICATED_ROUTES = [
   "/dashboard",
   "/ai",
@@ -29586,8 +29042,8 @@ function shouldShowDashboardLayout(pathname) {
 function isMicroFrontendRoute(pathname) {
   return MICRO_FRONTEND_ROUTES.some((route) => pathname.startsWith(route));
 }
-function ShellLayoutWrapper({ children }) {
-  const location = useLocation();
+function ShellLayoutWrapper() {
+  const location = useLocation$1();
   const pathname = location.pathname;
   const { user, loading } = useAuth();
   const [shouldShowLayout, setShouldShowLayout] = useState$4(false);
@@ -29600,27 +29056,549 @@ function ShellLayoutWrapper({ children }) {
     setIsMicroFrontend(isMFE);
   }, [pathname, loading, user]);
   if (!shouldShowLayout) {
-    return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(jsxDevRuntimeExports.Fragment, { children }, void 0, false, {
+    return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Outlet, {}, void 0, false, {
       fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/shell-layout-wrapper.tsx",
-      lineNumber: 57,
+      lineNumber: 53,
       columnNumber: 12
     }, this);
   }
-  return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(AppProvider, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(WhiteLabelProvider, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(TenantProvider, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(DashboardLayout, { menuItems, children }, void 0, false, {
+  return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(AppProvider, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(WhiteLabelProvider, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(TenantProvider, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(DashboardLayout, { menuItems, children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Outlet, {}, void 0, false, {
     fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/shell-layout-wrapper.tsx",
-    lineNumber: 64,
+    lineNumber: 61,
+    columnNumber: 13
+  }, this) }, void 0, false, {
+    fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/shell-layout-wrapper.tsx",
+    lineNumber: 60,
     columnNumber: 11
   }, this) }, void 0, false, {
     fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/shell-layout-wrapper.tsx",
-    lineNumber: 63,
+    lineNumber: 59,
     columnNumber: 9
   }, this) }, void 0, false, {
     fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/shell-layout-wrapper.tsx",
-    lineNumber: 62,
+    lineNumber: 58,
     columnNumber: 7
   }, this) }, void 0, false, {
     fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/shell-layout-wrapper.tsx",
-    lineNumber: 61,
+    lineNumber: 57,
+    columnNumber: 5
+  }, this);
+}
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+const toCamelCase = (string) => string.replace(
+  /^([A-Z])|[\s-_]+(\w)/g,
+  (match, p1, p2) => p2 ? p2.toUpperCase() : p1.toLowerCase()
+);
+const toPascalCase = (string) => {
+  const camelCase = toCamelCase(string);
+  return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
+};
+const mergeClasses = (...classes) => classes.filter((className, index, array) => {
+  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
+}).join(" ").trim();
+const hasA11yProp = (props) => {
+  for (const prop in props) {
+    if (prop.startsWith("aria-") || prop === "role" || prop === "title") {
+      return true;
+    }
+  }
+};
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const {forwardRef: forwardRef$1,createElement: createElement$1} = await importShared('react');
+
+const Icon = forwardRef$1(
+  ({
+    color = "currentColor",
+    size = 24,
+    strokeWidth = 2,
+    absoluteStrokeWidth,
+    className = "",
+    children,
+    iconNode,
+    ...rest
+  }, ref) => createElement$1(
+    "svg",
+    {
+      ref,
+      ...defaultAttributes,
+      width: size,
+      height: size,
+      stroke: color,
+      strokeWidth: absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size) : strokeWidth,
+      className: mergeClasses("lucide", className),
+      ...!children && !hasA11yProp(rest) && { "aria-hidden": "true" },
+      ...rest
+    },
+    [
+      ...iconNode.map(([tag, attrs]) => createElement$1(tag, attrs)),
+      ...Array.isArray(children) ? children : [children]
+    ]
+  )
+);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const {forwardRef,createElement} = await importShared('react');
+
+const createLucideIcon = (iconName, iconNode) => {
+  const Component = forwardRef(
+    ({ className, ...props }, ref) => createElement(Icon, {
+      ref,
+      iconNode,
+      className: mergeClasses(
+        `lucide-${toKebabCase(toPascalCase(iconName))}`,
+        `lucide-${iconName}`,
+        className
+      ),
+      ...props
+    })
+  );
+  Component.displayName = toPascalCase(iconName);
+  return Component;
+};
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$d = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
+  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+];
+const CircleAlert = createLucideIcon("circle-alert", __iconNode$d);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$c = [
+  ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
+  ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
+];
+const CircleCheckBig = createLucideIcon("circle-check-big", __iconNode$c);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$b = [
+  ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }],
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]
+];
+const Clock = createLucideIcon("clock", __iconNode$b);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$a = [
+  [
+    "path",
+    {
+      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z",
+      key: "1oefj6"
+    }
+  ],
+  ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5", key: "wfsgrz" }],
+  ["path", { d: "M10 9H8", key: "b1mrlr" }],
+  ["path", { d: "M16 13H8", key: "t4e002" }],
+  ["path", { d: "M16 17H8", key: "z1uh3a" }]
+];
+const FileText = createLucideIcon("file-text", __iconNode$a);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$9 = [
+  [
+    "path",
+    {
+      d: "M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z",
+      key: "1fr9dc"
+    }
+  ],
+  ["path", { d: "M8 10v4", key: "tgpxqk" }],
+  ["path", { d: "M12 10v2", key: "hh53o1" }],
+  ["path", { d: "M16 10v6", key: "1d6xys" }]
+];
+const FolderKanban = createLucideIcon("folder-kanban", __iconNode$9);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$8 = [
+  ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8", key: "5wwlr5" }],
+  [
+    "path",
+    {
+      d: "M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
+      key: "r6nss1"
+    }
+  ]
+];
+const House = createLucideIcon("house", __iconNode$8);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$7 = [
+  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
+];
+const Lock = createLucideIcon("lock", __iconNode$7);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$6 = [
+  ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
+  ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
+];
+const Mail = createLucideIcon("mail", __iconNode$6);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$5 = [
+  ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
+  ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
+  ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
+  ["path", { d: "M8 16H3v5", key: "1cv678" }]
+];
+const RefreshCw = createLucideIcon("refresh-cw", __iconNode$5);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$4 = [
+  [
+    "path",
+    {
+      d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915",
+      key: "1i5ecw"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
+];
+const Settings = createLucideIcon("settings", __iconNode$4);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$3 = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ]
+];
+const Shield = createLucideIcon("shield", __iconNode$3);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$2 = [
+  [
+    "path",
+    {
+      d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
+      key: "r04s7s"
+    }
+  ]
+];
+const Star = createLucideIcon("star", __iconNode$2);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$1 = [
+  ["path", { d: "M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2", key: "975kel" }],
+  ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
+];
+const User = createLucideIcon("user", __iconNode$1);
+
+/**
+ * @license lucide-react v0.560.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode = [
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
+  ["path", { d: "M16 3.128a4 4 0 0 1 0 7.744", key: "16gr8j" }],
+  ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
+  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
+];
+const Users = createLucideIcon("users", __iconNode);
+
+const {useRouteError,useNavigate: useNavigate$5,useLocation} = await importShared('react-router-dom');
+const SERVICE_NAMES = {
+  "/dashboard/finance": "Finance",
+  "/dashboard/crm": "CRM",
+  "/dashboard/erp": "ERP",
+  "/dashboard/books": "AI/Books",
+  "/dashboard/admin": "Admin",
+  "/admin": "Admin",
+  "/pdv": "PDV",
+  "/crm": "CRM",
+  "/erp": "ERP",
+  "/finance": "Finance",
+  "/ai": "AI",
+  "/sso": "SSO"
+};
+function getServiceName(pathname) {
+  for (const [route, name] of Object.entries(SERVICE_NAMES)) {
+    if (pathname.startsWith(route)) {
+      return name;
+    }
+  }
+  return "serviço";
+}
+function RouteErrorElement() {
+  const error = useRouteError();
+  const navigate = useNavigate$5();
+  const location = useLocation();
+  const serviceName = getServiceName(location.pathname);
+  const errorMessage = error instanceof Error ? error.message : "Ocorreu um erro inesperado";
+  const errorDetails = error instanceof Error ? error.stack : String(error);
+  return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "flex items-center justify-center min-h-screen p-6", children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Card, { className: "w-full max-w-md", children: [
+    /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CardHeader, { className: "text-center", children: [
+      /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10", children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CircleAlert, { className: "h-6 w-6 text-destructive" }, void 0, false, {
+        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+        lineNumber: 45,
+        columnNumber: 13
+      }, this) }, void 0, false, {
+        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+        lineNumber: 44,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CardTitle, { className: "text-2xl", children: "Serviço Indisponível" }, void 0, false, {
+        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+        lineNumber: 47,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CardDescription, { children: [
+        "O ",
+        serviceName,
+        " não está disponível no momento"
+      ] }, void 0, true, {
+        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+        lineNumber: 48,
+        columnNumber: 11
+      }, this)
+    ] }, void 0, true, {
+      fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+      lineNumber: 43,
+      columnNumber: 9
+    }, this),
+    /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CardContent, { className: "space-y-4", children: [
+      /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "rounded-md bg-muted p-4 text-sm", children: [
+        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { className: "font-medium mb-2", children: "O que aconteceu?" }, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+          lineNumber: 54,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { className: "text-muted-foreground", children: "O serviço que você está tentando acessar não está respondendo. Isso pode acontecer se o serviço não estiver em execução ou se houver um problema de conexão." }, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+          lineNumber: 55,
+          columnNumber: 13
+        }, this),
+        errorMessage && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("p", { className: "mt-2 text-xs text-muted-foreground font-mono break-words", children: errorMessage }, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+          lineNumber: 61,
+          columnNumber: 15
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+        lineNumber: 53,
+        columnNumber: 11
+      }, this),
+      /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("div", { className: "flex flex-col gap-2", children: [
+        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
+          Button,
+          {
+            onClick: () => navigate("/dashboard"),
+            className: "w-full",
+            children: [
+              /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(House, { className: "mr-2 h-4 w-4" }, void 0, false, {
+                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+                lineNumber: 72,
+                columnNumber: 15
+              }, this),
+              "Voltar ao Dashboard"
+            ]
+          },
+          void 0,
+          true,
+          {
+            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+            lineNumber: 68,
+            columnNumber: 13
+          },
+          this
+        ),
+        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
+          Button,
+          {
+            variant: "outline",
+            onClick: () => window.location.reload(),
+            className: "w-full",
+            children: [
+              /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RefreshCw, { className: "mr-2 h-4 w-4" }, void 0, false, {
+                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+                lineNumber: 80,
+                columnNumber: 15
+              }, this),
+              "Tentar Novamente"
+            ]
+          },
+          void 0,
+          true,
+          {
+            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+            lineNumber: 75,
+            columnNumber: 13
+          },
+          this
+        )
+      ] }, void 0, true, {
+        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+        lineNumber: 67,
+        columnNumber: 11
+      }, this),
+      errorDetails && /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("details", { className: "mt-4", children: [
+        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("summary", { className: "text-xs text-muted-foreground cursor-pointer", children: "Detalhes do erro (desenvolvimento)" }, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+          lineNumber: 87,
+          columnNumber: 15
+        }, this),
+        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV("pre", { className: "mt-2 text-xs text-muted-foreground font-mono bg-muted p-2 rounded overflow-auto max-h-40", children: errorDetails }, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+          lineNumber: 90,
+          columnNumber: 15
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+        lineNumber: 86,
+        columnNumber: 13
+      }, this)
+    ] }, void 0, true, {
+      fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+      lineNumber: 52,
+      columnNumber: 9
+    }, this)
+  ] }, void 0, true, {
+    fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+    lineNumber: 42,
+    columnNumber: 7
+  }, this) }, void 0, false, {
+    fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/components/route-error-element.tsx",
+    lineNumber: 41,
     columnNumber: 5
   }, this);
 }
@@ -35961,7 +35939,7 @@ function AdminSettingsPage() {
   }, this);
 }
 
-const {BrowserRouter,Routes,Route} = await importShared('react-router-dom');
+const {createBrowserRouter,RouterProvider} = await importShared('react-router-dom');
 const {lazy,Suspense} = await importShared('react');
 
 const AIPage = lazy(async () => __federation_method_getRemote("ai" , "./App").then(module=>__federation_method_wrapDefault(module, true)));
@@ -35990,6 +35968,274 @@ function LoadingFallback() {
     columnNumber: 5
   }, this);
 }
+const router = createBrowserRouter([
+  {
+    Component: ShellLayoutWrapper,
+    errorElement: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RouteErrorElement, {}, void 0, false, {
+      fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+      lineNumber: 55,
+      columnNumber: 19
+    }, undefined),
+    children: [
+      { path: "/", Component: HomePage },
+      { path: "/login", Component: LoginPage },
+      { path: "/register", Component: RegisterPage },
+      { path: "/dashboard", Component: DashboardPage },
+      { path: "/dashboard/manager", Component: ManagerDashboardPage },
+      { path: "/dashboard/user", Component: UserDashboardPage },
+      { path: "/dashboard/settings", Component: SettingsPage },
+      { path: "/unauthorized", Component: UnauthorizedPage },
+      { path: "/error", Component: ErrorPage },
+      {
+        path: "/ai",
+        errorElement: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RouteErrorElement, {}, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+          lineNumber: 68,
+          columnNumber: 23
+        }, undefined),
+        Component: AIPage,
+        children: [
+          {
+            path: "books",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 74,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BooksPage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 75,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 74,
+              columnNumber: 15
+            }, undefined)
+          },
+          {
+            path: "books/:id/chapters",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 82,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BookChaptersPage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 83,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 82,
+              columnNumber: 15
+            }, undefined)
+          },
+          {
+            path: "books/:id/cover",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 90,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BookCoverPage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 91,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 90,
+              columnNumber: 15
+            }, undefined)
+          },
+          {
+            path: "books/:id/export",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 98,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BookExportPage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 99,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 98,
+              columnNumber: 15
+            }, undefined)
+          },
+          {
+            path: "books/:id",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 106,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BookDetailPage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 107,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 106,
+              columnNumber: 15
+            }, undefined)
+          },
+          {
+            path: "*",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 114,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(AIPage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 115,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 114,
+              columnNumber: 15
+            }, undefined)
+          }
+        ]
+      },
+      {
+        path: "/crm",
+        errorElement: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RouteErrorElement, {}, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+          lineNumber: 123,
+          columnNumber: 23
+        }, undefined),
+        children: [
+          {
+            path: "*",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 128,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CRMPage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 129,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 128,
+              columnNumber: 15
+            }, undefined)
+          }
+        ]
+      },
+      {
+        path: "/erp",
+        errorElement: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RouteErrorElement, {}, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+          lineNumber: 137,
+          columnNumber: 23
+        }, undefined),
+        children: [
+          {
+            path: "*",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 142,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ERPPage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 143,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 142,
+              columnNumber: 15
+            }, undefined)
+          }
+        ]
+      },
+      {
+        path: "/finance",
+        errorElement: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RouteErrorElement, {}, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+          lineNumber: 151,
+          columnNumber: 23
+        }, undefined),
+        children: [
+          {
+            path: "*",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 156,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FinancePage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 157,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 156,
+              columnNumber: 15
+            }, undefined)
+          }
+        ]
+      },
+      {
+        path: "/pdv",
+        errorElement: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RouteErrorElement, {}, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+          lineNumber: 165,
+          columnNumber: 23
+        }, undefined),
+        children: [
+          {
+            path: "*",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 170,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(PDVPage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 171,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 170,
+              columnNumber: 15
+            }, undefined)
+          }
+        ]
+      },
+      {
+        path: "/sso",
+        errorElement: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RouteErrorElement, {}, void 0, false, {
+          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+          lineNumber: 179,
+          columnNumber: 23
+        }, undefined),
+        children: [
+          {
+            path: "*",
+            element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 184,
+              columnNumber: 35
+            }, undefined), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(SSOPage, {}, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 185,
+              columnNumber: 17
+            }, undefined) }, void 0, false, {
+              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
+              lineNumber: 184,
+              columnNumber: 15
+            }, undefined)
+          }
+        ]
+      },
+      { path: "/admin/domains", Component: DomainsPage },
+      { path: "/admin/domains/new", Component: DomainFormPage },
+      { path: "/admin/domains/:id/edit", Component: DomainEditPage },
+      { path: "/admin/domains/ssl", Component: SSLStatusPage },
+      { path: "/admin/tenants", Component: TenantsPage },
+      { path: "/admin/tenants/costs", Component: TenantCostsPage },
+      { path: "/admin/tenants/:tenantId/costs", Component: TenantCostsPage },
+      { path: "/admin/branches", Component: BranchesPage },
+      { path: "/admin/users", Component: UsersPage },
+      { path: "/admin/settings", Component: AdminSettingsPage }
+    ]
+  }
+]);
 function App() {
   return /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
     ThemeProvider,
@@ -35998,545 +36244,24 @@ function App() {
       defaultTheme: "system",
       enableSystem: true,
       disableTransitionOnChange: true,
-      children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(QueryProvider, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(AuthProvider, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BrowserRouter, { future: { v7_startTransition: true, v7_relativeSplatPath: true }, children: [
-        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ShellLayoutWrapper, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Routes, { children: [
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(HomePage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 65,
-            columnNumber: 42
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 65,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/login", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoginPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 66,
-            columnNumber: 47
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 66,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/register", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RegisterPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 67,
-            columnNumber: 50
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 67,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/dashboard", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(DashboardPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 68,
-            columnNumber: 51
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 68,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/dashboard/manager", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ManagerDashboardPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 69,
-            columnNumber: 59
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 69,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/dashboard/user", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(UserDashboardPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 70,
-            columnNumber: 56
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 70,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/dashboard/settings", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(SettingsPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 71,
-            columnNumber: 60
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 71,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/unauthorized", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(UnauthorizedPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 72,
-            columnNumber: 54
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 72,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/error", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ErrorPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 73,
-            columnNumber: 47
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 73,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/ai/books",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 78,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BooksPage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 79,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 78,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 77,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 74,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/ai/books/:id/chapters",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 88,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BookChaptersPage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 89,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 88,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 87,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 84,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/ai/books/:id/cover",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 98,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BookCoverPage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 99,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 98,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 97,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 94,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/ai/books/:id/export",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 108,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BookExportPage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 109,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 108,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 107,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 104,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/ai/books/:id",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 118,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BookDetailPage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 119,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 118,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 117,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 114,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/ai/*",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 128,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(AIPage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 129,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 128,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 127,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 124,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/crm/*",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 138,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(CRMPage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 139,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 138,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 137,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 134,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/erp/*",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 148,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ERPPage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 149,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 148,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 147,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 144,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/finance/*",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 158,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(FinancePage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 159,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 158,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 157,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 154,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/pdv/*",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 168,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(PDVPage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 169,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 168,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 167,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 164,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(
-            Route,
-            {
-              path: "/sso/*",
-              element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(MicroFrontendErrorBoundary, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Suspense, { fallback: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(LoadingFallback, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 178,
-                columnNumber: 43
-              }, this), children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(SSOPage, {}, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 179,
-                columnNumber: 25
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 178,
-                columnNumber: 23
-              }, this) }, void 0, false, {
-                fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-                lineNumber: 177,
-                columnNumber: 21
-              }, this)
-            },
-            void 0,
-            false,
-            {
-              fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-              lineNumber: 174,
-              columnNumber: 17
-            },
-            this
-          ),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/admin/domains", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(DomainsPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 184,
-            columnNumber: 55
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 184,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/admin/domains/new", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(DomainFormPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 185,
-            columnNumber: 59
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 185,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/admin/domains/:id/edit", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(DomainEditPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 186,
-            columnNumber: 64
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 186,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/admin/domains/ssl", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(SSLStatusPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 187,
-            columnNumber: 59
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 187,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/admin/tenants", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(TenantsPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 188,
-            columnNumber: 55
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 188,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/admin/tenants/costs", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(TenantCostsPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 189,
-            columnNumber: 61
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 189,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/admin/tenants/:tenantId/costs", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(TenantCostsPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 190,
-            columnNumber: 71
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 190,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/admin/branches", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(BranchesPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 191,
-            columnNumber: 56
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 191,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/admin/users", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(UsersPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 192,
-            columnNumber: 53
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 192,
-            columnNumber: 17
-          }, this),
-          /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(Route, { path: "/admin/settings", element: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(AdminSettingsPage, {}, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 193,
-            columnNumber: 56
-          }, this) }, void 0, false, {
-            fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-            lineNumber: 193,
-            columnNumber: 17
-          }, this)
-        ] }, void 0, true, {
+      children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(QueryProvider, { children: /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(AuthProvider, { children: [
+        /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(RouterProvider, { router }, void 0, false, {
           fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-          lineNumber: 64,
-          columnNumber: 15
-        }, this) }, void 0, false, {
-          fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-          lineNumber: 63,
-          columnNumber: 13
+          lineNumber: 215,
+          columnNumber: 11
         }, this),
         /* @__PURE__ */ jsxDevRuntimeExports.jsxDEV(ToastContainer, {}, void 0, false, {
           fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-          lineNumber: 196,
-          columnNumber: 13
+          lineNumber: 216,
+          columnNumber: 11
         }, this)
       ] }, void 0, true, {
         fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-        lineNumber: 62,
-        columnNumber: 11
-      }, this) }, void 0, false, {
-        fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-        lineNumber: 61,
+        lineNumber: 214,
         columnNumber: 9
       }, this) }, void 0, false, {
         fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-        lineNumber: 60,
+        lineNumber: 213,
         columnNumber: 7
       }, this)
     },
@@ -36544,7 +36269,7 @@ function App() {
     false,
     {
       fileName: "/home/kursk/coding/gaqno_server/gaqno-shell/src/App.tsx",
-      lineNumber: 54,
+      lineNumber: 207,
       columnNumber: 5
     },
     this

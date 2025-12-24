@@ -37,7 +37,26 @@ export default defineConfig(async () => {
           pdv: PDV_SERVICE_URL + '/assets/remoteEntry.js',
           sso: SSO_SERVICE_URL + '/assets/remoteEntry.js',
         },
-        shared: ['react', 'react-dom', 'tailwindcss', 'react-router-dom', '@tanstack/react-query', 'tailwindcss'],
+        shared: {
+          react: {
+            singleton: true,
+            requiredVersion: '^18.0.0',
+            eager: true,
+          },
+          'react-dom': {
+            singleton: true,
+            requiredVersion: '^18.0.0',
+            eager: true,
+          },
+          'react-router-dom': {
+            singleton: true,
+            requiredVersion: '^6.0.0',
+          },
+          '@tanstack/react-query': {
+            singleton: true,
+            requiredVersion: '^5.0.0',
+          },
+        },
       }),
     ],
     css: {

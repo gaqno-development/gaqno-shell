@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Outlet } from 'react-router-dom'
 import { DashboardLayout } from '@gaqno-dev/frontcore/components'
 import { AppProvider } from '@gaqno-dev/frontcore/components/providers'
 import { WhiteLabelProvider } from '@gaqno-dev/frontcore/components/providers'
@@ -34,11 +34,7 @@ function isMicroFrontendRoute(pathname: string): boolean {
   return MICRO_FRONTEND_ROUTES.some((route) => pathname.startsWith(route))
 }
 
-interface ShellLayoutWrapperProps {
-  children: React.ReactNode
-}
-
-export function ShellLayoutWrapper({ children }: ShellLayoutWrapperProps) {
+export function ShellLayoutWrapper() {
   const location = useLocation()
   const pathname = location.pathname
   const { user, loading } = useAuth()
@@ -54,14 +50,16 @@ export function ShellLayoutWrapper({ children }: ShellLayoutWrapperProps) {
   }, [pathname, loading, user])
 
   if (!shouldShowLayout) {
-    return <>{children}</>
+    return <Outlet />
   }
 
   return (
     <AppProvider>
       <WhiteLabelProvider>
         <TenantProvider>
-          <DashboardLayout menuItems={menuItems}>{children}</DashboardLayout>
+          <DashboardLayout menuItems={menuItems}>
+            <Outlet />
+          </DashboardLayout>
         </TenantProvider>
       </WhiteLabelProvider>
     </AppProvider>
