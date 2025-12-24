@@ -123,6 +123,14 @@ const router = createBrowserRouter([
         errorElement: <RouteErrorElement />,
         children: [
           {
+            index: true,
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <CRMPage />
+              </Suspense>
+            ),
+          },
+          {
             path: '*',
             element: (
               <Suspense fallback={<LoadingFallback />}>
@@ -136,6 +144,14 @@ const router = createBrowserRouter([
         path: '/erp',
         errorElement: <RouteErrorElement />,
         children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <ERPPage />
+              </Suspense>
+            ),
+          },
           {
             path: '*',
             element: (
@@ -151,6 +167,14 @@ const router = createBrowserRouter([
         errorElement: <RouteErrorElement />,
         children: [
           {
+            index: true,
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <FinancePage />
+              </Suspense>
+            ),
+          },
+          {
             path: '*',
             element: (
               <Suspense fallback={<LoadingFallback />}>
@@ -165,6 +189,14 @@ const router = createBrowserRouter([
         errorElement: <RouteErrorElement />,
         children: [
           {
+            index: true,
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <PDVPage />
+              </Suspense>
+            ),
+          },
+          {
             path: '*',
             element: (
               <Suspense fallback={<LoadingFallback />}>
@@ -178,6 +210,14 @@ const router = createBrowserRouter([
         path: '/sso',
         errorElement: <RouteErrorElement />,
         children: [
+          {
+            index: true,
+            element: (
+              <Suspense fallback={<LoadingFallback />}>
+                <SSOPage />
+              </Suspense>
+            ),
+          },
           {
             path: '*',
             element: (

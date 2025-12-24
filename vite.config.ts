@@ -56,6 +56,10 @@ export default defineConfig(async () => {
             singleton: true,
             requiredVersion: '^5.0.0',
           },
+          zustand: {
+            singleton: true,
+            requiredVersion: '^4.0.0',
+          },
         },
       }),
     ],

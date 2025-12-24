@@ -11,6 +11,7 @@
 /playwright-report
 /playwright/.cache
 
+dist
 # next.js
 /.next/
 /out/
