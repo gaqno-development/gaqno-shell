@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, Outlet } from 'react-router-dom'
+import { useLocation, Outlet, useNavigate } from 'react-router-dom'
 import { DashboardLayout } from '@gaqno-development/frontcore/components'
 import { AppProvider } from '@gaqno-development/frontcore/components/providers'
 import { WhiteLabelProvider } from '@gaqno-development/frontcore/components/providers'
@@ -35,9 +35,14 @@ function isMicroFrontendRoute(pathname: string): boolean {
   return MICRO_FRONTEND_ROUTES.some((route) => pathname.startsWith(route))
 }
 
+function isAuthenticatedRoute(pathname: string): boolean {
+  return AUTHENTICATED_ROUTES.some((route) => pathname.startsWith(route))
+}
+
 export function ShellLayoutWrapper() {
   const location = useLocation()
   const pathname = location.pathname
+  const navigate = useNavigate()
   const { user, loading } = useAuth()
   const [shouldShowLayout, setShouldShowLayout] = useState(false)
   const [isMicroFrontend, setIsMicroFrontend] = useState(false)
@@ -49,6 +54,12 @@ export function ShellLayoutWrapper() {
     setShouldShowLayout(showLayout)
     setIsMicroFrontend(isMFE)
   }, [pathname, loading, user])
+
+  useEffect(() => {
+    if (!loading && !user && isAuthenticatedRoute(pathname)) {
+      navigate('/login')
+    }
+  }, [loading, user, pathname, navigate])
 
   if (!shouldShowLayout) {
     return <Outlet />
