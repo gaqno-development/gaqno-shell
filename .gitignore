@@ -32,6 +32,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# NPM Configuration (may contain secrets)
+.npmrc
+
 # vercel
 .vercel
 

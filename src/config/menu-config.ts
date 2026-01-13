@@ -115,6 +115,8 @@ export const ROUTE_PERMISSIONS: Record<string, string[]> = {
   '/rpg/campaigns': ['rpg.access'],
   '/rpg/campaigns/:id': ['rpg.access'],
   '/rpg/campaigns/new': ['rpg.access'],
+  '/rpg/wiki': ['rpg.access'],
+  '/rpg/rules': ['rpg.access'],
   '/rpg/characters': ['rpg.access'],
   '/admin': ['admin.access'],
   '/admin/users': ['admin.users.manage'],

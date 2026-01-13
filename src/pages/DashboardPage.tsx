@@ -47,6 +47,13 @@ export default function DashboardPage() {
     }
   }, [permissions, permissionsLoading, hasPermission, navigate])
 
+  const visibleWidgets = useMemo(() => {
+    if (!preferences) return []
+    return preferences.widgets
+      .filter(w => w.visible)
+      .sort((a, b) => a.position - b.position)
+  }, [preferences])
+
   const isLoading = permissionsLoading || widgetsLoading || summaryLoading || preferencesLoading
   const hasError = widgetsError || summaryError || preferencesError
 
@@ -101,13 +108,6 @@ export default function DashboardPage() {
       widgets: updatedWidgets
     })
   }
-
-  const visibleWidgets = useMemo(() => {
-    if (!preferences) return []
-    return preferences.widgets
-      .filter(w => w.visible)
-      .sort((a, b) => a.position - b.position)
-  }, [preferences])
 
   if (isLoading) {
     return (

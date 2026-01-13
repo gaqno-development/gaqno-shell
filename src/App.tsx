@@ -223,6 +223,38 @@ const router = createBrowserRouter(
               ),
             },
             {
+              path: "campaigns",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <RPGPage />
+                </Suspense>
+              ),
+            },
+            {
+              path: "wiki",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <RPGPage />
+                </Suspense>
+              ),
+            },
+            {
+              path: "rules",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <RPGPage />
+                </Suspense>
+              ),
+            },
+            {
+              path: "sessions",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <RPGPage />
+                </Suspense>
+              ),
+            },
+            {
               path: "sessions/:id",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
