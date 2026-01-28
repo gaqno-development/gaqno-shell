@@ -1,28 +1,31 @@
-import { 
-  ShoppingCart, 
-  Users, 
-  Package, 
-  DollarSign, 
-  Settings, 
-  BookOpen,
+import {
+  ShoppingCartIcon,
+  UsersIcon,
+  GearIcon,
+  BookIcon,
+  Volume2Icon,
+  ShieldCheck,
+  FileDescriptionIcon,
+  PenIcon,
+  PaintIcon,
+} from "@gaqno-development/frontcore/components/icons";
+import type { ComponentType } from "react";
+import {
+  Package,
+  DollarSign,
   LayoutDashboard,
   Dices,
   Video,
   Image,
-  Volume2,
   Mic,
   Music,
-  Shield,
-  FileText,
-  Edit,
-  Paintbrush,
-} from 'lucide-react';
+} from "lucide-react";
 
 export interface MenuItem {
   id: string;
   label: string;
   href: string;
-  icon: any;
+  icon: ComponentType<{ className?: string; size?: number }>;
   requiredPermissions: string[];
   children?: MenuItem[];
 }
@@ -39,14 +42,14 @@ export const MENU_ITEMS: MenuItem[] = [
     id: 'pdv',
     label: 'PDV',
     href: '/pdv',
-    icon: ShoppingCart,
+    icon: ShoppingCartIcon,
     requiredPermissions: ['pdv.access'],
   },
   {
     id: 'crm',
     label: 'CRM',
     href: '/crm/dashboard',
-    icon: Users,
+    icon: UsersIcon,
     requiredPermissions: ['crm.access'],
   },
   {
@@ -67,21 +70,21 @@ export const MENU_ITEMS: MenuItem[] = [
     id: 'ai',
     label: 'Inteligência Artificial',
     href: '/ai',
-    icon: BookOpen,
+    icon: BookIcon,
     requiredPermissions: ['ai.access'],
     children: [
       {
         id: 'ai-audio',
         label: 'Áudio',
         href: '/ai/audio',
-        icon: Volume2,
+        icon: Volume2Icon,
         requiredPermissions: ['ai.access'],
         children: [
-          { id: 'ai-audio-tts', label: 'Texto para Audio', href: '/ai/audio/tts', icon: Volume2, requiredPermissions: ['ai.access'] },
+          { id: 'ai-audio-tts', label: 'Texto para Audio', href: '/ai/audio/tts', icon: Volume2Icon, requiredPermissions: ['ai.access'] },
           { id: 'ai-audio-stt', label: 'Audio para Texto', href: '/ai/audio/stt', icon: Mic, requiredPermissions: ['ai.access'] },
           { id: 'ai-audio-music', label: 'Música', href: '/ai/audio/music', icon: Music, requiredPermissions: ['ai.access'] },
-          { id: 'ai-audio-isolation', label: 'Isolar Audio', href: '/ai/audio/isolation', icon: Shield, requiredPermissions: ['ai.access'] },
-          { id: 'ai-audio-podcast', label: 'Podcast', href: '/ai/audio/podcast', icon: BookOpen, requiredPermissions: ['ai.access'] },
+          { id: 'ai-audio-isolation', label: 'Isolar Audio', href: '/ai/audio/isolation', icon: ShieldCheck, requiredPermissions: ['ai.access'] },
+          { id: 'ai-audio-podcast', label: 'Podcast', href: '/ai/audio/podcast', icon: BookIcon, requiredPermissions: ['ai.access'] },
         ],
       },
       {
@@ -91,9 +94,9 @@ export const MENU_ITEMS: MenuItem[] = [
         icon: Image,
         requiredPermissions: ['ai.access'],
         children: [
-          { id: 'ai-images-text', label: 'Texto para Imagem', href: '/ai/images/text', icon: FileText, requiredPermissions: ['ai.access'] },
-          { id: 'ai-images-edit', label: 'Editar Imagem', href: '/ai/images/edit', icon: Edit, requiredPermissions: ['ai.access'] },
-          { id: 'ai-images-inpainting', label: 'Inpainting', href: '/ai/images/inpainting', icon: Paintbrush, requiredPermissions: ['ai.access'] },
+          { id: 'ai-images-text', label: 'Texto para Imagem', href: '/ai/images/text', icon: FileDescriptionIcon, requiredPermissions: ['ai.access'] },
+          { id: 'ai-images-edit', label: 'Editar Imagem', href: '/ai/images/edit', icon: PenIcon, requiredPermissions: ['ai.access'] },
+          { id: 'ai-images-inpainting', label: 'Inpainting', href: '/ai/images/inpainting', icon: PaintIcon, requiredPermissions: ['ai.access'] },
         ],
       },
       {
@@ -105,14 +108,14 @@ export const MENU_ITEMS: MenuItem[] = [
         children: [
           { id: 'ai-video-modify', label: 'Modificar Vídeo', href: '/ai/video/modify', icon: Video, requiredPermissions: ['ai.access'] },
           { id: 'ai-video-reference', label: 'Usar Referência', href: '/ai/video/reference', icon: Video, requiredPermissions: ['ai.access'] },
-          { id: 'ai-video-text', label: 'Texto para Vídeo', href: '/ai/video/text', icon: FileText, requiredPermissions: ['ai.access'] },
+          { id: 'ai-video-text', label: 'Texto para Vídeo', href: '/ai/video/text', icon: FileDescriptionIcon, requiredPermissions: ['ai.access'] },
         ],
       },
       {
         id: 'ai-books',
         label: 'Livros',
         href: '/ai/books',
-        icon: BookOpen,
+        icon: BookIcon,
         requiredPermissions: ['ai.books.read'],
       },
     ],
@@ -128,7 +131,7 @@ export const MENU_ITEMS: MenuItem[] = [
     id: 'admin',
     label: 'Administração',
     href: '/admin/dashboard',
-    icon: Settings,
+    icon: GearIcon,
     requiredPermissions: ['admin.access'],
   },
 ];

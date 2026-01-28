@@ -25,6 +25,7 @@ export default defineConfig(async () => {
         target: 'esnext',
       },
       exclude: ['jsonwebtoken'],
+      include: ['use-sync-external-store'],
     },
     plugins: [
       react(),
@@ -65,6 +66,10 @@ export default defineConfig(async () => {
             singleton: true,
             requiredVersion: '^4.0.0',
           },
+          'use-sync-external-store': {
+            singleton: true,
+            requiredVersion: '*',
+          },
         },
       }),
     ],
@@ -84,11 +89,13 @@ export default defineConfig(async () => {
       rollupOptions: {
         external: ['stream', 'events', 'crypto', 'util', 'buffer', 'process'],
         output: {
+          format: 'es',
           assetFileNames: 'assets/[name].[ext]',
         },
       },
       commonjsOptions: {
         transformMixedEsModules: true,
+        requireReturnsDefault: 'preferred',
       },
     },
     define: {
