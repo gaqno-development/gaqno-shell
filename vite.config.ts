@@ -13,6 +13,8 @@ export default defineConfig(async () => {
   const PDV_SERVICE_URL = process.env.PDV_SERVICE_URL || 'http://localhost:3006'
   const RPG_SERVICE_URL = process.env.RPG_SERVICE_URL || 'http://localhost:3007'
   const SSO_SERVICE_URL = process.env.SSO_SERVICE_URL || 'http://localhost:3001'
+  const SAAS_SERVICE_URL = process.env.SAAS_SERVICE_URL || 'http://localhost:3008'
+  const OMNICHANNEL_SERVICE_URL = process.env.OMNICHANNEL_SERVICE_URL || 'http://localhost:3010'
 
   return {
     server: {
@@ -41,7 +43,9 @@ export default defineConfig(async () => {
           finance: FINANCE_SERVICE_URL + '/assets/remoteEntry.js',
           pdv: PDV_SERVICE_URL + '/assets/remoteEntry.js',
           rpg: RPG_SERVICE_URL + '/assets/remoteEntry.js',
+          saas: SAAS_SERVICE_URL + '/assets/remoteEntry.js',
           sso: SSO_SERVICE_URL + '/assets/remoteEntry.js',
+          omnichannel: OMNICHANNEL_SERVICE_URL + '/assets/remoteEntry.js',
         },
         shared: {
           react: {

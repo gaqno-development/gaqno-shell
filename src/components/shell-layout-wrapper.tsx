@@ -17,17 +17,17 @@ const AUTHENTICATED_ROUTES = [
   '/admin',
   '/sso',
   '/rpg',
+  '/omnichannel',
 ]
 
 const PUBLIC_ROUTES = ['/login', '/register', '/']
 
-const MICRO_FRONTEND_ROUTES = ['/ai', '/crm', '/erp', '/finance', '/pdv', '/rpg', '/admin', '/sso']
+const MICRO_FRONTEND_ROUTES = ['/ai', '/crm', '/erp', '/finance', '/pdv', '/rpg', '/admin', '/sso', '/omnichannel']
 
 function shouldShowDashboardLayout(pathname: string): boolean {
   if (PUBLIC_ROUTES.some((route) => pathname === route || pathname.startsWith(route + '/'))) {
     return false
   }
-  
   return AUTHENTICATED_ROUTES.some((route) => pathname.startsWith(route))
 }
 

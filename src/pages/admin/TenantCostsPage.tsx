@@ -7,7 +7,7 @@ export default function TenantCostsPage() {
 
   if (!tenantId) {
     return (
-      <div className="container mx-auto py-6">
+      <div className="container mx-auto py-6 space-y-6 p-6">
         <div className="text-center text-muted-foreground">
           Please select a tenant to view costs
         </div>
@@ -16,7 +16,7 @@ export default function TenantCostsPage() {
   }
 
   return (
-    <div className="container mx-auto py-6">
+    <div className="container mx-auto py-6 space-y-6 p-6">
       <TenantCostsSummary tenantId={tenantId} />
     </div>
   )

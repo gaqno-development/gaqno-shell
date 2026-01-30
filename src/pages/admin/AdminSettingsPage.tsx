@@ -1,7 +1,11 @@
 import React from 'react'
-import SettingsPage from '../SettingsPage'
+import { AdminSettings } from '@gaqno-development/frontcore/components/admin'
 
 export default function AdminSettingsPage() {
-  return <SettingsPage />
+  return (
+    <div className="container mx-auto py-6 space-y-6 p-6">
+      <AdminSettings />
+    </div>
+  )
 }
 

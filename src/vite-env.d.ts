@@ -37,7 +37,7 @@ interface ImportMetaEnv {
   readonly VITE_ERP_SERVICE_URL?: string
   readonly VITE_FINANCE_SERVICE_URL?: string
   readonly VITE_PDV_SERVICE_URL?: string
-  // Add other VITE_ prefixed env vars as needed
+  readonly VITE_OMNICHANNEL_SERVICE_URL?: string
 }
 
 interface ImportMeta {

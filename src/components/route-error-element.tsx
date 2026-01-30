@@ -5,6 +5,7 @@ import { Button } from '@gaqno-development/frontcore/components/ui'
 import { AlertCircle, Home, RefreshCw } from 'lucide-react'
 
 const SERVICE_NAMES: Record<string, string> = {
+  '/dashboard/profile': 'Perfil',
   '/dashboard/finance': 'Finance',
   '/dashboard/crm': 'CRM',
   '/dashboard/erp': 'ERP',
@@ -17,6 +18,7 @@ const SERVICE_NAMES: Record<string, string> = {
   '/finance': 'Finance',
   '/ai': 'AI',
   '/sso': 'SSO',
+  '/omnichannel': 'Omnichannel',
 }
 
 function getServiceName(pathname: string): string {
@@ -34,8 +36,18 @@ export function RouteErrorElement() {
   const location = useLocation()
   const serviceName = getServiceName(location.pathname)
 
-  const errorMessage = error instanceof Error ? error.message : 'Ocorreu um erro inesperado'
-  const errorDetails = error instanceof Error ? error.stack : String(error)
+  const errorMessage =
+    error instanceof Error
+      ? error.message
+      : typeof (error as { message?: string })?.message === 'string'
+        ? (error as { message: string }).message
+        : 'Ocorreu um erro inesperado'
+  const errorDetails =
+    error instanceof Error
+      ? error.stack
+      : typeof error === 'object' && error !== null
+        ? JSON.stringify(error, null, 2)
+        : String(error)
 
   return (
     <div className="flex items-center justify-center min-h-screen p-6">
@@ -53,8 +65,8 @@ export function RouteErrorElement() {
           <div className="rounded-md bg-muted p-4 text-sm">
             <p className="font-medium mb-2">O que aconteceu?</p>
             <p className="text-muted-foreground">
-              O serviço que você está tentando acessar não está respondendo. 
-              Isso pode acontecer se o serviço não estiver em execução ou se houver 
+              O serviço que você está tentando acessar não está respondendo.
+              Isso pode acontecer se o serviço não estiver em execução ou se houver
               um problema de conexão.
             </p>
             {errorMessage && (
