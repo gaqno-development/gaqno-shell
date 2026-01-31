@@ -6,10 +6,10 @@ services:
       context: .  # Repository root (standalone)
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:80"
     environment:
       - NODE_ENV=production
-      - PORT=3000
+      - PORT=80
       - VITE_PUBLIC_SUPABASE_URL=${VITE_PUBLIC_SUPABASE_URL}
       - VITE_PUBLIC_SUPABASE_ANON_KEY=${VITE_PUBLIC_SUPABASE_ANON_KEY}
       # Micro-Frontend Service URLs (for Coolify internal network)
