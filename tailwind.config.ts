@@ -10,7 +10,7 @@ const config: Config = {
     path.resolve(__dirname, "../@gaqno-frontcore/src/**/*.{js,ts,jsx,tsx}"),
     path.resolve(__dirname, "./node_modules/@gaqno-development/frontcore/**/*.{js,ts,jsx,tsx}"),
   ],
-  plugins: [],
+  plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar')],
 };
 
 export default config;
