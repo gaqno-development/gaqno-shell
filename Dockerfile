@@ -25,7 +25,6 @@ WORKDIR /app
 
 # Copy built files
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY --from=builder /app/public /usr/share/nginx/html/public
 
 # Copy nginx config (create if needed)
 RUN echo 'server { \
