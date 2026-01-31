@@ -28,7 +28,7 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Copy nginx config (create if needed)
 RUN echo 'server { \
-    listen 3000; \
+    listen 80; \
     server_name _; \
     root /usr/share/nginx/html; \
     index index.html; \
@@ -41,5 +41,5 @@ RUN echo 'server { \
     } \
 }' > /etc/nginx/conf.d/default.conf
 
-EXPOSE 3000
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
