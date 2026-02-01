@@ -5,20 +5,31 @@ services:
     build:
       context: .  # Repository root (standalone)
       dockerfile: Dockerfile
+      args:
+        # MFE_* = Module Federation remotes (portal – where remoteEntry.js is loaded from).
+        MFE_AI_URL: ${MFE_AI_URL:-http://localhost:3002}
+        MFE_CRM_URL: ${MFE_CRM_URL:-http://localhost:3003}
+        MFE_ERP_URL: ${MFE_ERP_URL:-http://localhost:3004}
+        MFE_FINANCE_URL: ${MFE_FINANCE_URL:-http://localhost:3005}
+        MFE_PDV_URL: ${MFE_PDV_URL:-http://localhost:3006}
+        MFE_RPG_URL: ${MFE_RPG_URL:-http://localhost:3007}
+        MFE_SSO_URL: ${MFE_SSO_URL:-http://localhost:3001}
+        MFE_SAAS_URL: ${MFE_SAAS_URL:-http://localhost:3008}
+        MFE_OMNICHANNEL_URL: ${MFE_OMNICHANNEL_URL:-http://localhost:3010}
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - VITE_PUBLIC_SUPABASE_URL=${VITE_PUBLIC_SUPABASE_URL}
-      - VITE_PUBLIC_SUPABASE_ANON_KEY=${VITE_PUBLIC_SUPABASE_ANON_KEY}
-      # Micro-Frontend Service URLs (for Coolify internal network)
-      - VITE_SSO_SERVICE_URL=${VITE_SSO_SERVICE_URL:-http://localhost:4001}
-      - AI_SERVICE_URL=${AI_SERVICE_URL:-http://localhost:3002}
-      - CRM_SERVICE_URL=${CRM_SERVICE_URL:-http://localhost:3003}
-      - ERP_SERVICE_URL=${ERP_SERVICE_URL:-http://localhost:3004}
-      - FINANCE_SERVICE_URL=${FINANCE_SERVICE_URL:-http://localhost:3005}
-      - PDV_SERVICE_URL=${PDV_SERVICE_URL:-http://localhost:3006}
+      # VITE_SERVICE_* = API base URLs (frontcore api-client / service-urls). Injected at build.
+      - VITE_SERVICE_SSO_URL=${VITE_SERVICE_SSO_URL:-http://localhost:4001}
+      - VITE_SERVICE_AI_URL=${VITE_SERVICE_AI_URL:-http://localhost:4002}
+      - VITE_SERVICE_CRM_URL=${VITE_SERVICE_CRM_URL:-http://localhost:3004}
+      - VITE_SERVICE_ERP_URL=${VITE_SERVICE_ERP_URL:-http://localhost:3005}
+      - VITE_SERVICE_FINANCE_URL=${VITE_SERVICE_FINANCE_URL:-http://localhost:4005}
+      - VITE_SERVICE_PDV_URL=${VITE_SERVICE_PDV_URL:-http://localhost:4006}
+      - VITE_SERVICE_RPG_URL=${VITE_SERVICE_RPG_URL:-http://localhost:4007}
+      - VITE_SERVICE_OMNICHANNEL_URL=${VITE_SERVICE_OMNICHANNEL_URL:-http://localhost:4010}
     env_file:
       - .env.local  # Local env file (or set in Coolify)
     restart: unless-stopped

@@ -7,15 +7,15 @@ import path from 'path'
 export default defineConfig(async () => {
   const tailwindcss = (await import('@tailwindcss/vite')).default
   
-  const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://localhost:3002'
-  const CRM_SERVICE_URL = process.env.CRM_SERVICE_URL || 'http://localhost:3003'
-  const ERP_SERVICE_URL = process.env.ERP_SERVICE_URL || 'http://localhost:3004'
-  const FINANCE_SERVICE_URL = process.env.FINANCE_SERVICE_URL || 'http://localhost:3005'
-  const PDV_SERVICE_URL = process.env.PDV_SERVICE_URL || 'http://localhost:3006'
-  const RPG_SERVICE_URL = process.env.RPG_SERVICE_URL || 'http://localhost:3007'
-  const SSO_SERVICE_URL = process.env.SSO_SERVICE_URL || 'http://localhost:3001'
-  const SAAS_SERVICE_URL = process.env.SAAS_SERVICE_URL || 'http://localhost:3008'
-  const OMNICHANNEL_SERVICE_URL = process.env.OMNICHANNEL_SERVICE_URL || 'http://localhost:3010'
+  const MFE_AI_URL = process.env.MFE_AI_URL || 'http://localhost:3002'
+  const MFE_CRM_URL = process.env.MFE_CRM_URL || 'http://localhost:3003'
+  const MFE_ERP_URL = process.env.MFE_ERP_URL || 'http://localhost:3004'
+  const MFE_FINANCE_URL = process.env.MFE_FINANCE_URL || 'http://localhost:3005'
+  const MFE_PDV_URL = process.env.MFE_PDV_URL || 'http://localhost:3006'
+  const MFE_RPG_URL = process.env.MFE_RPG_URL || 'http://localhost:3007'
+  const MFE_SSO_URL = process.env.MFE_SSO_URL || 'http://localhost:3001'
+  const MFE_SAAS_URL = process.env.MFE_SAAS_URL || 'http://localhost:3008'
+  const MFE_OMNICHANNEL_URL = process.env.MFE_OMNICHANNEL_URL || 'http://localhost:3010'
 
   return {
     server: {
@@ -70,15 +70,15 @@ export default defineConfig(async () => {
       federation({
         name: 'shell',
         remotes: {
-          ai: AI_SERVICE_URL + '/assets/remoteEntry.js',
-          crm: CRM_SERVICE_URL + '/assets/remoteEntry.js',
-          erp: ERP_SERVICE_URL + '/assets/remoteEntry.js',
-          finance: FINANCE_SERVICE_URL + '/assets/remoteEntry.js',
-          pdv: PDV_SERVICE_URL + '/assets/remoteEntry.js',
-          rpg: RPG_SERVICE_URL + '/assets/remoteEntry.js',
-          saas: SAAS_SERVICE_URL + '/assets/remoteEntry.js',
-          sso: SSO_SERVICE_URL + '/assets/remoteEntry.js',
-          omnichannel: OMNICHANNEL_SERVICE_URL + '/assets/remoteEntry.js',
+          ai: MFE_AI_URL + '/assets/remoteEntry.js',
+          crm: MFE_CRM_URL + '/assets/remoteEntry.js',
+          erp: MFE_ERP_URL + '/assets/remoteEntry.js',
+          finance: MFE_FINANCE_URL + '/assets/remoteEntry.js',
+          pdv: MFE_PDV_URL + '/assets/remoteEntry.js',
+          rpg: MFE_RPG_URL + '/assets/remoteEntry.js',
+          saas: MFE_SAAS_URL + '/assets/remoteEntry.js',
+          sso: MFE_SSO_URL + '/assets/remoteEntry.js',
+          omnichannel: MFE_OMNICHANNEL_URL + '/assets/remoteEntry.js',
         },
         shared: {
           react: {
