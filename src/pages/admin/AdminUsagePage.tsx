@@ -1,21 +1,21 @@
-import React, { useMemo, useState } from 'react'
-import { useAuth } from '@gaqno-development/frontcore/hooks'
-import { useTenantUsage } from '@gaqno-development/frontcore/hooks/admin/useTenantUsage'
-import { useUsers } from '@gaqno-development/frontcore/hooks/admin/useUsers'
+import React, { useMemo, useState } from "react";
+import { useAuth } from "@gaqno-development/frontcore/hooks";
+import { useTenantUsage } from "@gaqno-development/frontcore/hooks/admin/useTenantUsage";
+import { useUsers } from "@gaqno-development/frontcore/hooks/admin/useUsers";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@gaqno-development/frontcore/components/ui'
+} from "@gaqno-development/frontcore/components/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@gaqno-development/frontcore/components/ui'
+} from "@gaqno-development/frontcore/components/ui";
 import {
   Table,
   TableBody,
@@ -23,75 +23,97 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@gaqno-development/frontcore/components/ui'
-import { Skeleton } from '@gaqno-development/frontcore/components/ui/skeleton'
-import { PieChart } from 'lucide-react'
+} from "@gaqno-development/frontcore/components/ui";
+import { Skeleton } from "@gaqno-development/frontcore/components/ui";
+import { PieChart } from "lucide-react";
 
 function getMonthOptions(): { value: string; label: string }[] {
-  const options: { value: string; label: string }[] = []
-  const now = new Date()
+  const options: { value: string; label: string }[] = [];
+  const now = new Date();
   for (let i = 0; i < 12; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
-    const y = d.getFullYear()
-    const m = String(d.getMonth() + 1).padStart(2, '0')
-    const name = d.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
-    options.push({ value: `${y}-${m}`, label: name })
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const name = d.toLocaleDateString("pt-BR", {
+      month: "long",
+      year: "numeric",
+    });
+    options.push({ value: `${y}-${m}`, label: name });
   }
-  return options
+  return options;
 }
 
 function defaultPeriod(): string {
-  const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
 }
 
-function userDisplayName(
-  u: { id: string; email?: string; firstName?: string | null; lastName?: string | null },
-): string {
-  const name = [u.firstName, u.lastName].filter(Boolean).join(' ').trim()
-  return name || u.email || u.id
+function userDisplayName(u: {
+  id: string;
+  email?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+}): string {
+  const name = [u.firstName, u.lastName].filter(Boolean).join(" ").trim();
+  return name || u.email || u.id;
 }
 
 export default function AdminUsagePage() {
-  const { user } = useAuth()
-  const tenantId = user?.tenantId ?? ''
-  const [period, setPeriod] = useState(defaultPeriod())
-  const { usage, isLoading, period: effectivePeriod } = useTenantUsage(tenantId, period)
-  const { users } = useUsers(undefined, undefined)
+  const { user } = useAuth();
+  const tenantId = user?.tenantId ?? "";
+  const [period, setPeriod] = useState(defaultPeriod());
+  const {
+    usage,
+    isLoading,
+    period: effectivePeriod,
+  } = useTenantUsage(tenantId, period);
+  const { users } = useUsers(undefined, undefined);
 
-  const monthOptions = useMemo(() => getMonthOptions(), [])
+  const monthOptions = useMemo(() => getMonthOptions(), []);
 
   const userDisplayMap = useMemo(() => {
-    const map: Record<string, string> = {}
+    const map: Record<string, string> = {};
     for (const u of users) {
-      map[u.id] = userDisplayName(u)
+      map[u.id] = userDisplayName(u);
     }
-    return map
-  }, [users])
+    return map;
+  }, [users]);
 
   const { rows, metricColumns } = useMemo(() => {
-    if (!usage?.metrics?.length) return { rows: [], metricColumns: [] as { key: string; serviceName: string; unit: string }[] }
+    if (!usage?.metrics?.length)
+      return {
+        rows: [],
+        metricColumns: [] as {
+          key: string;
+          serviceName: string;
+          unit: string;
+        }[],
+      };
     const columns = usage.metrics
       .filter((m) => m.byUser != null)
-      .map((m) => ({ key: `${m.serviceName}-${m.metricKey}`, serviceName: m.serviceName, unit: m.unit }))
-    const userIdSet = new Set<string>()
+      .map((m) => ({
+        key: `${m.serviceName}-${m.metricKey}`,
+        serviceName: m.serviceName,
+        unit: m.unit,
+      }));
+    const userIdSet = new Set<string>();
     for (const m of usage.metrics) {
       if (m.byUser) {
-        Object.keys(m.byUser).forEach((id) => userIdSet.add(id))
+        Object.keys(m.byUser).forEach((id) => userIdSet.add(id));
       }
     }
-    const userIds = Array.from(userIdSet).sort()
+    const userIds = Array.from(userIdSet).sort();
     const rows = userIds.map((userId) => {
-      const record: Record<string, number | string> = { userId }
+      const record: Record<string, number | string> = { userId };
       for (const m of usage.metrics) {
         if (m.byUser && m.byUser[userId] != null) {
-          record[`${m.serviceName}-${m.metricKey}`] = m.byUser[userId]
+          record[`${m.serviceName}-${m.metricKey}`] = m.byUser[userId];
         }
       }
-      return record
-    })
-    return { rows, metricColumns: columns }
-  }, [usage])
+      return record;
+    });
+    return { rows, metricColumns: columns };
+  }, [usage]);
 
   if (!tenantId) {
     return (
@@ -109,12 +131,13 @@ export default function AdminUsagePage() {
           <CardHeader>
             <CardTitle>Consumo por usuário</CardTitle>
             <CardDescription>
-              Seu usuário não está associado a um tenant. Entre em contato com o administrador para visualizar o consumo.
+              Seu usuário não está associado a um tenant. Entre em contato com o
+              administrador para visualizar o consumo.
             </CardDescription>
           </CardHeader>
         </Card>
       </div>
-    )
+    );
   }
 
   return (
@@ -157,7 +180,8 @@ export default function AdminUsagePage() {
             <Skeleton className="h-48 w-full" />
           ) : rows.length === 0 ? (
             <p className="text-muted-foreground text-sm py-4">
-              Nenhum uso registrado neste período. O consumo de IA (tokens) e outras ações é atribuído ao usuário ao usar os apps.
+              Nenhum uso registrado neste período. O consumo de IA (tokens) e
+              outras ações é atribuído ao usuário ao usar os apps.
             </p>
           ) : (
             <Table>
@@ -166,7 +190,10 @@ export default function AdminUsagePage() {
                   <TableHead>Usuário</TableHead>
                   {metricColumns.map((col) => (
                     <TableHead key={col.key}>
-                      {col.serviceName === 'ai' ? 'IA (tokens)' : col.serviceName} ({col.unit})
+                      {col.serviceName === "ai"
+                        ? "IA (tokens)"
+                        : col.serviceName}{" "}
+                      ({col.unit})
                     </TableHead>
                   ))}
                 </TableRow>
@@ -178,14 +205,15 @@ export default function AdminUsagePage() {
                       {row.userId === user?.id ? (
                         <span>Você ({user?.email ?? row.userId})</span>
                       ) : (
-                        userDisplayMap[row.userId as string] ?? String(row.userId)
+                        (userDisplayMap[row.userId as string] ??
+                        String(row.userId))
                       )}
                     </TableCell>
                     {metricColumns.map((col) => (
                       <TableCell key={col.key}>
-                        {typeof row[col.key] === 'number'
-                          ? Number(row[col.key]).toLocaleString('pt-BR')
-                          : '—'}
+                        {typeof row[col.key] === "number"
+                          ? Number(row[col.key]).toLocaleString("pt-BR")
+                          : "—"}
                       </TableCell>
                     ))}
                   </TableRow>
@@ -196,5 +224,5 @@ export default function AdminUsagePage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

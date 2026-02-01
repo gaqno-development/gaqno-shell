@@ -1,22 +1,28 @@
-import React, { useState, useMemo } from 'react'
-import { CostingView } from '@gaqno-development/frontcore/components/admin'
-import { useTenants } from '@gaqno-development/frontcore/hooks/admin/useTenants'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@gaqno-development/frontcore/components/ui'
+import React, { useState, useMemo } from "react";
+import { CostingView } from "@gaqno-development/frontcore/components/admin";
+import { useTenants } from "@gaqno-development/frontcore/hooks/admin/useTenants";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@gaqno-development/frontcore/components/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@gaqno-development/frontcore/components/ui'
-import { Skeleton } from '@gaqno-development/frontcore/components/ui/skeleton'
-import { DollarSign } from 'lucide-react'
+} from "@gaqno-development/frontcore/components/ui";
+import { Skeleton } from "@gaqno-development/frontcore/components/ui";
+import { DollarSign } from "lucide-react";
 
 export default function CostingPage() {
-  const { tenants, isLoading: tenantsLoading } = useTenants()
-  const [tenantId, setTenantId] = useState<string>('')
+  const { tenants, isLoading: tenantsLoading } = useTenants();
+  const [tenantId, setTenantId] = useState<string>("");
 
-  const tenantList = useMemo(() => tenants ?? [], [tenants])
+  const tenantList = useMemo(() => tenants ?? [], [tenants]);
 
   if (tenantsLoading) {
     return (
@@ -24,7 +30,7 @@ export default function CostingPage() {
         <Skeleton className="h-10 w-64" />
         <Skeleton className="h-96 w-full" />
       </div>
-    )
+    );
   }
 
   return (
@@ -42,7 +48,9 @@ export default function CostingPage() {
       <Card>
         <CardHeader>
           <CardTitle>Tenant</CardTitle>
-          <CardDescription>Selecione o tenant para ver custos, recargas e consumo</CardDescription>
+          <CardDescription>
+            Selecione o tenant para ver custos, recargas e consumo
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <Select value={tenantId} onValueChange={setTenantId}>
@@ -62,5 +70,5 @@ export default function CostingPage() {
 
       <CostingView tenantId={tenantId || undefined} />
     </div>
-  )
+  );
 }
