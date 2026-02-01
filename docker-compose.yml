@@ -6,19 +6,19 @@ services:
       context: .  # Repository root (standalone)
       dockerfile: Dockerfile
     ports:
-      - "3000:80"
+      - "3000:3000"
     environment:
       - NODE_ENV=production
-      - PORT=80
+      - PORT=3000
       - VITE_PUBLIC_SUPABASE_URL=${VITE_PUBLIC_SUPABASE_URL}
       - VITE_PUBLIC_SUPABASE_ANON_KEY=${VITE_PUBLIC_SUPABASE_ANON_KEY}
       # Micro-Frontend Service URLs (for Coolify internal network)
       - VITE_SSO_SERVICE_URL=${VITE_SSO_SERVICE_URL:-http://localhost:4001}
-      - AI_SERVICE_URL=${AI_SERVICE_URL:-http://localhost:3003}
-      - CRM_SERVICE_URL=${CRM_SERVICE_URL:-http://localhost:3004}
-      - ERP_SERVICE_URL=${ERP_SERVICE_URL:-http://localhost:3005}
-      - FINANCE_SERVICE_URL=${FINANCE_SERVICE_URL:-http://localhost:3006}
-      - PDV_SERVICE_URL=${PDV_SERVICE_URL:-http://localhost:3008}
+      - AI_SERVICE_URL=${AI_SERVICE_URL:-http://localhost:3002}
+      - CRM_SERVICE_URL=${CRM_SERVICE_URL:-http://localhost:3003}
+      - ERP_SERVICE_URL=${ERP_SERVICE_URL:-http://localhost:3004}
+      - FINANCE_SERVICE_URL=${FINANCE_SERVICE_URL:-http://localhost:3005}
+      - PDV_SERVICE_URL=${PDV_SERVICE_URL:-http://localhost:3006}
     env_file:
       - .env.local  # Local env file (or set in Coolify)
     restart: unless-stopped
