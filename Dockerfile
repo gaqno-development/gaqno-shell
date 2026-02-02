@@ -4,6 +4,7 @@ RUN apk add --no-cache git libc6-compat
 FROM base AS builder
 WORKDIR /app
 
+# Override in Coolify Build Arguments; otherwise production will load remoteEntry.js from localhost and fail.
 ARG MFE_AI_URL=http://localhost:3002
 ARG MFE_CRM_URL=http://localhost:3003
 ARG MFE_ERP_URL=http://localhost:3004
