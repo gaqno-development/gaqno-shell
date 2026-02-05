@@ -45,9 +45,12 @@ const FinancePage = lazy(async () => import("finance/App" as string));
 const PDVPage = lazy(async () => import("pdv/App" as string));
 const RPGPage = lazy(async () => import("rpg/App" as string));
 const SSOPage = lazy(async () => import("sso/App" as string));
-const SaasPage = lazy(
-  async () =>
-    import("saas/App" as string).catch(() => ({ default: CostingPage }))
+const SaasPage = lazy(async () =>
+  import("saas/App" as string).catch(() => ({ default: CostingPage }))
+);
+// @ts-nocheck
+const AdminPage = lazy(async () =>
+  import("admin/App" as string).catch(() => ({ default: () => null }))
 );
 // @ts-nocheck
 const OmnichannelPage = lazy(async () => import("omnichannel/App" as string));
@@ -254,6 +257,69 @@ const router = createBrowserRouter(
             },
           ],
         },
+        {
+          path: "/organization",
+          errorElement: <RouteErrorElement />,
+          children: [
+            {
+              index: true,
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <AdminPage />
+                </Suspense>
+              ),
+            },
+            {
+              path: "*",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <AdminPage />
+                </Suspense>
+              ),
+            },
+          ],
+        },
+        {
+          path: "/sass",
+          errorElement: <RouteErrorElement />,
+          children: [
+            {
+              index: true,
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <SaasPage />
+                </Suspense>
+              ),
+            },
+            {
+              path: "costing",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <SaasPage />
+                </Suspense>
+              ),
+            },
+            { path: "tenants", Component: TenantsPage },
+            { path: "tenants/new", Component: TenantFormPage },
+            { path: "tenants/:id/edit", Component: TenantEditPage },
+            { path: "tenants/costs", Component: TenantCostsPage },
+            { path: "tenants/:tenantId/costs", Component: TenantCostsPage },
+            { path: "domains", Component: DomainsPage },
+            { path: "domains/new", Component: DomainFormPage },
+            { path: "domains/:id/edit", Component: DomainEditPage },
+            { path: "domains/ssl", Component: SSLStatusPage },
+            { path: "branches", Component: BranchesPage },
+            { path: "branches/new", Component: BranchFormPage },
+            { path: "branches/:id/edit", Component: BranchEditPage },
+            { path: "users", Component: UsersPage },
+            { path: "users/new", Component: UserFormPage },
+            { path: "users/:id/edit", Component: UserEditPage },
+            { path: "roles", Component: AdminRolesPage },
+            { path: "usage", Component: AdminUsagePage },
+            { path: "settings", Component: AdminSettingsPage },
+            { path: "menu", Component: AdminMenuPage },
+          ],
+        },
         { path: "/admin/domains", Component: DomainsPage },
         { path: "/admin/domains/new", Component: DomainFormPage },
         { path: "/admin/domains/:id/edit", Component: DomainEditPage },
@@ -288,7 +354,7 @@ const router = createBrowserRouter(
     future: {
       v7_startTransition: true,
     },
-  },
+  }
 );
 
 export default function App() {

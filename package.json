@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "prepare": "husky",
     "dev": "nodemon",
     "build": "vite build",
     "prebuild": "test -f ../package.json && npm run build:types --prefix .. || true",
@@ -11,7 +12,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:e2e:debug": "playwright test --debug"
+    "test:e2e:debug": "playwright test --debug",
+    "test": "echo \"No tests\""
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
@@ -45,7 +47,10 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.3.3",
     "vite": "^5.4.0",
-    "vite-plugin-pwa": "^1.2.0"
+    "vite-plugin-pwa": "^1.2.0",
+    "husky": "^9.1.7",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0"
   },
   "overrides": {
     "@gaqno-development/core": "npm:@gaqno-development/frontcore@^1.0.27"

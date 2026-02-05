@@ -357,6 +357,7 @@ export const ROUTE_PERMISSIONS: Record<string, string[]> = {
   "/admin/settings": ["admin.settings.write"],
   "/admin/costing": ["admin.tenants.costs.read"],
   "/admin/usage": ["admin.usage.read"],
+  "/organization/health": ["admin.access"],
   "/dashboard/settings": ["admin.settings.read"],
   "/dashboard/profile": [],
   "/sso/users": ["admin.users.read"],
