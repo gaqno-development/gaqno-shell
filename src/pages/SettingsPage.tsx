@@ -1,11 +1,27 @@
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@gaqno-development/frontcore/components/ui'
 import { Avatar, AvatarFallback, AvatarImage } from '@gaqno-development/frontcore/components/ui'
-import { User, Settings as SettingsIcon, Shield } from 'lucide-react'
+import { ModelSelect } from '@gaqno-development/frontcore/components/model-select'
+import { useLocalStorage, AI_MODEL_PREFERENCES_KEY } from '@gaqno-development/frontcore/hooks'
+import { User, Settings as SettingsIcon, Shield, Sparkles } from 'lucide-react'
 import { useSettings } from '../hooks/useSettings'
+
+interface AIModelPreferences {
+  text?: { provider?: string; model?: string }
+  image?: { provider?: string; model?: string }
+}
+
+const defaultPreferences: AIModelPreferences = {
+  text: {},
+  image: {},
+}
 
 export default function SettingsPage() {
   const { profile, loading } = useSettings()
+  const [preferences, setPreferences] = useLocalStorage<AIModelPreferences>(
+    AI_MODEL_PREFERENCES_KEY,
+    defaultPreferences,
+  )
 
   if (loading) {
     return (
@@ -78,6 +94,62 @@ export default function SettingsPage() {
               <p className="text-sm text-muted-foreground">
                 Autenticação via Supabase
               </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-5 w-5" />
+              <CardTitle>Modelos de IA</CardTitle>
+            </div>
+            <CardDescription>
+              Selecione os modelos padrão para texto e imagem
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div>
+              <p className="text-sm font-medium mb-2">Modelo de texto (chat, livros)</p>
+              <ModelSelect
+                capability="text"
+                providerValue={preferences.text?.provider}
+                onProviderChange={(provider) =>
+                  setPreferences((p) => ({
+                    ...p,
+                    text: { ...p.text, provider, model: undefined },
+                  }))
+                }
+                value={preferences.text?.model}
+                onValueChange={(model, provider) =>
+                  setPreferences((p) => ({
+                    ...p,
+                    text: { ...p.text, model, provider },
+                  }))
+                }
+                placeholder="Selecione o modelo de texto"
+              />
+            </div>
+            <div>
+              <p className="text-sm font-medium mb-2">Modelo de imagem</p>
+              <ModelSelect
+                capability="image"
+                providerValue={preferences.image?.provider}
+                onProviderChange={(provider) =>
+                  setPreferences((p) => ({
+                    ...p,
+                    image: { ...p.image, provider, model: undefined },
+                  }))
+                }
+                value={preferences.image?.model}
+                onValueChange={(model, provider) =>
+                  setPreferences((p) => ({
+                    ...p,
+                    image: { ...p.image, model, provider },
+                  }))
+                }
+                placeholder="Selecione o modelo de imagem"
+              />
             </div>
           </CardContent>
         </Card>

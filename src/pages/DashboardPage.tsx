@@ -107,20 +107,19 @@ export default function DashboardPage() {
         </div>
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Error loading dashboard</AlertTitle>
+          <AlertTitle>Erro ao carregar o dashboard</AlertTitle>
           <AlertDescription>
-            {widgetsError && "Failed to load widgets. "}
-            {summaryError && "Failed to load dashboard data. "}
-            {preferencesError && "Failed to load preferences. "}
+            Não foi possível carregar os dados. Tente novamente em alguns
+            instantes.
             <Button
               variant="outline"
               size="sm"
               className="mt-2"
               onClick={() => {
-                if (summaryError) refetchSummary();
+                window.location.reload();
               }}
             >
-              Retry
+              Tentar novamente
             </Button>
           </AlertDescription>
         </Alert>
@@ -181,11 +180,11 @@ export default function DashboardPage() {
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
           <p className="text-muted-foreground">Visão geral dos seus serviços</p>
         </div>
-        {summaryData && summaryData.aggregated?.lastUpdated && (
+        {summaryData?.aggregated?.lastUpdated != null && (
           <div className="text-xs text-muted-foreground">
             Last updated:{" "}
             {new Date(
-              summaryData.aggregated.lastUpdated as string
+              String(summaryData.aggregated.lastUpdated)
             ).toLocaleTimeString()}
           </div>
         )}
