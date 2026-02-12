@@ -7,6 +7,7 @@ import { WhiteLabelProvider } from "@gaqno-development/frontcore/components/prov
 import { TenantProvider } from "@gaqno-development/frontcore/contexts";
 import { useFilteredMenu } from "@gaqno-development/frontcore/hooks";
 import { useAuth } from "@gaqno-development/frontcore/hooks";
+import { authStorage } from "@/utils/auth-storage";
 
 const AUTHENTICATED_ROUTES = [
   "/dashboard",
@@ -19,6 +20,7 @@ const AUTHENTICATED_ROUTES = [
   "/sso",
   "/rpg",
   "/omnichannel",
+  "/wellness",
 ];
 
 const PUBLIC_ROUTES = ["/login", "/register", "/"];
@@ -33,6 +35,7 @@ const MICRO_FRONTEND_ROUTES = [
   "/admin",
   "/sso",
   "/omnichannel",
+  "/wellness",
 ];
 
 function shouldShowDashboardLayout(pathname: string): boolean {
@@ -81,7 +84,13 @@ export function ShellLayoutWrapper() {
   }, [pathname, loading, user]);
 
   useEffect(() => {
-    if (!loading && !user && isAuthenticatedRoute(pathname)) {
+    const hasStoredAuth = authStorage.hasValidAuth();
+    if (
+      !loading &&
+      !user &&
+      !hasStoredAuth &&
+      isAuthenticatedRoute(pathname)
+    ) {
       navigate("/login");
     }
   }, [loading, user, pathname, navigate]);

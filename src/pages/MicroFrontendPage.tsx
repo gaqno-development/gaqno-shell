@@ -146,6 +146,7 @@ export function MicroFrontendPage({ remoteName, moduleName }: MicroFrontendPageP
           rpg: 3007,
           sso: 3001,
           omnichannel: 3010,
+          wellness: 3011,
         }
         const defaultPort = remotePorts[remoteName]
         const remoteEntryUrl = defaultPort
