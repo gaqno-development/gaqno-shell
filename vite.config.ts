@@ -112,6 +112,10 @@ export default defineConfig(async () => {
             singleton: true,
             requiredVersion: "*",
           },
+          "socket.io-client": {
+            singleton: true,
+            requiredVersion: "^4.0.0",
+          },
         },
       }),
     ],
