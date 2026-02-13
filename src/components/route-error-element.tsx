@@ -18,6 +18,7 @@ const SERVICE_NAMES: Record<string, string> = {
   '/finance': 'Finance',
   '/ai': 'AI',
   '/sso': 'SSO',
+  '/admin': 'Admin',
   '/omnichannel': 'Omnichannel',
 }
 

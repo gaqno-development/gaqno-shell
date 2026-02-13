@@ -17,7 +17,9 @@ export default defineConfig(async () => {
   const MFE_SSO_URL = process.env.MFE_SSO_URL || "http://localhost:3001";
   const MFE_SAAS_URL = process.env.MFE_SAAS_URL || "http://localhost:3008";
   const MFE_OMNICHANNEL_URL =
-    process.env.MFE_OMNICHANNEL_URL || "http://localhost:3008";
+    process.env.MFE_OMNICHANNEL_URL || "http://localhost:3010";
+  const MFE_ADMIN_URL =
+    process.env.MFE_ADMIN_URL || "http://localhost:3009";
 
   return {
     server: {
@@ -81,6 +83,7 @@ export default defineConfig(async () => {
           saas: MFE_SAAS_URL + "/assets/remoteEntry.js",
           sso: MFE_SSO_URL + "/assets/remoteEntry.js",
           omnichannel: MFE_OMNICHANNEL_URL + "/assets/remoteEntry.js",
+          admin: MFE_ADMIN_URL + "/assets/remoteEntry.js",
         },
         shared: {
           react: {

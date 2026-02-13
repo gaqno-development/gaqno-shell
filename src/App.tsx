@@ -16,24 +16,6 @@ import SettingsPage from "./pages/SettingsPage";
 import ProfilePage from "./pages/ProfilePage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import ErrorPage from "./pages/ErrorPage";
-import DomainsPage from "./pages/admin/DomainsPage";
-import DomainFormPage from "./pages/admin/DomainFormPage";
-import DomainEditPage from "./pages/admin/DomainEditPage";
-import SSLStatusPage from "./pages/admin/SSLStatusPage";
-import TenantCostsPage from "./pages/admin/TenantCostsPage";
-import TenantsPage from "./pages/admin/TenantsPage";
-import TenantFormPage from "./pages/admin/TenantFormPage";
-import TenantEditPage from "./pages/admin/TenantEditPage";
-import BranchesPage from "./pages/admin/BranchesPage";
-import BranchFormPage from "./pages/admin/BranchFormPage";
-import BranchEditPage from "./pages/admin/BranchEditPage";
-import UsersPage from "./pages/admin/UsersPage";
-import UserFormPage from "./pages/admin/UserFormPage";
-import UserEditPage from "./pages/admin/UserEditPage";
-import AdminRolesPage from "./pages/admin/AdminRolesPage";
-import AdminMenuPage from "./pages/admin/AdminMenuPage";
-import AdminSettingsPage from "./pages/admin/AdminSettingsPage";
-import AdminUsagePage from "./pages/admin/AdminUsagePage";
 import CostingPage from "./pages/admin/CostingPage";
 import { lazy, Suspense } from "react";
 
@@ -51,6 +33,7 @@ const SaasPage = lazy(
 );
 // @ts-nocheck
 const OmnichannelPage = lazy(async () => import("omnichannel/App" as string));
+const AdminPage = lazy(async () => import("admin/App" as string));
 
 function LoadingFallback() {
   return (
@@ -254,25 +237,6 @@ const router = createBrowserRouter(
             },
           ],
         },
-        { path: "/admin/domains", Component: DomainsPage },
-        { path: "/admin/domains/new", Component: DomainFormPage },
-        { path: "/admin/domains/:id/edit", Component: DomainEditPage },
-        { path: "/admin/domains/ssl", Component: SSLStatusPage },
-        { path: "/admin/tenants", Component: TenantsPage },
-        { path: "/admin/tenants/new", Component: TenantFormPage },
-        { path: "/admin/tenants/:id/edit", Component: TenantEditPage },
-        { path: "/admin/tenants/costs", Component: TenantCostsPage },
-        { path: "/admin/tenants/:tenantId/costs", Component: TenantCostsPage },
-        { path: "/admin/branches", Component: BranchesPage },
-        { path: "/admin/branches/new", Component: BranchFormPage },
-        { path: "/admin/branches/:id/edit", Component: BranchEditPage },
-        { path: "/admin/users", Component: UsersPage },
-        { path: "/admin/users/new", Component: UserFormPage },
-        { path: "/admin/users/:id/edit", Component: UserEditPage },
-        { path: "/admin/roles", Component: AdminRolesPage },
-        { path: "/admin/menu", Component: AdminMenuPage },
-        { path: "/admin/settings", Component: AdminSettingsPage },
-        { path: "/admin/usage", Component: AdminUsagePage },
         {
           path: "/admin/costing",
           element: (
@@ -280,6 +244,28 @@ const router = createBrowserRouter(
               <SaasPage />
             </Suspense>
           ),
+        },
+        {
+          path: "/admin",
+          errorElement: <RouteErrorElement />,
+          children: [
+            {
+              index: true,
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <AdminPage />
+                </Suspense>
+              ),
+            },
+            {
+              path: "*",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <AdminPage />
+                </Suspense>
+              ),
+            },
+          ],
         },
       ],
     },

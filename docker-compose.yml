@@ -6,7 +6,7 @@ services:
       context: .  # Repository root (standalone)
       dockerfile: Dockerfile
       args:
-        # MFE_* = Module Federation remotes (portal – where remoteEntry.js is loaded from).
+        # MFE_* = Module Federation remotes (same pattern as AI / omnichannel). Production: set MFE_ADMIN_URL and MFE_SAAS_URL like MFE_AI_URL (e.g. MFE_ADMIN_URL=https://portal.gaqno.com.br/admin, MFE_SAAS_URL=https://portal.gaqno.com.br/saas).
         MFE_AI_URL: ${MFE_AI_URL:-http://localhost:3002}
         MFE_CRM_URL: ${MFE_CRM_URL:-http://localhost:3003}
         MFE_ERP_URL: ${MFE_ERP_URL:-http://localhost:3004}
@@ -15,7 +15,8 @@ services:
         MFE_RPG_URL: ${MFE_RPG_URL:-http://localhost:3007}
         MFE_SSO_URL: ${MFE_SSO_URL:-http://localhost:3001}
         MFE_SAAS_URL: ${MFE_SAAS_URL:-http://localhost:3008}
-        MFE_OMNICHANNEL_URL: ${MFE_OMNICHANNEL_URL:-http://localhost:3008}
+        MFE_OMNICHANNEL_URL: ${MFE_OMNICHANNEL_URL:-http://localhost:3010}
+        MFE_ADMIN_URL: ${MFE_ADMIN_URL:-http://localhost:3009}
     ports:
       - "3000:3000"
     environment:
