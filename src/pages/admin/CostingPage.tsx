@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { CostingView } from "@gaqno-development/frontcore/components/admin";
+import { CostingView } from "../../components/admin/CostingView";
 import { useTenants } from "@gaqno-development/frontcore/hooks/admin/useTenants";
 import {
   Card,

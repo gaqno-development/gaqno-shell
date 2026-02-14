@@ -2,29 +2,22 @@ import React, { useMemo, useState } from "react";
 import { useAuth } from "@gaqno-development/frontcore/hooks";
 import { useTenantUsage } from "@gaqno-development/frontcore/hooks/admin/useTenantUsage";
 import { useUsers } from "@gaqno-development/frontcore/hooks/admin/useUsers";
+import type { ColumnDef } from "@tanstack/react-table";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@gaqno-development/frontcore/components/ui";
-import {
+  DataTable,
+  DataTableColumnHeader,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Skeleton,
 } from "@gaqno-development/frontcore/components/ui";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@gaqno-development/frontcore/components/ui";
-import { Skeleton } from "@gaqno-development/frontcore/components/ui";
 import { PieChart } from "lucide-react";
 
 function getMonthOptions(): { value: string; label: string }[] {
@@ -82,7 +75,7 @@ export default function AdminUsagePage() {
   const { rows, metricColumns } = useMemo(() => {
     if (!usage?.metrics?.length)
       return {
-        rows: [],
+        rows: [] as Record<string, number | string>[],
         metricColumns: [] as {
           key: string;
           serviceName: string;
@@ -114,6 +107,43 @@ export default function AdminUsagePage() {
     });
     return { rows, metricColumns: columns };
   }, [usage]);
+
+  const usageColumns = useMemo<ColumnDef<Record<string, number | string>>[]>(
+    () => [
+      {
+        id: "userId",
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Usuário" />
+        ),
+        cell: ({ row }) => {
+          const uid = row.original.userId as string;
+          return (
+            <span className="font-medium">
+              {row.original.userId === user?.id ? (
+                <span>Você ({user?.email ?? uid})</span>
+              ) : (
+                (userDisplayMap[uid] ?? String(uid))
+              )}
+            </span>
+          );
+        },
+      },
+      ...metricColumns.map((col) => ({
+        id: col.key,
+        header: () => (
+          <span>
+            {col.serviceName === "ai" ? "IA (tokens)" : col.serviceName} (
+            {col.unit})
+          </span>
+        ),
+        cell: ({ row }: { row: { original: Record<string, number | string> } }) =>
+          typeof row.original[col.key] === "number"
+            ? Number(row.original[col.key]).toLocaleString("pt-BR")
+            : "—",
+      })),
+    ],
+    [metricColumns, user, userDisplayMap]
+  );
 
   if (!tenantId) {
     return (
@@ -184,42 +214,13 @@ export default function AdminUsagePage() {
               outras ações é atribuído ao usuário ao usar os apps.
             </p>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Usuário</TableHead>
-                  {metricColumns.map((col) => (
-                    <TableHead key={col.key}>
-                      {col.serviceName === "ai"
-                        ? "IA (tokens)"
-                        : col.serviceName}{" "}
-                      ({col.unit})
-                    </TableHead>
-                  ))}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.userId as string}>
-                    <TableCell className="font-medium">
-                      {row.userId === user?.id ? (
-                        <span>Você ({user?.email ?? row.userId})</span>
-                      ) : (
-                        (userDisplayMap[row.userId as string] ??
-                        String(row.userId))
-                      )}
-                    </TableCell>
-                    {metricColumns.map((col) => (
-                      <TableCell key={col.key}>
-                        {typeof row[col.key] === "number"
-                          ? Number(row[col.key]).toLocaleString("pt-BR")
-                          : "—"}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <DataTable
+              columns={usageColumns}
+              data={rows}
+              getRowId={(row) => String(row.userId)}
+              showPagination={true}
+              emptyMessage="Nenhum uso registrado neste período."
+            />
           )}
         </CardContent>
       </Card>
