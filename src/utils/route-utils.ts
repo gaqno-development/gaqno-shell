@@ -11,7 +11,8 @@ export function getFirstAvailableRoute(permissions: string[]): string | null {
     "/erp/dashboard",
     "/finance/dashboard",
     "/ai/dashboard",
-    "/admin/dashboard",
+    "/sass/costing",
+    "/admin/users",
   ];
 
   for (const route of routePriority) {
