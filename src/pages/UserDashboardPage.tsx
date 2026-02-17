@@ -1,17 +1,24 @@
-import React from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@gaqno-development/frontcore/components/ui'
-import { CheckCircle, Clock, FileText, Star } from 'lucide-react'
-import { useUserDashboard } from '../hooks/useUserDashboard'
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  LoaderPinwheelIcon,
+} from "@gaqno-development/frontcore/components/ui";
+import { CheckCircle, Clock, FileText, Star } from "lucide-react";
+import { useUserDashboard } from "../hooks/useUserDashboard";
 
 export default function UserDashboardPage() {
-  const { loading } = useUserDashboard()
+  const { loading } = useUserDashboard();
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
+        <LoaderPinwheelIcon size={32} />
       </div>
-    )
+    );
   }
 
   return (
@@ -33,9 +40,7 @@ export default function UserDashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">
-              Concluídas
-            </p>
+            <p className="text-xs text-muted-foreground">Concluídas</p>
           </CardContent>
         </Card>
 
@@ -48,39 +53,29 @@ export default function UserDashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">
-              Para fazer
-            </p>
+            <p className="text-xs text-muted-foreground">Para fazer</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Documentos
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Documentos</CardTitle>
             <FileText className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">
-              Arquivos
-            </p>
+            <p className="text-xs text-muted-foreground">Arquivos</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Avaliação
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Avaliação</CardTitle>
             <Star className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">--</div>
-            <p className="text-xs text-muted-foreground">
-              Performance
-            </p>
+            <p className="text-xs text-muted-foreground">Performance</p>
           </CardContent>
         </Card>
       </div>
@@ -89,9 +84,7 @@ export default function UserDashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Tarefas Recentes</CardTitle>
-            <CardDescription>
-              Suas últimas tarefas
-            </CardDescription>
+            <CardDescription>Suas últimas tarefas</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
@@ -103,9 +96,7 @@ export default function UserDashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Atividades</CardTitle>
-            <CardDescription>
-              Histórico de atividades
-            </CardDescription>
+            <CardDescription>Histórico de atividades</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
@@ -115,6 +106,5 @@ export default function UserDashboardPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
-

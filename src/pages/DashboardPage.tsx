@@ -1,259 +1,112 @@
-import React, { useState, useMemo } from "react";
-import {
-  useDashboardWidgets,
-  useDashboardData,
-  useDashboardPreferences,
-  useSaveDashboardPreferences,
-} from "../hooks/useDashboard";
-import { getWidgetComponent } from "../config/widget-registry";
-import { WidgetConfig } from "../types/dashboard.types";
-import { DashboardGrid } from "../components/dashboard/DashboardGrid";
-import { WidgetConfigDialog } from "../components/dashboard/WidgetConfigDialog";
 import {
   Button,
-  Alert,
-  AlertDescription,
-  AlertTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  LoaderPinwheelIcon,
+  Skeleton,
 } from "@gaqno-development/frontcore/components/ui";
-import { Settings, AlertCircle } from "lucide-react";
+import { Plus, ArrowUpRight, AlertCircle } from "lucide-react";
+import { useDashboardOverview } from "../hooks/useDashboardOverview";
+import { OverviewCard } from "../components/dashboard/OverviewCard";
+import { ActivityItem } from "../components/dashboard/ActivityItem";
+import { ServiceUsageChart } from "../components/dashboard/ServiceUsageChart";
+
 export default function DashboardPage() {
-  const [configuringWidget, setConfiguringWidget] =
-    useState<WidgetConfig | null>(null);
-
   const {
-    data: widgetsData,
-    isLoading: widgetsLoading,
-    error: widgetsError,
-  } = useDashboardWidgets();
-
-  const {
-    data: summaryData,
-    isLoading: summaryLoading,
-    error: summaryError,
-    refetch: refetchSummary,
-  } = useDashboardData();
-
-  const {
-    data: preferences,
-    isLoading: preferencesLoading,
-    error: preferencesError,
-  } = useDashboardPreferences();
-
-  const savePreferences = useSaveDashboardPreferences();
-
-  const visibleWidgets = useMemo(() => {
-    if (!preferences) return [];
-    return preferences.widgets
-      .filter((w) => w.visible)
-      .sort((a, b) => a.position - b.position);
-  }, [preferences]);
-
-  const isLoading = widgetsLoading || preferencesLoading;
-  const hasError = widgetsError || summaryError || preferencesError;
-
-  const handleToggleWidget = (widgetId: string) => {
-    if (!preferences) return;
-
-    const updatedWidgets = preferences.widgets.map((w) =>
-      w.id === widgetId ? { ...w, visible: !w.visible } : w
-    );
-
-    savePreferences.mutate({
-      ...preferences,
-      widgets: updatedWidgets,
-    });
-  };
-
-  const handleReorder = (reorderedWidgets: WidgetConfig[]) => {
-    if (!preferences) return;
-
-    savePreferences.mutate({
-      ...preferences,
-      widgets: reorderedWidgets,
-    });
-  };
-
-  const handleConfigureWidget = (widget: WidgetConfig) => {
-    setConfiguringWidget(widget);
-  };
-
-  const handleSaveWidgetConfig = (config: WidgetConfig) => {
-    if (!preferences) return;
-
-    const updatedWidgets = preferences.widgets.map((w) =>
-      w.id === config.id ? config : w
-    );
-
-    savePreferences.mutate({
-      ...preferences,
-      widgets: updatedWidgets,
-    });
-  };
+    timeRange,
+    chartData,
+    chartConfig,
+    overviewCards,
+    activityItems,
+    timeRangeLabels,
+    isLoading,
+    hasError,
+    handleTimeRangeChange,
+  } = useDashboardOverview();
 
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
+        <LoaderPinwheelIcon size={32} />
         <p className="text-sm text-muted-foreground">Loading dashboard...</p>
       </div>
     );
   }
 
-  if (hasError) {
-    return (
-      <div className="space-y-6 p-6">
+  return (
+    <div className="space-y-8 p-6">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        </div>
-        <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Erro ao carregar o dashboard</AlertTitle>
-          <AlertDescription>
-            Não foi possível carregar os dados. Tente novamente em alguns
-            instantes.
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-2"
-              onClick={() => {
-                window.location.reload();
-              }}
-            >
-              Tentar novamente
-            </Button>
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-
-  if (visibleWidgets.length === 0) {
-    return (
-      <div className="space-y-6 p-6">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
           <p className="text-muted-foreground">
-            Configure seus widgets para começar
+            Your cloud services at a glance
           </p>
         </div>
-        <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-          <p className="text-muted-foreground">Nenhum widget configurado</p>
-          <Button
-            onClick={() => {
-              if (
-                widgetsData?.widgets &&
-                widgetsData.widgets.length > 0 &&
-                preferences
-              ) {
-                const firstWidget = widgetsData.widgets[0];
-                const updatedWidgets = [
-                  ...preferences.widgets,
-                  {
-                    ...firstWidget,
-                    visible: true,
-                    position: preferences.widgets.length,
-                  },
-                ];
-                savePreferences.mutate({
-                  ...preferences,
-                  widgets: updatedWidgets,
-                });
-              }
-            }}
-          >
-            Add Widget
-          </Button>
-        </div>
+        <Button className="gap-2 self-start">
+          <Plus className="h-4 w-4" />
+          Create New
+        </Button>
       </div>
-    );
-  }
 
-  const serviceMetricsMap = new Map();
-  summaryData?.services.forEach((service) => {
-    serviceMetricsMap.set(service.service, service.metrics);
-  });
-
-  return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground">Visão geral dos seus serviços</p>
+      {hasError && (
+        <div className="flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/5 px-4 py-3 text-sm text-amber-400">
+          <AlertCircle className="h-4 w-4 shrink-0" />
+          Some data may be unavailable. Showing what we could load.
         </div>
-        {summaryData?.aggregated?.lastUpdated != null && (
-          <div className="text-xs text-muted-foreground">
-            Last updated:{" "}
-            {new Date(
-              String(summaryData.aggregated.lastUpdated)
-            ).toLocaleTimeString()}
+      )}
+
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
+        {overviewCards.length > 0
+          ? overviewCards.map((card) => (
+              <OverviewCard key={card.key} {...card} />
+            ))
+          : Array.from({ length: 4 }).map((_, i) => (
+              <Skeleton key={i} className="h-[120px] rounded-lg" />
+            ))}
+      </div>
+
+      <ServiceUsageChart
+        data={chartData}
+        config={chartConfig}
+        timeRange={timeRange}
+        timeRangeLabels={timeRangeLabels}
+        onTimeRangeChange={handleTimeRangeChange}
+      />
+
+      <Card className="border-border/50">
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle className="text-lg font-semibold">
+              Recent Activity
+            </CardTitle>
+            <CardDescription>Latest events from your services</CardDescription>
           </div>
-        )}
-      </div>
-
-      {savePreferences.isPending && (
-        <Alert>
-          <AlertDescription>Saving preferences...</AlertDescription>
-        </Alert>
-      )}
-
-      <DashboardGrid widgets={visibleWidgets} onReorder={handleReorder}>
-        {visibleWidgets.map((widget: WidgetConfig) => {
-          const WidgetComponent = getWidgetComponent(widget.type);
-          const serviceName = widget.type.split("-")[0];
-          const metrics = serviceMetricsMap.get(serviceName);
-
-          let widgetContent;
-
-          if (widget.type === "aggregated-revenue" && summaryData?.aggregated) {
-            widgetContent = (
-              <WidgetComponent metrics={summaryData.aggregated} />
-            );
-          } else if (
-            widget.type === "activity-timeline" &&
-            summaryData?.services
-          ) {
-            widgetContent = <WidgetComponent services={summaryData.services} />;
-          } else if (widget.type === "quick-actions") {
-            widgetContent = <WidgetComponent />;
-          } else if (metrics) {
-            widgetContent = (
-              <WidgetComponent service={serviceName} metrics={metrics} />
-            );
-          } else {
-            widgetContent = (
-              <div className="border rounded-lg p-4">
-                <h3 className="font-semibold">{widget.type}</h3>
-                <p className="text-sm text-muted-foreground">
-                  No data available
-                </p>
-              </div>
-            );
-          }
-
-          return (
-            <div key={widget.id} className="relative group">
-              {widgetContent}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                onClick={() => handleConfigureWidget(widget)}
-              >
-                <Settings className="h-4 w-4" />
-              </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-xs text-muted-foreground"
+          >
+            View all
+            <ArrowUpRight className="ml-1 h-3 w-3" />
+          </Button>
+        </CardHeader>
+        <CardContent className="px-2 pt-0">
+          {activityItems.length > 0 ? (
+            <div className="divide-y divide-border/50">
+              {activityItems.map((item) => (
+                <ActivityItem key={item.id} {...item} />
+              ))}
             </div>
-          );
-        })}
-      </DashboardGrid>
-
-      {configuringWidget && (
-        <WidgetConfigDialog
-          widget={configuringWidget}
-          isOpen={!!configuringWidget}
-          onClose={() => setConfiguringWidget(null)}
-          onSave={handleSaveWidgetConfig}
-        />
-      )}
+          ) : (
+            <p className="py-8 text-center text-sm text-muted-foreground">
+              No recent activity
+            </p>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

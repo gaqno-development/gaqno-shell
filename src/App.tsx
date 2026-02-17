@@ -16,7 +16,27 @@ import SettingsPage from "./pages/SettingsPage";
 import ProfilePage from "./pages/ProfilePage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import ErrorPage from "./pages/ErrorPage";
+import DomainsPage from "./pages/admin/DomainsPage";
+import DomainFormPage from "./pages/admin/DomainFormPage";
+import DomainEditPage from "./pages/admin/DomainEditPage";
+import SSLStatusPage from "./pages/admin/SSLStatusPage";
+import TenantCostsPage from "./pages/admin/TenantCostsPage";
+import TenantsPage from "./pages/admin/TenantsPage";
+import TenantFormPage from "./pages/admin/TenantFormPage";
+import TenantEditPage from "./pages/admin/TenantEditPage";
+import BranchesPage from "./pages/admin/BranchesPage";
+import BranchFormPage from "./pages/admin/BranchFormPage";
+import BranchEditPage from "./pages/admin/BranchEditPage";
+import UsersPage from "./pages/admin/UsersPage";
+import UserFormPage from "./pages/admin/UserFormPage";
+import UserEditPage from "./pages/admin/UserEditPage";
+import AdminRolesPage from "./pages/admin/AdminRolesPage";
+import AdminMenuPage from "./pages/admin/AdminMenuPage";
+import AdminSettingsPage from "./pages/admin/AdminSettingsPage";
+import AdminUsagePage from "./pages/admin/AdminUsagePage";
 import CostingPage from "./pages/admin/CostingPage";
+import AIModelsPage from "./pages/admin/AIModelsPage";
+import NexAiRequestsPage from "./pages/admin/NexAiRequestsPage";
 import { lazy, Suspense } from "react";
 
 // @ts-nocheck
@@ -27,13 +47,12 @@ const FinancePage = lazy(async () => import("finance/App" as string));
 const PDVPage = lazy(async () => import("pdv/App" as string));
 const RPGPage = lazy(async () => import("rpg/App" as string));
 const SSOPage = lazy(async () => import("sso/App" as string));
-const SaasPage = lazy(
-  async () =>
-    import("saas/App" as string).catch(() => ({ default: CostingPage }))
-);
 // @ts-nocheck
 const OmnichannelPage = lazy(async () => import("omnichannel/App" as string));
+// @ts-nocheck
 const AdminPage = lazy(async () => import("admin/App" as string));
+// @ts-nocheck
+const SaasPage = lazy(async () => import("saas/App" as string));
 
 function LoadingFallback() {
   return (
@@ -216,6 +235,28 @@ const router = createBrowserRouter(
           ],
         },
         {
+          path: "/saas",
+          errorElement: <RouteErrorElement />,
+          children: [
+            {
+              index: true,
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <SaasPage />
+                </Suspense>
+              ),
+            },
+            {
+              path: "*",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <SaasPage />
+                </Suspense>
+              ),
+            },
+          ],
+        },
+        {
           path: "/sso",
           errorElement: <RouteErrorElement />,
           children: [
@@ -238,17 +279,31 @@ const router = createBrowserRouter(
           ],
         },
         {
-          path: "/admin/costing",
-          element: (
-            <Suspense fallback={<LoadingFallback />}>
-              <SaasPage />
-            </Suspense>
-          ),
-        },
-        {
           path: "/admin",
           errorElement: <RouteErrorElement />,
           children: [
+            { path: "domains", Component: DomainsPage },
+            { path: "domains/new", Component: DomainFormPage },
+            { path: "domains/:id/edit", Component: DomainEditPage },
+            { path: "domains/ssl", Component: SSLStatusPage },
+            { path: "tenants", Component: TenantsPage },
+            { path: "tenants/new", Component: TenantFormPage },
+            { path: "tenants/:id/edit", Component: TenantEditPage },
+            { path: "tenants/costs", Component: TenantCostsPage },
+            { path: "tenants/:tenantId/costs", Component: TenantCostsPage },
+            { path: "branches", Component: BranchesPage },
+            { path: "branches/new", Component: BranchFormPage },
+            { path: "branches/:id/edit", Component: BranchEditPage },
+            { path: "users", Component: UsersPage },
+            { path: "users/new", Component: UserFormPage },
+            { path: "users/:id/edit", Component: UserEditPage },
+            { path: "roles", Component: AdminRolesPage },
+            { path: "menu", Component: AdminMenuPage },
+            { path: "settings", Component: AdminSettingsPage },
+            { path: "usage", Component: AdminUsagePage },
+            { path: "costing", Component: CostingPage },
+            { path: "ai-models", Component: AIModelsPage },
+            { path: "ai-requests", Component: NexAiRequestsPage },
             {
               index: true,
               element: (
@@ -274,7 +329,7 @@ const router = createBrowserRouter(
     future: {
       v7_startTransition: true,
     },
-  },
+  }
 );
 
 export default function App() {

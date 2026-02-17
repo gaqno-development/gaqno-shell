@@ -1,34 +1,48 @@
-import React from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@gaqno-development/frontcore/components/ui'
-import { Avatar, AvatarFallback, AvatarImage } from '@gaqno-development/frontcore/components/ui'
-import { ModelSelect } from '@gaqno-development/frontcore/components/model-select'
-import { useLocalStorage, AI_MODEL_PREFERENCES_KEY } from '@gaqno-development/frontcore/hooks'
-import { User, Settings as SettingsIcon, Shield, Sparkles } from 'lucide-react'
-import { useSettings } from '../hooks/useSettings'
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  LoaderPinwheelIcon,
+} from "@gaqno-development/frontcore/components/ui";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@gaqno-development/frontcore/components/ui";
+import { ModelSelect } from "@gaqno-development/frontcore/components/model-select";
+import {
+  useLocalStorage,
+  AI_MODEL_PREFERENCES_KEY,
+} from "@gaqno-development/frontcore/hooks";
+import { User, Settings as SettingsIcon, Shield, Sparkles } from "lucide-react";
+import { useSettings } from "../hooks/useSettings";
 
 interface AIModelPreferences {
-  text?: { provider?: string; model?: string }
-  image?: { provider?: string; model?: string }
+  text?: { provider?: string; model?: string };
+  image?: { provider?: string; model?: string };
 }
 
 const defaultPreferences: AIModelPreferences = {
   text: {},
   image: {},
-}
+};
 
 export default function SettingsPage() {
-  const { profile, loading } = useSettings()
+  const { profile, loading } = useSettings();
   const [preferences, setPreferences] = useLocalStorage<AIModelPreferences>(
     AI_MODEL_PREFERENCES_KEY,
-    defaultPreferences,
-  )
+    defaultPreferences
+  );
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
+        <LoaderPinwheelIcon size={32} />
       </div>
-    )
+    );
   }
 
   return (
@@ -47,9 +61,7 @@ export default function SettingsPage() {
               <User className="h-5 w-5" />
               <CardTitle>Perfil</CardTitle>
             </div>
-            <CardDescription>
-              Suas informações pessoais
-            </CardDescription>
+            <CardDescription>Suas informações pessoais</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-4">
@@ -110,7 +122,9 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div>
-              <p className="text-sm font-medium mb-2">Modelo de texto (chat, livros)</p>
+              <p className="text-sm font-medium mb-2">
+                Modelo de texto (chat, livros)
+              </p>
               <ModelSelect
                 capability="text"
                 providerValue={preferences.text?.provider}
@@ -160,21 +174,16 @@ export default function SettingsPage() {
               <SettingsIcon className="h-5 w-5" />
               <CardTitle>Preferências</CardTitle>
             </div>
-            <CardDescription>
-              Customize sua experiência
-            </CardDescription>
+            <CardDescription>Customize sua experiência</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
               <p className="text-sm font-medium">Tema</p>
-              <p className="text-sm text-muted-foreground">
-                Sistema (padrão)
-              </p>
+              <p className="text-sm text-muted-foreground">Sistema (padrão)</p>
             </div>
           </CardContent>
         </Card>
       </div>
     </div>
-  )
+  );
 }
-

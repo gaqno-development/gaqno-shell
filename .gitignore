@@ -33,6 +33,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# shadcn may write here when ui alias points to frontcore; ignore, use @gaqno-frontcore
+/@gaqno-development/
+
 # NPM Configuration (may contain secrets)
 .npmrc
 
