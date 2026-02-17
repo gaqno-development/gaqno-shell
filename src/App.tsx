@@ -35,6 +35,7 @@ import AdminMenuPage from "./pages/admin/AdminMenuPage";
 import AdminSettingsPage from "./pages/admin/AdminSettingsPage";
 import AdminUsagePage from "./pages/admin/AdminUsagePage";
 import CostingPage from "./pages/admin/CostingPage";
+import AIModelsPage from "./pages/admin/AIModelsPage";
 import { lazy, Suspense } from "react";
 
 // @ts-nocheck
@@ -272,6 +273,7 @@ const router = createBrowserRouter(
         { path: "/sass/settings", Component: AdminSettingsPage },
         { path: "/sass/usage", Component: AdminUsagePage },
         { path: "/sass/costing", Component: CostingPage },
+        { path: "/sass/ai-models", Component: AIModelsPage },
         {
           path: "/admin",
           errorElement: <RouteErrorElement />,

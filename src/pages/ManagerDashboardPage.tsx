@@ -1,26 +1,33 @@
-import React from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@gaqno-development/frontcore/components/ui'
-import { FolderKanban, Users, CheckCircle, Clock } from 'lucide-react'
-import { useManagerDashboard } from '../hooks/useManagerDashboard'
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  LoaderPinwheelIcon,
+} from "@gaqno-development/frontcore/components/ui";
+import { FolderKanban, Users, CheckCircle, Clock } from "lucide-react";
+import { useManagerDashboard } from "../hooks/useManagerDashboard";
 
 export default function ManagerDashboardPage() {
-  const { loading } = useManagerDashboard()
+  const { loading } = useManagerDashboard();
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
+        <LoaderPinwheelIcon size={32} />
       </div>
-    )
+    );
   }
 
   return (
     <div className="space-y-6 p-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Painel de Gerenciamento</h1>
-        <p className="text-muted-foreground">
-          Gerencie projetos e equipes
-        </p>
+        <h1 className="text-3xl font-bold tracking-tight">
+          Painel de Gerenciamento
+        </h1>
+        <p className="text-muted-foreground">Gerencie projetos e equipes</p>
       </div>
 
       <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
@@ -33,9 +40,7 @@ export default function ManagerDashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">
-              Em andamento
-            </p>
+            <p className="text-xs text-muted-foreground">Em andamento</p>
           </CardContent>
         </Card>
 
@@ -48,9 +53,7 @@ export default function ManagerDashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">
-              Membros ativos
-            </p>
+            <p className="text-xs text-muted-foreground">Membros ativos</p>
           </CardContent>
         </Card>
 
@@ -63,9 +66,7 @@ export default function ManagerDashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">
-              Neste mês
-            </p>
+            <p className="text-xs text-muted-foreground">Neste mês</p>
           </CardContent>
         </Card>
 
@@ -78,9 +79,7 @@ export default function ManagerDashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-muted-foreground">
-              Aguardando ação
-            </p>
+            <p className="text-xs text-muted-foreground">Aguardando ação</p>
           </CardContent>
         </Card>
       </div>
@@ -103,9 +102,7 @@ export default function ManagerDashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Equipe</CardTitle>
-            <CardDescription>
-              Membros da sua equipe
-            </CardDescription>
+            <CardDescription>Membros da sua equipe</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
@@ -115,6 +112,5 @@ export default function ManagerDashboardPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
-

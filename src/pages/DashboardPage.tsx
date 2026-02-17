@@ -14,6 +14,7 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
+  LoaderPinwheelIcon,
 } from "@gaqno-development/frontcore/components/ui";
 import { Settings, AlertCircle } from "lucide-react";
 export default function DashboardPage() {
@@ -93,7 +94,7 @@ export default function DashboardPage() {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-r-transparent" />
+        <LoaderPinwheelIcon size={32} />
         <p className="text-sm text-muted-foreground">Loading dashboard...</p>
       </div>
     );
