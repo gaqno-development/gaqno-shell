@@ -235,7 +235,7 @@ const router = createBrowserRouter(
           ],
         },
         {
-          path: "/sass",
+          path: "/saas",
           errorElement: <RouteErrorElement />,
           children: [
             {
