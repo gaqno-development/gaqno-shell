@@ -51,6 +51,8 @@ const SSOPage = lazy(async () => import("sso/App" as string));
 const OmnichannelPage = lazy(async () => import("omnichannel/App" as string));
 // @ts-nocheck
 const AdminPage = lazy(async () => import("admin/App" as string));
+// @ts-nocheck
+const SaasPage = lazy(async () => import("saas/App" as string));
 
 function LoadingFallback() {
   return (
@@ -227,6 +229,28 @@ const router = createBrowserRouter(
               element: (
                 <Suspense fallback={<LoadingFallback />}>
                   <OmnichannelPage />
+                </Suspense>
+              ),
+            },
+          ],
+        },
+        {
+          path: "/sass",
+          errorElement: <RouteErrorElement />,
+          children: [
+            {
+              index: true,
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <SaasPage />
+                </Suspense>
+              ),
+            },
+            {
+              path: "*",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <SaasPage />
                 </Suspense>
               ),
             },
