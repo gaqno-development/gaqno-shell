@@ -541,7 +541,6 @@ export const ROUTE_PERMISSIONS: Record<string, string[]> = {
   "/admin/costing": ["admin.tenants.costs.read"],
   "/admin/costs": ["admin.tenants.costs.read"],
   "/admin/usage": ["admin.usage.read"],
-  "/admin/costing": ["admin.tenants.costs.read"],
   "/admin/ai-models": ["admin.ai.models.manage"],
   "/admin/ai-requests": ["admin.usage.read"],
   "/dashboard/settings": ["admin.settings.read"],
