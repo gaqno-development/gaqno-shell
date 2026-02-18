@@ -79,7 +79,7 @@ export function ServiceUsageChart({
             />
             <ChartTooltip
               cursor={{
-                stroke: "hsl(var(--muted-foreground))",
+                stroke: "var(--muted-foreground)",
                 strokeWidth: 1,
                 strokeDasharray: "4 4",
               }}
@@ -170,7 +170,7 @@ function StyledArea({
       activeDot={{
         r: 5,
         fill: color,
-        stroke: "hsl(var(--background))",
+        stroke: "var(--background)",
         strokeWidth: 2,
       }}
     />
