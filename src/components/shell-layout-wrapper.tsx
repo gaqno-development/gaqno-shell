@@ -7,6 +7,8 @@ import { WhiteLabelProvider } from "@gaqno-development/frontcore/components/prov
 import { TenantProvider } from "@gaqno-development/frontcore/contexts";
 import { useFilteredMenu } from "@gaqno-development/frontcore/hooks";
 import { useAuth } from "@gaqno-development/frontcore/hooks";
+import { useIsMobile } from "@gaqno-development/frontcore/hooks";
+import { useUIStore } from "@gaqno-development/frontcore/store/uiStore";
 
 const AUTHENTICATED_ROUTES = [
   "/dashboard",
@@ -67,6 +69,8 @@ export function ShellLayoutWrapper() {
   const pathname = location.pathname;
   const navigate = useNavigate();
   const { user, loading } = useAuth();
+  const isMobile = useIsMobile();
+  const setSidebarOpen = useUIStore((state) => state.setSidebarOpen);
   const [shouldShowLayout, setShouldShowLayout] = useState(false);
   const [isMicroFrontend, setIsMicroFrontend] = useState(false);
   const menuItems = useFilteredMenu();
@@ -85,6 +89,12 @@ export function ShellLayoutWrapper() {
       navigate("/login");
     }
   }, [loading, user, pathname, navigate]);
+
+  useEffect(() => {
+    if (isMobile) {
+      setSidebarOpen(true);
+    }
+  }, [isMobile, setSidebarOpen]);
 
   const pageTransition = {
     initial: { opacity: 0, x: 8 },
