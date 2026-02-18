@@ -37,7 +37,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-8 p-6">
+    <div className="space-8 p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
@@ -60,9 +60,15 @@ export default function DashboardPage() {
 
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
         {overviewCards.length > 0
-          ? overviewCards.map((card) => (
-              <OverviewCard key={card.key} {...card} />
-            ))
+          ? overviewCards.map((card, index) => {
+              const { key: cardKey, ...cardProps } = card;
+              return (
+                <OverviewCard
+                  key={cardKey ?? index}
+                  {...cardProps}
+                />
+              );
+            })
           : Array.from({ length: 4 }).map((_, i) => (
               <Skeleton key={i} className="h-[120px] rounded-lg" />
             ))}
