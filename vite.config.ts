@@ -17,8 +17,8 @@ export default defineConfig(async () => {
   const MFE_SSO_URL = process.env.MFE_SSO_URL || "http://localhost:3001";
   const MFE_SAAS_URL = process.env.MFE_SAAS_URL || "http://localhost:3008";
   const MFE_OMNICHANNEL_URL =
-    process.env.MFE_OMNICHANNEL_URL || "http://localhost:3008";
-  const MFE_ADMIN_URL = process.env.MFE_ADMIN_URL || "http://localhost:3009";
+    process.env.MFE_OMNICHANNEL_URL || "http://localhost:3011";
+  const MFE_ADMIN_URL = process.env.MFE_ADMIN_URL || "http://localhost:3010";
 
   return {
     server: {
