@@ -9,6 +9,7 @@ import { useFilteredMenu } from "@gaqno-development/frontcore/hooks";
 import { useAuth } from "@gaqno-development/frontcore/hooks";
 import { useIsMobile } from "@gaqno-development/frontcore/hooks";
 import { useUIStore } from "@gaqno-development/frontcore/store/uiStore";
+import { MicroFrontendErrorBoundary } from "@/components/microfrontend-error-boundary";
 
 const AUTHENTICATED_ROUTES = [
   "/dashboard",
@@ -105,17 +106,19 @@ export function ShellLayoutWrapper() {
 
   if (!shouldShowLayout) {
     return (
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={transitionKey}
-          initial={pageTransition.initial}
-          animate={pageTransition.animate}
-          exit={pageTransition.exit}
-          transition={pageTransition.transition}
-        >
-          <Outlet />
-        </motion.div>
-      </AnimatePresence>
+      <MicroFrontendErrorBoundary>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={transitionKey}
+            initial={pageTransition.initial}
+            animate={pageTransition.animate}
+            exit={pageTransition.exit}
+            transition={pageTransition.transition}
+          >
+            <Outlet />
+          </motion.div>
+        </AnimatePresence>
+      </MicroFrontendErrorBoundary>
     );
   }
 
@@ -124,18 +127,20 @@ export function ShellLayoutWrapper() {
       <WhiteLabelProvider>
         <TenantProvider>
           <DashboardLayout menuItems={menuItems}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={transitionKey}
-                initial={pageTransition.initial}
-                animate={pageTransition.animate}
-                exit={pageTransition.exit}
-                transition={pageTransition.transition}
-                className="min-h-0 flex-1 flex flex-col"
-              >
-                <Outlet />
-              </motion.div>
-            </AnimatePresence>
+            <MicroFrontendErrorBoundary>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={transitionKey}
+                  initial={pageTransition.initial}
+                  animate={pageTransition.animate}
+                  exit={pageTransition.exit}
+                  transition={pageTransition.transition}
+                  className="min-h-0 flex-1 flex flex-col"
+                >
+                  <Outlet />
+                </motion.div>
+              </AnimatePresence>
+            </MicroFrontendErrorBoundary>
           </DashboardLayout>
         </TenantProvider>
       </WhiteLabelProvider>

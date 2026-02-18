@@ -27,6 +27,8 @@ const SERVICE_NAMES: Record<string, string> = {
   "/erp": "ERP",
   "/finance": "Finance",
   "/ai": "AI",
+  "/sso": "SSO",
+  "/rpg": "RPG",
   "/omnichannel": "Omnichannel",
 }
 
