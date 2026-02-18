@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -14,131 +13,22 @@ import {
   SelectValue,
 } from "@gaqno-development/frontcore/components/ui";
 import { Skeleton } from "@gaqno-development/frontcore/components/ui";
-import { useTenants } from "@gaqno-development/frontcore/hooks/admin/useTenants";
 import { Cpu, Image, Video, Music, BarChart3 } from "lucide-react";
-
-const getSaasBase = (): string => {
-  try {
-    const env = (import.meta as { env?: Record<string, string> }).env;
-    return env?.VITE_SERVICE_SAAS_URL ?? "http://localhost:4009";
-  } catch {
-    return "http://localhost:4009";
-  }
-};
-
-async function fetchJson<T>(path: string, options?: RequestInit): Promise<T> {
-  const base = getSaasBase();
-  const url = base ? `${base.replace(/\/$/, "")}${path}` : path;
-  const res = await fetch(url, {
-    credentials: "include",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
-    ...options,
-  });
-  if (!res.ok) throw new Error(await res.text());
-  return res.json() as Promise<T>;
-}
+import { useAIModels } from "../../hooks/useAIModels";
 
 export default function AIModelsPage() {
-  const { tenants, isLoading: tenantsLoading } = useTenants();
-  const [tenantId, setTenantId] = useState<string>("");
-  const [registry, setRegistry] = useState<{
-    image?: {
-      providers: {
-        id: string;
-        name: string;
-        models: { id: string; name: string }[];
-      }[];
-    };
-    video?: {
-      providers: {
-        id: string;
-        name: string;
-        models: { id: string; name: string }[];
-      }[];
-    };
-    audio?: {
-      providers: {
-        id: string;
-        name: string;
-        models: { id: string; name: string }[];
-      }[];
-    };
-  } | null>(null);
-  const [defaults, setDefaults] = useState<{
-    image?: string;
-    video?: string;
-    audio?: string;
-  } | null>(null);
-  const [usage, setUsage] = useState<{
-    byCategory: Record<string, number>;
-    byModel: Record<string, number>;
-    totalCredits: number;
-  } | null>(null);
-  const [loadingRegistry, setLoadingRegistry] = useState(false);
-  const [loadingDefaults, setLoadingDefaults] = useState(false);
-  const [loadingUsage, setLoadingUsage] = useState(false);
-
-  const loadRegistry = async () => {
-    setLoadingRegistry(true);
-    try {
-      const data = await fetchJson<typeof registry>("/ai-models");
-      setRegistry(data ?? null);
-    } catch {
-      setRegistry(null);
-    } finally {
-      setLoadingRegistry(false);
-    }
-  };
-
-  const loadDefaults = async () => {
-    if (!tenantId) return;
-    setLoadingDefaults(true);
-    try {
-      const data = await fetchJson<{
-        image?: string;
-        video?: string;
-        audio?: string;
-      }>(`/ai-models/${encodeURIComponent(tenantId)}/defaults`);
-      setDefaults(data ?? null);
-    } catch {
-      setDefaults(null);
-    } finally {
-      setLoadingDefaults(false);
-    }
-  };
-
-  const loadUsage = async () => {
-    if (!tenantId) return;
-    setLoadingUsage(true);
-    try {
-      const data = await fetchJson<{
-        byCategory: Record<string, number>;
-        byModel: Record<string, number>;
-        totalCredits: number;
-      }>(`/costs/ai-usage?tenant_id=${encodeURIComponent(tenantId)}`);
-      setUsage(data ?? null);
-    } catch {
-      setUsage(null);
-    } finally {
-      setLoadingUsage(false);
-    }
-  };
-
-  React.useEffect(() => {
-    loadRegistry();
-  }, []);
-
-  React.useEffect(() => {
-    if (tenantId) {
-      loadDefaults();
-      loadUsage();
-    } else {
-      setDefaults(null);
-      setUsage(null);
-    }
-  }, [tenantId]);
-
-  const tenantList = React.useMemo(() => tenants ?? [], [tenants]);
+  const {
+    tenantsLoading,
+    tenantId,
+    setTenantId,
+    registry,
+    defaults,
+    usage,
+    loadingRegistry,
+    loadingDefaults,
+    loadingUsage,
+    tenantList,
+  } = useAIModels();
 
   return (
     <div className="container mx-auto py-6 space-y-6 p-6">

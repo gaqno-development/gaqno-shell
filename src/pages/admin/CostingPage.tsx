@@ -1,6 +1,4 @@
-import React, { useState, useMemo } from "react";
 import { CostingView } from "../../components/admin/CostingView";
-import { useTenants } from "@gaqno-development/frontcore/hooks/admin/useTenants";
 import {
   Card,
   CardContent,
@@ -17,12 +15,11 @@ import {
 } from "@gaqno-development/frontcore/components/ui";
 import { Skeleton } from "@gaqno-development/frontcore/components/ui";
 import { DollarSign } from "lucide-react";
+import { useCostingPage } from "../../hooks/useCostingPage";
 
 export default function CostingPage() {
-  const { tenants, isLoading: tenantsLoading } = useTenants();
-  const [tenantId, setTenantId] = useState<string>("");
-
-  const tenantList = useMemo(() => tenants ?? [], [tenants]);
+  const { tenantsLoading, tenantId, setTenantId, tenantList } =
+    useCostingPage();
 
   if (tenantsLoading) {
     return (

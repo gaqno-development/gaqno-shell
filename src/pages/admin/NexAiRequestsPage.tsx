@@ -1,4 +1,3 @@
-import React, { useCallback, useEffect, useState } from "react";
 import type { ColumnDef } from "@gaqno-development/frontcore/components/ui";
 import {
   Card,
@@ -14,42 +13,9 @@ import {
   SelectValue,
   Skeleton,
 } from "@gaqno-development/frontcore/components/ui";
-import { useTenants } from "@gaqno-development/frontcore/hooks/admin/useTenants";
 import { Button } from "@gaqno-development/frontcore/components/ui";
 import { Activity, ChevronLeft, ChevronRight } from "lucide-react";
-
-const PAGE_SIZE = 25;
-
-const getSaasBase = (): string => {
-  try {
-    const env = (import.meta as { env?: Record<string, string> }).env;
-    return env?.VITE_SERVICE_SAAS_URL ?? "http://localhost:4009";
-  } catch {
-    return "http://localhost:4009";
-  }
-};
-
-async function fetchJson<T>(path: string): Promise<T> {
-  const base = getSaasBase();
-  const url = base ? `${base.replace(/\/$/, "")}${path}` : path;
-  const res = await fetch(url, {
-    credentials: "include",
-    headers: { Accept: "application/json" },
-  });
-  if (!res.ok) throw new Error(await res.text());
-  return res.json() as Promise<T>;
-}
-
-interface UsageRequestRow {
-  id: string;
-  tenantId: string | null;
-  userId: string | null;
-  taskId: string | null;
-  category: string | null;
-  nexaiModel: string | null;
-  priceInCredits: number | null;
-  createdAt: string;
-}
+import { useNexAiRequests, type UsageRequestRow } from "../../hooks/useNexAiRequests";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleString("pt-BR", {
@@ -59,52 +25,29 @@ function formatDate(iso: string): string {
 }
 
 export default function NexAiRequestsPage() {
-  const { tenants, isLoading: tenantsLoading } = useTenants();
-  const [tenantId, setTenantId] = useState<string>("");
-  const [from, setFrom] = useState<string>(() => {
-    const d = new Date();
-    d.setDate(d.getDate() - 30);
-    return d.toISOString().slice(0, 10);
-  });
-  const [to, setTo] = useState<string>(() =>
-    new Date().toISOString().slice(0, 10)
-  );
-  const [category, setCategory] = useState<string>("");
-  const [offset, setOffset] = useState(0);
-  const [data, setData] = useState<{
-    items: UsageRequestRow[];
-    total: number;
-  } | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchRequests = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const params = new URLSearchParams();
-      params.set("from", from);
-      params.set("to", to);
-      params.set("limit", String(PAGE_SIZE));
-      params.set("offset", String(offset));
-      if (tenantId) params.set("tenant_id", tenantId);
-      if (category) params.set("category", category);
-      const result = await fetchJson<{
-        items: UsageRequestRow[];
-        total: number;
-      }>(`/costs/ai-requests?${params.toString()}`);
-      setData(result);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to load requests");
-      setData({ items: [], total: 0 });
-    } finally {
-      setLoading(false);
-    }
-  }, [tenantId, from, to, category, offset]);
-
-  useEffect(() => {
-    fetchRequests();
-  }, [fetchRequests]);
+  const {
+    tenants,
+    tenantsLoading,
+    tenantId,
+    setTenantId,
+    from,
+    setFrom,
+    to,
+    setTo,
+    category,
+    setCategory,
+    data,
+    loading,
+    error,
+    fetchRequests,
+    total,
+    start,
+    end,
+    hasNext,
+    hasPrev,
+    goPrev,
+    goNext,
+  } = useNexAiRequests();
 
   const columns: ColumnDef<UsageRequestRow, unknown>[] = [
     {
@@ -165,12 +108,6 @@ export default function NexAiRequestsPage() {
     },
   ];
 
-  const total = data?.total ?? 0;
-  const start = offset + 1;
-  const end = Math.min(offset + PAGE_SIZE, total);
-  const hasNext = offset + PAGE_SIZE < total;
-  const hasPrev = offset > 0;
-
   return (
     <div className="container mx-auto py-6 space-y-6 p-6">
       <div>
@@ -194,10 +131,7 @@ export default function NexAiRequestsPage() {
               <label className="text-muted-foreground text-xs">Tenant</label>
               <Select
                 value={tenantId || "all"}
-                onValueChange={(v) => {
-                  setTenantId(v === "all" ? "" : v);
-                  setOffset(0);
-                }}
+                onValueChange={(v) => setTenantId(v === "all" ? "" : v)}
               >
                 <SelectTrigger className="w-[220px]">
                   <SelectValue placeholder="Todos" />
@@ -218,10 +152,7 @@ export default function NexAiRequestsPage() {
                 type="date"
                 className="border rounded-md px-3 py-2 h-9 text-sm bg-background"
                 value={from}
-                onChange={(e) => {
-                  setFrom(e.target.value);
-                  setOffset(0);
-                }}
+                onChange={(e) => setFrom(e.target.value)}
               />
             </div>
             <div className="space-y-1">
@@ -230,20 +161,14 @@ export default function NexAiRequestsPage() {
                 type="date"
                 className="border rounded-md px-3 py-2 h-9 text-sm bg-background"
                 value={to}
-                onChange={(e) => {
-                  setTo(e.target.value);
-                  setOffset(0);
-                }}
+                onChange={(e) => setTo(e.target.value)}
               />
             </div>
             <div className="space-y-1">
               <label className="text-muted-foreground text-xs">Categoria</label>
               <Select
                 value={category || "all"}
-                onValueChange={(v) => {
-                  setCategory(v === "all" ? "" : v);
-                  setOffset(0);
-                }}
+                onValueChange={(v) => setCategory(v === "all" ? "" : v)}
               >
                 <SelectTrigger className="w-[140px]">
                   <SelectValue />
@@ -292,9 +217,7 @@ export default function NexAiRequestsPage() {
                       variant="outline"
                       size="sm"
                       disabled={!hasPrev}
-                      onClick={() =>
-                        setOffset((o) => Math.max(0, o - PAGE_SIZE))
-                      }
+                      onClick={goPrev}
                     >
                       <ChevronLeft className="h-4 w-4" />
                       Anterior
@@ -303,7 +226,7 @@ export default function NexAiRequestsPage() {
                       variant="outline"
                       size="sm"
                       disabled={!hasNext}
-                      onClick={() => setOffset((o) => o + PAGE_SIZE)}
+                      onClick={goNext}
                     >
                       Próxima
                       <ChevronRight className="h-4 w-4" />
