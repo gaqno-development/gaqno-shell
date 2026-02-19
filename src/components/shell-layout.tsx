@@ -102,7 +102,9 @@ export function ShellLayout({
               <Breadcrumb className="hidden min-w-0 shrink sm:block">
                 <BreadcrumbList>
                   <BreadcrumbItem>
-                    <BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink>
+                    <BreadcrumbLink asChild>
+                      <Link to="/">Home</Link>
+                    </BreadcrumbLink>
                   </BreadcrumbItem>
                   {pathSegments.map((segment, i) => {
                     const href = "/" + pathSegments.slice(0, i + 1).join("/");
@@ -116,7 +118,9 @@ export function ShellLayout({
                           {isLast ? (
                             <BreadcrumbPage>{label}</BreadcrumbPage>
                           ) : (
-                            <BreadcrumbLink asChild><Link to={href}>{label}</Link></BreadcrumbLink>
+                            <BreadcrumbLink asChild>
+                              <Link to={href}>{label}</Link>
+                            </BreadcrumbLink>
                           )}
                         </BreadcrumbItem>
                       </React.Fragment>
@@ -161,7 +165,7 @@ export function ShellLayout({
           </div>
         </header>
         <main className="min-h-0 flex-1 overflow-auto bg-background">
-          <div className="mx-auto max-w-7xl sm:px-6 md:mx-0">
+          <div className="mx-auto max-w-7xl md:mx-0">
             <MicroFrontendErrorBoundary>
               <AnimatePresence mode="wait">
                 <motion.div
