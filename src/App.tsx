@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@gaqno-development/frontcore/components/providers";
 import { QueryProvider } from "@gaqno-development/frontcore/components/providers";
 import { AuthProvider } from "@gaqno-development/frontcore/contexts";
-import { ToastContainer } from "@gaqno-development/frontcore/components/ui";
+import { ToastContainer, Toaster } from "@gaqno-development/frontcore/components/ui";
 import { ShellLayoutWrapper } from "@/components/shell-layout-wrapper";
 import { RouteErrorElement } from "@/components/route-error-element";
 import HomePage from "./pages/HomePage";
@@ -345,6 +345,7 @@ export default function App() {
         <AuthProvider>
           <RouterProvider router={router} />
           <ToastContainer />
+          <Toaster />
         </AuthProvider>
       </QueryProvider>
     </ThemeProvider>
