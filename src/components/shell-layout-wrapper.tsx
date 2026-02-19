@@ -1,11 +1,11 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { DashboardLayout } from "@gaqno-development/frontcore/components";
 import { AppProvider } from "@gaqno-development/frontcore/components/providers";
 import { WhiteLabelProvider } from "@gaqno-development/frontcore/components/providers";
 import { TenantProvider } from "@gaqno-development/frontcore/contexts";
 import { MicroFrontendErrorBoundary } from "@/components/microfrontend-error-boundary";
+import { ApplicationShellLayout } from "@/components/application-shell-layout";
 import { useShellLayout } from "@/hooks/useShellLayout";
 
 export function ShellLayoutWrapper() {
@@ -38,22 +38,11 @@ export function ShellLayoutWrapper() {
     <AppProvider>
       <WhiteLabelProvider>
         <TenantProvider>
-          <DashboardLayout menuItems={menuItems}>
-            <MicroFrontendErrorBoundary>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={transitionKey}
-                  initial={pageTransition.initial}
-                  animate={pageTransition.animate}
-                  exit={pageTransition.exit}
-                  transition={pageTransition.transition}
-                  className="min-h-0 flex-1 flex flex-col"
-                >
-                  <Outlet />
-                </motion.div>
-              </AnimatePresence>
-            </MicroFrontendErrorBoundary>
-          </DashboardLayout>
+          <ApplicationShellLayout
+            menuItems={menuItems}
+            transitionKey={transitionKey}
+            pageTransition={pageTransition}
+          />
         </TenantProvider>
       </WhiteLabelProvider>
     </AppProvider>

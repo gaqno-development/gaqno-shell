@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@gaqno-development/frontcore/components/providers";
 import { QueryProvider } from "@gaqno-development/frontcore/components/providers";
 import { AuthProvider } from "@gaqno-development/frontcore/contexts";
-import { ToastContainer, Toaster } from "@gaqno-development/frontcore/components/ui";
+import { ToastContainer } from "@gaqno-development/frontcore/components/ui";
 import { ShellLayoutWrapper } from "@/components/shell-layout-wrapper";
 import { RouteErrorElement } from "@/components/route-error-element";
 import HomePage from "./pages/HomePage";
@@ -37,6 +37,8 @@ import AdminUsagePage from "./pages/admin/AdminUsagePage";
 import CostingPage from "./pages/admin/CostingPage";
 import AIModelsPage from "./pages/admin/AIModelsPage";
 import NexAiRequestsPage from "./pages/admin/NexAiRequestsPage";
+import DashboardShell01Page from "./pages/DashboardShell01Page";
+import ApplicationShell01Page from "./pages/ApplicationShell01Page";
 import { Suspense } from "react";
 import { lazyWithCss } from "@/utils/lazy-with-css";
 
@@ -79,6 +81,8 @@ const router = createBrowserRouter(
         { path: "/dashboard/user", Component: UserDashboardPage },
         { path: "/dashboard/settings", Component: SettingsPage },
         { path: "/dashboard/profile", Component: ProfilePage },
+        { path: "/dashboard-shell-01", Component: DashboardShell01Page },
+        { path: "/application-shell-01", Component: ApplicationShell01Page },
         { path: "/unauthorized", Component: UnauthorizedPage },
         { path: "/error", Component: ErrorPage },
         {
@@ -345,7 +349,6 @@ export default function App() {
         <AuthProvider>
           <RouterProvider router={router} />
           <ToastContainer />
-          <Toaster />
         </AuthProvider>
       </QueryProvider>
     </ThemeProvider>

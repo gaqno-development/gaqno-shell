@@ -20,6 +20,8 @@ const AUTHENTICATED_ROUTES = [
 
 const PUBLIC_ROUTES = ["/login", "/register", "/"];
 
+const STANDALONE_DEMO_ROUTES = ["/application-shell-01", "/dashboard-shell-01"];
+
 const MICRO_FRONTEND_ROUTES = [
   "/ai",
   "/crm",
@@ -35,6 +37,13 @@ const MICRO_FRONTEND_ROUTES = [
 function shouldShowDashboardLayout(pathname: string): boolean {
   if (
     PUBLIC_ROUTES.some(
+      (route) => pathname === route || pathname.startsWith(route + "/")
+    )
+  ) {
+    return false;
+  }
+  if (
+    STANDALONE_DEMO_ROUTES.some(
       (route) => pathname === route || pathname.startsWith(route + "/")
     )
   ) {
