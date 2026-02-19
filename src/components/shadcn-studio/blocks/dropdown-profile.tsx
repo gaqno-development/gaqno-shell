@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-
+import { Link, useLocation } from 'react-router-dom'
 import {
   UserIcon,
   SettingsIcon,
@@ -7,9 +7,9 @@ import {
   UsersIcon,
   SquarePenIcon,
   CirclePlusIcon,
-  LogOutIcon
+  LogOutIcon,
+  RouteIcon
 } from 'lucide-react'
-
 import {
   Avatar,
   AvatarImage,
@@ -24,6 +24,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@gaqno-development/frontcore/components/ui'
+import type { ShellMenuItem } from '@/components/shell-sidebar'
 
 export type ProfileDropdownProfile = {
   name?: string
@@ -35,10 +36,24 @@ export type ProfileDropdownUser = {
   email?: string
 }
 
+function flattenRoutes(items: ShellMenuItem[]): { label: string; href: string }[] {
+  const out: { label: string; href: string }[] = []
+  for (const item of items) {
+    if (item.href && item.href !== '#') {
+      out.push({ label: item.label, href: item.href })
+    }
+    if (item.children?.length) {
+      out.push(...flattenRoutes(item.children))
+    }
+  }
+  return out
+}
+
 type Props = {
   trigger: ReactNode
   defaultOpen?: boolean
   align?: 'start' | 'center' | 'end'
+  menuItems?: ShellMenuItem[]
   profile?: ProfileDropdownProfile | null
   user?: ProfileDropdownUser | null
   onLogout?: () => void | Promise<void>
@@ -48,15 +63,19 @@ const ProfileDropdown = ({
   trigger,
   defaultOpen,
   align = 'end',
+  menuItems = [],
   profile,
   user,
   onLogout
 }: Props) => {
+  const location = useLocation()
+  const pathname = location.pathname
   const displayName = profile?.name ?? user?.email ?? null
   const displayEmail = user?.email ?? null
   const avatarFallback = displayName
     ? displayName.slice(0, 2).toUpperCase()
     : '?'
+  const routes = flattenRoutes(menuItems)
 
   return (
     <DropdownMenu defaultOpen={defaultOpen}>
@@ -86,6 +105,32 @@ const ProfileDropdown = ({
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
+
+        {routes.length > 0 && (
+          <>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className='text-muted-foreground px-4 py-1.5 text-xs font-medium'>
+                Navegação
+              </DropdownMenuLabel>
+              <div className='max-h-48 overflow-y-auto'>
+                {routes.map(({ label, href }, index) => (
+                  <DropdownMenuItem key={`${href}-${index}`} asChild>
+                    <Link
+                      to={href}
+                      className='flex items-center gap-2 px-4 py-2.5 text-base'
+                    >
+                      <RouteIcon className='text-foreground size-5 shrink-0' />
+                      <span className={pathname === href || pathname.startsWith(href + '/') ? 'font-medium' : ''}>
+                        {label}
+                      </span>
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </div>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+          </>
+        )}
 
         <DropdownMenuGroup>
           <DropdownMenuItem className='px-4 py-2.5 text-base'>

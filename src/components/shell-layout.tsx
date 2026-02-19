@@ -1,11 +1,12 @@
 import React from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
 import {
   FacebookIcon,
   InstagramIcon,
   LanguagesIcon,
   LinkedinIcon,
+  MoonIcon,
   TwitterIcon,
 } from "lucide-react";
 
@@ -35,6 +36,7 @@ import { Separator } from "@gaqno-development/frontcore/components/ui";
 
 import LanguageDropdown from "@/components/shadcn-studio/blocks/dropdown-language";
 import ProfileDropdown from "@/components/shadcn-studio/blocks/dropdown-profile";
+import ThemeDropdown from "@/components/shadcn-studio/blocks/dropdown-theme";
 import { MicroFrontendErrorBoundary } from "@/components/microfrontend-error-boundary";
 import type { ShellMenuItem } from "@/components/shell-sidebar";
 
@@ -100,7 +102,7 @@ export function ShellLayout({
               <Breadcrumb className="hidden min-w-0 shrink sm:block">
                 <BreadcrumbList>
                   <BreadcrumbItem>
-                    <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                    <BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink>
                   </BreadcrumbItem>
                   {pathSegments.map((segment, i) => {
                     const href = "/" + pathSegments.slice(0, i + 1).join("/");
@@ -114,7 +116,7 @@ export function ShellLayout({
                           {isLast ? (
                             <BreadcrumbPage>{label}</BreadcrumbPage>
                           ) : (
-                            <BreadcrumbLink href={href}>{label}</BreadcrumbLink>
+                            <BreadcrumbLink asChild><Link to={href}>{label}</Link></BreadcrumbLink>
                           )}
                         </BreadcrumbItem>
                       </React.Fragment>
@@ -131,7 +133,15 @@ export function ShellLayout({
                   </Button>
                 }
               />
+              <ThemeDropdown
+                trigger={
+                  <Button variant="ghost" size="icon" aria-label="Tema">
+                    <MoonIcon className="size-5" />
+                  </Button>
+                }
+              />
               <ProfileDropdown
+                menuItems={menuItems}
                 profile={profile}
                 user={user}
                 onLogout={handleSignOut}
@@ -151,7 +161,7 @@ export function ShellLayout({
           </div>
         </header>
         <main className="min-h-0 flex-1 overflow-auto bg-background">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 md:mx-0">
+          <div className="mx-auto max-w-7xl sm:px-6 md:mx-0">
             <MicroFrontendErrorBoundary>
               <AnimatePresence mode="wait">
                 <motion.div
