@@ -35,9 +35,7 @@ export default defineConfig(async () => {
     },
     plugins: [
       react(),
-      tailwindcss({
-        config: path.resolve(__dirname, "./tailwind.config.ts"),
-      }),
+      tailwindcss(),
       VitePWA({
         registerType: "autoUpdate",
         manifest: {
