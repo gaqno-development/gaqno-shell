@@ -166,8 +166,8 @@ export function ShellLayout({
             </div>
           </div>
         </header>
-        <main className="min-h-0 flex-1 overflow-auto bg-background">
-          <div className="w-full min-w-0">
+        <main className="min-h-0 flex-1 flex flex-col overflow-auto bg-background">
+          <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col">
             <MicroFrontendErrorBoundary>
               <AnimatePresence mode="wait">
                 <motion.div
@@ -176,7 +176,7 @@ export function ShellLayout({
                   animate={pageTransition.animate}
                   exit={pageTransition.exit}
                   transition={pageTransition.transition}
-                  className="min-h-0 min-w-0"
+                  className="flex min-h-0 min-w-0 flex-1 flex-col"
                 >
                   <Outlet />
                 </motion.div>
