@@ -25,6 +25,7 @@ const SERVICE_NAMES: Record<string, string> = {
   "/ai": "AI",
   "/sso": "SSO",
   "/omnichannel": "Omnichannel",
+  "/saas": "SAAS",
 };
 
 function getServiceName(pathname: string): string {

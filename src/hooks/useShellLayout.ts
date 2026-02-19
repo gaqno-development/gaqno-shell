@@ -16,6 +16,7 @@ const MFE_ROUTES = [
   "/admin",
   "/sso",
   "/omnichannel",
+  "/saas",
 ];
 const LAYOUT_ROUTES = ["/dashboard", ...MFE_ROUTES];
 const PUBLIC_ROUTES = ["/login", "/register", "/"];

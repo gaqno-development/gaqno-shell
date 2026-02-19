@@ -30,6 +30,7 @@ const SERVICE_NAMES: Record<string, string> = {
   "/sso": "SSO",
   "/rpg": "RPG",
   "/omnichannel": "Omnichannel",
+  "/saas": "SAAS",
 }
 
 function getServiceName(pathname: string): string {
