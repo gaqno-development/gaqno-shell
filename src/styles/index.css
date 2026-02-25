@@ -1,0 +1,5 @@
+@import "@gaqno-development/frontcore/styles/globals.css";
+@plugin "tailwind-scrollbar";
+
+@source "../**/*.{js,ts,jsx,tsx}";
+@source "../../index.html";
