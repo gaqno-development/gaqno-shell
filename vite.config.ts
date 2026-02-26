@@ -133,7 +133,6 @@ export default defineConfig(async () => {
         external: ["stream", "events", "crypto", "util", "buffer", "process"],
         output: {
           format: "es",
-          assetFileNames: "assets/[name].[ext]",
         },
       },
       commonjsOptions: {
