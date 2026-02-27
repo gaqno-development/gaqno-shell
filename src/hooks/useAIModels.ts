@@ -78,7 +78,7 @@ export function useAIModels() {
     setLoadingDefaults(true);
     setLoadingUsage(true);
     fetchSaasJson<AIModelsDefaults>(
-      `/ai-models/${encodeURIComponent(tenantId)}/defaults`,
+      `/ai-models/${encodeURIComponent(String(tenantId ?? ""))}/defaults`,
       { headers: { "Content-Type": "application/json" } }
     )
       .then((data) => {
@@ -91,7 +91,7 @@ export function useAIModels() {
         if (!cancelled) setLoadingDefaults(false);
       });
     fetchSaasJson<AIModelsUsage>(
-      `/costs/ai-usage?tenant_id=${encodeURIComponent(tenantId)}`,
+      `/costs/ai-usage?tenant_id=${encodeURIComponent(String(tenantId ?? ""))}`,
       { headers: { "Content-Type": "application/json" } }
     )
       .then((data) => {
