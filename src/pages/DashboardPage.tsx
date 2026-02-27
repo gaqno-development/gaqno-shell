@@ -13,6 +13,7 @@ import { useDashboardOverview } from "../hooks/useDashboardOverview";
 import { OverviewCard } from "../components/dashboard/OverviewCard";
 import { ActivityItem } from "../components/dashboard/ActivityItem";
 import { ServiceUsageChart } from "../components/dashboard/ServiceUsageChart";
+import { MonitoringWidgets } from "../components/dashboard/MonitoringWidgets";
 
 export default function DashboardPage() {
   const {
@@ -68,6 +69,8 @@ export default function DashboardPage() {
               <Skeleton key={i} className="h-[120px] rounded-lg" />
             ))}
       </div>
+
+      <MonitoringWidgets />
 
       <ServiceUsageChart
         data={chartData}
