@@ -96,7 +96,7 @@ export function ShellLayout({
         onClick={() => sidebarOpen && setSidebarOpen(false)}
       >
         <header className="bg-card sticky top-0 z-40 shrink-0 border-b">
-          <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-2 sm:px-6">
+          <div className="flex w-full items-center justify-between gap-6 px-4 py-2 sm:px-6">
             <div className="flex min-w-0 items-center gap-4">
               <SidebarTrigger className="[&_svg]:!size-5" />
               <Separator
@@ -168,7 +168,7 @@ export function ShellLayout({
           </div>
         </header>
         <main className="min-h-0 flex-1 flex flex-col overflow-auto bg-background">
-          <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col">
+          <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col p-4">
             <MicroFrontendErrorBoundary>
               <AnimatePresence mode="wait">
                 <motion.div

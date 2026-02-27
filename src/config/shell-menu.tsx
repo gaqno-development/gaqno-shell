@@ -33,13 +33,68 @@ export const SHELL_MENU_ITEMS: ShellMenuItem[] = [
   },
   {
     label: "CRM",
-    href: "/crm/dashboard",
+    href: "/crm/dashboard/overview",
     icon: UsersIcon,
+    isCollapsible: true,
     children: [
       {
-        label: "AI Marketing",
-        href: "/crm/ai-marketing/video",
-        icon: AnimatedSparklesIcon,
+        label: "Overview",
+        href: "/crm/dashboard/overview",
+        icon: LayoutPanelTopIcon,
+        children: [
+          {
+            label: "Dashboard",
+            href: "/crm/dashboard/overview",
+            icon: LayoutPanelTopIcon,
+          },
+        ],
+      },
+      {
+        label: "Business",
+        href: "/crm/sales/leads",
+        icon: FileDescriptionIcon,
+        children: [
+          { label: "Sales", href: "/crm/sales/leads", icon: FileDescriptionIcon },
+          { label: "Customers", href: "/crm/customers/accounts", icon: UsersIcon },
+          { label: "Inventory", href: "/crm/inventory/products", icon: BoxesIcon },
+          {
+            label: "Operations",
+            href: "/crm/operations/order-fulfillment",
+            icon: FileDescriptionIcon,
+          },
+          { label: "Finance", href: "/crm/finance/invoices", icon: DollarSignIcon },
+        ],
+      },
+      {
+        label: "Insights",
+        href: "/crm/reports/analytics",
+        icon: LayoutPanelTopIcon,
+        children: [
+          { label: "Reports", href: "/crm/reports/analytics", icon: LayoutPanelTopIcon },
+          { label: "Automation", href: "/crm/automation/workflows", icon: ShieldCheck },
+          {
+            label: "AI Marketing",
+            href: "/crm/ai-marketing/video",
+            icon: AnimatedSparklesIcon,
+          },
+        ],
+      },
+      {
+        label: "Administration",
+        href: "/crm/administration/users",
+        icon: GearIcon,
+        children: [
+          {
+            label: "Users & Teams",
+            href: "/crm/administration/users",
+            icon: ShieldCheck,
+          },
+          {
+            label: "Settings",
+            href: "/crm/settings/organization",
+            icon: GearIcon,
+          },
+        ],
       },
     ],
   },

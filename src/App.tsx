@@ -44,11 +44,6 @@ import { lazy, Suspense } from "react";
 // @ts-nocheck
 const AIPage = lazy(() => import("ai/App" as string));
 const CRMPage = lazy(() => import("crm/App" as string));
-const CRMOverviewPage = lazy(() => import("crm/OverviewPage" as string));
-const CRMLeadsPage = lazy(() => import("crm/LeadsPage" as string));
-const CRMDealsPage = lazy(() => import("crm/DealsPage" as string));
-const CRMContactsPage = lazy(() => import("crm/ContactsPage" as string));
-const CRMInteractionHistoryPage = lazy(() => import("crm/InteractionHistoryPage" as string));
 const ERPPage = lazy(() => import("erp/App" as string));
 const ERPDashboardPage = lazy(() => import("erp/DashboardPage" as string));
 const ERPCatalogPage = lazy(() => import("erp/CatalogPage" as string));
@@ -129,47 +124,7 @@ const router = createBrowserRouter(
           children: [
             {
               index: true,
-              element: <Navigate to="dashboard" replace />,
-            },
-            {
-              path: "dashboard",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <CRMOverviewPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "sales/leads",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <CRMLeadsPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "sales/deals",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <CRMDealsPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "customers/contacts",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <CRMContactsPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "customers/interaction-history",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <CRMInteractionHistoryPage />
-                </Suspense>
-              ),
+              element: <Navigate to="dashboard/overview" replace />,
             },
             {
               path: "*",
