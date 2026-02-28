@@ -28,11 +28,18 @@ export function MicroFrontendPage({
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-4 max-w-md px-4">
           <h2 className="text-2xl font-bold text-destructive">
-            Error Loading Module
+            Módulo não disponível
           </h2>
           <p className="text-muted-foreground">{error}</p>
+          <button
+            type="button"
+            onClick={() => window.location.reload()}
+            className="rounded-md bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
+          >
+            Tentar novamente
+          </button>
         </div>
       </div>
     );

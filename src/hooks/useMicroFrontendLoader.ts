@@ -1,9 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
+const LOAD_TIMEOUT_MS = 18000;
+const RETRY_DELAY_MS = 2500;
+const PREFLIGHT_TIMEOUT_MS = 5000;
+
 interface UseMicroFrontendLoaderArgs {
   remoteName: string;
   moduleName: string;
+}
+
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(new Error(`Timeout after ${ms}ms`));
+    }, ms);
+    promise
+      .then((value) => {
+        clearTimeout(timer);
+        resolve(value);
+      })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
+}
+
+function normalizeErrorMessage(err: unknown, remoteName: string): string {
+  const msg = err instanceof Error ? err.message : String(err);
+  const lower = msg.toLowerCase();
+  if (
+    lower.includes("502") ||
+    lower.includes("503") ||
+    lower.includes("504") ||
+    lower.includes("bad gateway") ||
+    lower.includes("service unavailable") ||
+    lower.includes("gateway timeout")
+  ) {
+    return `Serviço temporariamente indisponível (erro de rede). O módulo "${remoteName}" não respondeu. Tente novamente.`;
+  }
+  if (
+    lower.includes("failed to fetch") ||
+    lower.includes("network") ||
+    lower.includes("load failed") ||
+    lower.includes("chunk") ||
+    lower.includes("dynamically imported")
+  ) {
+    return `Serviço temporariamente indisponível (erro de rede). O módulo "${remoteName}" não pôde ser carregado. Tente novamente.`;
+  }
+  if (lower.includes("timeout") || lower.includes("demorou demais")) {
+    return `Módulo demorou demais para carregar. O módulo "${remoteName}" não respondeu a tempo. Tente novamente.`;
+  }
+  return `Não foi possível carregar o módulo "${remoteName}". ${msg}`;
 }
 
 export function useMicroFrontendLoader({
@@ -18,133 +67,120 @@ export function useMicroFrontendLoader({
     let isMounted = true;
     const importPath = `${remoteName}/./${moduleName}`;
 
+    const runPreflightIfPossible = async (): Promise<boolean> => {
+      if (typeof window === "undefined") return true;
+      const federation = (window as unknown as { __FEDERATION__?: Record<string, unknown> })
+        .__FEDERATION__;
+      const entry = federation?.[remoteName] as Record<string, unknown> | undefined;
+      const entryUrl = typeof entry?.entry === "string" ? entry.entry : null;
+      if (!entryUrl || !entryUrl.startsWith("http")) return true;
+      try {
+        await fetch(entryUrl, {
+          method: "HEAD",
+          signal: AbortSignal.timeout(PREFLIGHT_TIMEOUT_MS),
+        });
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
+    const tryLoad = async (): Promise<void> => {
+      const preflightOk = await runPreflightIfPossible();
+      if (!isMounted) return;
+      if (!preflightOk) {
+        setError(
+          `Serviço indisponível. O módulo "${remoteName}" não está respondendo. Tente novamente.`
+        );
+        return;
+      }
+
+      if (
+        typeof window !== "undefined" &&
+        (window as unknown as { __FEDERATION__?: unknown }).__FEDERATION__
+      ) {
+        const federation = (window as unknown as { __FEDERATION__?: Record<string, unknown> })
+          .__FEDERATION__;
+        const instance = (federation as unknown as {
+          __INSTANCES__?: Array<{
+            loadRemote?: (path: string) => Promise<unknown>;
+          }>;
+        })?.__INSTANCES__?.[0];
+
+        if (
+          instance &&
+          typeof (instance as { loadRemote?: (path: string) => Promise<unknown> }).loadRemote ===
+            "function"
+        ) {
+          const loadPromise = (
+            instance as { loadRemote: (path: string) => Promise<unknown> }
+          ).loadRemote(`${remoteName}/./${moduleName}`);
+          const moduleOrFactory = await withTimeout(loadPromise, LOAD_TIMEOUT_MS);
+          const container =
+            typeof moduleOrFactory === "function"
+              ? await (moduleOrFactory as () => Promise<{ default?: React.ComponentType }>)()
+              : (moduleOrFactory as { default?: React.ComponentType });
+          if (isMounted) {
+            const RemoteComponent = container?.default ?? container;
+            if (RemoteComponent) {
+              setComponent(() => RemoteComponent as React.ComponentType);
+              return;
+            }
+          }
+        }
+      }
+
+      let container: { default?: React.ComponentType } | null = null;
+      try {
+        container = await withTimeout(
+          import(/* @vite-ignore */ importPath) as Promise<{ default?: React.ComponentType }>,
+          LOAD_TIMEOUT_MS
+        );
+      } catch (err) {
+        const altImportPath = `${remoteName}/${moduleName}`;
+        try {
+          container = await withTimeout(
+            import(/* @vite-ignore */ altImportPath) as Promise<{ default?: React.ComponentType }>,
+            LOAD_TIMEOUT_MS
+          );
+        } catch {
+          throw err;
+        }
+      }
+
+      const RemoteComponent = container?.default ?? container;
+      if (isMounted && RemoteComponent) {
+        setComponent(() => RemoteComponent as React.ComponentType);
+      } else if (isMounted) {
+        setError(`Componente não encontrado no módulo "${remoteName}".`);
+      }
+    };
+
     const loadMicroFrontend = async () => {
       try {
         setError(null);
         setComponent(null);
 
-        const logContext = {
+        console.log(`[Module Federation] Attempting to load: ${importPath}`, {
           remoteName,
           moduleName,
-          importPath,
           timestamp: new Date().toISOString(),
-          userAgent: navigator.userAgent,
-          location: window.location.href,
-        };
+        });
 
-        console.log(
-          `[Module Federation] Attempting to load: ${importPath}`,
-          logContext
-        );
-
-        if (
-          typeof window !== "undefined" &&
-          (window as unknown as { __FEDERATION__?: unknown }).__FEDERATION__
-        ) {
-          const federation = (window as unknown as { __FEDERATION__?: Record<string, unknown> })
-            .__FEDERATION__;
-          const remoteDetails = federation?.[remoteName]
-            ? {
-                exists: true,
-                name: (federation[remoteName] as Record<string, unknown>)?.name,
-                entry: (federation[remoteName] as Record<string, unknown>)?.entry,
-                exposes:
-                  (federation[remoteName] as Record<string, unknown>)?.exposes ||
-                  "not available",
-              }
-            : "not found";
-
-          const allRemotesInfo =
-            federation ?
-              Object.keys(federation).reduce(
-                (acc, key) => {
-                  acc[key] = {
-                    name: (federation[key] as Record<string, unknown>)?.name,
-                    entry: (federation[key] as Record<string, unknown>)?.entry,
-                    type: typeof federation[key],
-                    keys: Object.keys((federation[key] as object) || {}),
-                    fullObject: federation[key],
-                  };
-                  return acc;
-                },
-                {} as Record<string, unknown>
-              )
-            : {};
-
-          const instance = (federation as unknown as { __INSTANCES__?: { options?: { remotes?: unknown[] }; loadRemote?: (path: string) => Promise<unknown>; remoteHandler?: unknown; name?: string; snapshotHandler?: unknown }[] })?.__INSTANCES__?.[0];
-          const instanceRemotes = instance?.options?.remotes || [];
-
-          console.log(`[Module Federation] Runtime detected:`, {
-            federationExists: !!federation,
-            remotes: federation ? Object.keys(federation) : [],
-            remoteInfo: remoteDetails,
-            allRemotes: allRemotesInfo,
-            instanceRemotes,
-            instanceRemotesLength: instanceRemotes.length,
-          });
-
-          if (
-            instance &&
-            typeof (instance as { loadRemote?: (path: string) => Promise<unknown> }).loadRemote ===
-              "function"
-          ) {
-            try {
-              console.log(
-                `[Module Federation] Using loadRemote API with path: ${importPath}`
-              );
-              const moduleOrFactory = await (
-                instance as { loadRemote: (path: string) => Promise<unknown> }
-              ).loadRemote(`${remoteName}/./${moduleName}`);
-              const container =
-                typeof moduleOrFactory === "function"
-                  ? await (moduleOrFactory as () => Promise<{ default?: React.ComponentType }>)()
-                  : (moduleOrFactory as { default?: React.ComponentType });
-              if (isMounted) {
-                const RemoteComponent = container?.default ?? container;
-                if (RemoteComponent) {
-                  setComponent(() => RemoteComponent as React.ComponentType);
-                  return;
-                }
-              }
-            } catch {
-              // fall through to direct import
-            }
-          }
-        }
-
-        let container: { default?: React.ComponentType } | null = null;
-        let importError: Error | null = null;
-
-        try {
-          container = await import(
-            /* @vite-ignore */ importPath
-          ) as { default?: React.ComponentType };
-        } catch (err) {
-          importError = err instanceof Error ? err : new Error(String(err));
-          const altImportPath = `${remoteName}/${moduleName}`;
-          try {
-            container = await import(
-              /* @vite-ignore */ altImportPath
-            ) as { default?: React.ComponentType };
-          } catch (altErr) {
-            throw importError;
-          }
-        }
-
-        const RemoteComponent = container?.default ?? container;
-
-        if (isMounted && RemoteComponent) {
-          setComponent(() => RemoteComponent as React.ComponentType);
-        } else if (isMounted) {
-          setError(`Component not found in container for ${importPath}`);
-        }
+        await tryLoad();
       } catch (err) {
-        if (isMounted) {
-          const errorMessage =
-            err instanceof Error
-              ? `Failed to load ${remoteName}: ${err.message}`
-              : `Failed to load ${remoteName}. Please ensure the micro-frontend is running.`;
-          setError(errorMessage);
+        if (!isMounted) return;
+        const retryAfter = new Promise<void>((resolve) =>
+          setTimeout(resolve, RETRY_DELAY_MS)
+        );
+        await retryAfter;
+        if (!isMounted) return;
+        try {
+          await tryLoad();
+        } catch (retryErr) {
+          if (isMounted) {
+            setError(normalizeErrorMessage(retryErr, remoteName));
+          }
         }
       }
     };

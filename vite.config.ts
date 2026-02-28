@@ -7,18 +7,24 @@ import path from "path";
 export default defineConfig(async () => {
   const tailwindcss = (await import("@tailwindcss/vite")).default;
 
-  const MFE_AI_URL = process.env.MFE_AI_URL || "http://localhost:3002";
-  const MFE_CRM_URL = process.env.MFE_CRM_URL || "http://localhost:3003";
-  const MFE_ERP_URL = process.env.MFE_ERP_URL || "http://localhost:3004";
-  const MFE_FINANCE_URL =
-    process.env.MFE_FINANCE_URL || "http://localhost:3005";
-  const MFE_PDV_URL = process.env.MFE_PDV_URL || "http://localhost:3006";
-  const MFE_RPG_URL = process.env.MFE_RPG_URL || "http://localhost:3007";
-  const MFE_SSO_URL = process.env.MFE_SSO_URL || "http://localhost:3001";
-  const MFE_SAAS_URL = process.env.MFE_SAAS_URL || "http://localhost:3008";
-  const MFE_OMNICHANNEL_URL =
-    process.env.MFE_OMNICHANNEL_URL || "http://localhost:3011";
-  const MFE_ADMIN_URL = process.env.MFE_ADMIN_URL || "http://localhost:3010";
+  const ensureUrl = (u: unknown, fallback: string) =>
+    typeof u === "string" && u.length > 0 ? u : fallback;
+  const MFE_AI_URL = ensureUrl(process.env.MFE_AI_URL, "http://localhost:3002");
+  const MFE_CRM_URL = ensureUrl(process.env.MFE_CRM_URL, "http://localhost:3003");
+  const MFE_ERP_URL = ensureUrl(process.env.MFE_ERP_URL, "http://localhost:3004");
+  const MFE_FINANCE_URL = ensureUrl(
+    process.env.MFE_FINANCE_URL,
+    "http://localhost:3005"
+  );
+  const MFE_PDV_URL = ensureUrl(process.env.MFE_PDV_URL, "http://localhost:3006");
+  const MFE_RPG_URL = ensureUrl(process.env.MFE_RPG_URL, "http://localhost:3007");
+  const MFE_SSO_URL = ensureUrl(process.env.MFE_SSO_URL, "http://localhost:3001");
+  const MFE_SAAS_URL = ensureUrl(process.env.MFE_SAAS_URL, "http://localhost:3008");
+  const MFE_OMNICHANNEL_URL = ensureUrl(
+    process.env.MFE_OMNICHANNEL_URL,
+    "http://localhost:3011"
+  );
+  const MFE_ADMIN_URL = ensureUrl(process.env.MFE_ADMIN_URL, "http://localhost:3010");
 
   return {
     server: {
