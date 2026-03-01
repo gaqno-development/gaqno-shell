@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
 import {
   Card,
@@ -53,8 +54,9 @@ function MicroFrontendErrorFallback({
   error,
   resetErrorBoundary,
 }: FallbackProps) {
+  const navigate = useNavigate();
   const handleGoToDashboard = () => {
-    window.location.href = "/dashboard";
+    navigate("/dashboard");
   };
 
   const handleRetry = () => {

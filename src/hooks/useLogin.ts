@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -13,6 +14,7 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export const useLogin = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const signIn = useSignIn();
 
@@ -50,7 +52,7 @@ export const useLogin = () => {
                 }
               }
             } finally {
-              window.location.href = "/dashboard";
+              navigate("/dashboard", { replace: true });
             }
           },
           onError: (error: Error) => {

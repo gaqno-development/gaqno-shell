@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -200,7 +201,7 @@ export default function ProfilePage() {
                 Tenants → Costs.
               </p>
               <Button variant="outline" size="sm" asChild>
-                <a href="/admin/costing">Ver custos</a>
+                <Link to="/admin/costing">Ver custos</Link>
               </Button>
             </CardContent>
           </Card>
