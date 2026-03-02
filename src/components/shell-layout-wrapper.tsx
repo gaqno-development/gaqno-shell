@@ -17,14 +17,6 @@ export function ShellLayoutWrapper() {
     pageTransition,
   } = useShellLayout();
 
-  // #region agent log
-  (function _dbg() {
-    const payload = { sessionId: 'd5bf67', location: 'shell-layout-wrapper.tsx:after-useShellLayout', message: 'ShellLayoutWrapper after useShellLayout', data: { shouldShowLayout, pathname: typeof window !== 'undefined' ? window.location.pathname : '', menuItemsLength: menuItems?.length ?? 0 }, timestamp: Date.now(), hypothesisId: 'A,E' };
-    console.debug('[debug-d5bf67]', payload);
-    try { fetch('http://127.0.0.1:7576/ingest/71308206-a154-49e9-9e17-2126d2469326', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'd5bf67' }, body: JSON.stringify(payload) }).catch(() => {}); } catch (_) {}
-  })();
-  // #endregion
-
   if (!shouldShowLayout) {
     return (
       <RootErrorBoundary>

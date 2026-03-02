@@ -73,13 +73,6 @@ export function useShellLayout() {
     const isMFE = isMicroFrontendRoute(pathname);
     const showLayout =
       shouldShowShellLayout(pathname) && !loading && !!user;
-    // #region agent log
-    (function _dbg() {
-      const payload = { sessionId: 'd5bf67', location: 'useShellLayout.ts:effect', message: 'useShellLayout effect', data: { pathname, loading, hasUser: !!user, showLayout, shouldShowShellLayoutPath: shouldShowShellLayout(pathname) }, timestamp: Date.now(), hypothesisId: 'E' };
-      console.debug('[debug-d5bf67]', payload);
-      try { fetch('http://127.0.0.1:7576/ingest/71308206-a154-49e9-9e17-2126d2469326', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'd5bf67' }, body: JSON.stringify(payload) }).catch(() => {}); } catch (_) {}
-    })();
-    // #endregion
     setShouldShowLayout(showLayout);
     setIsMicroFrontend(isMFE);
   }, [pathname, loading, user]);
