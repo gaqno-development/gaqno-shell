@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 import { ThemeProvider } from "@gaqno-development/frontcore/components/providers";
 import { QueryProvider } from "@gaqno-development/frontcore/components/providers";
 import { AuthProvider } from "@gaqno-development/frontcore/contexts";
@@ -41,18 +45,16 @@ import NexAiRequestsPage from "./pages/admin/NexAiRequestsPage";
 import DashboardShell01Page from "./pages/DashboardShell01Page";
 import ApplicationShell01Page from "./pages/ApplicationShell01Page";
 import { lazy, Suspense } from "react";
+import { RootLayout } from "./components/public-layout";
 
 // @ts-nocheck
 const AIPage = lazy(() => import("ai/App" as string));
 const CRMPage = lazy(() => import("crm/App" as string));
-const ERPLayout = lazy(() => import("erp/ERPLayout" as string));
+const ERPPage = lazy(() => import("erp/App" as string));
 const ERPDashboardPage = lazy(() => import("erp/DashboardPage" as string));
 const ERPCatalogPage = lazy(() => import("erp/CatalogPage" as string));
-const ERPProductDetailPage = lazy(() => import("erp/ProductDetailPage" as string));
-const ERPProductWizardPage = lazy(() => import("erp/ProductWizardPage" as string));
 const ERPInventoryPage = lazy(() => import("erp/InventoryPage" as string));
 const ERPOrdersPage = lazy(() => import("erp/OrdersListPage" as string));
-const ERPOrderDetailPage = lazy(() => import("erp/OrderDetailPage" as string));
 const ERPAIContentPage = lazy(() => import("erp/AIContentPage" as string));
 const FinancePage = lazy(() => import("finance/App" as string));
 const PDVPage = lazy(() => import("pdv/App" as string));
@@ -60,13 +62,27 @@ const RPGPage = lazy(() => import("rpg/App" as string));
 const SSOPage = lazy(() => import("sso/App" as string));
 // @ts-nocheck
 const OmnichannelPage = lazy(() => import("omnichannel/App" as string));
-const OmnichannelInboxPage = lazy(() => import("omnichannel/InboxView" as string));
-const OmnichannelDashboardPage = lazy(() => import("omnichannel/DashboardPage" as string));
-const OmnichannelCustomersPage = lazy(() => import("omnichannel/CustomersPage" as string));
-const OmnichannelAgentsPage = lazy(() => import("omnichannel/AgentsPage" as string));
-const OmnichannelTeamsPage = lazy(() => import("omnichannel/TeamsPage" as string));
-const OmnichannelSettingsPage = lazy(() => import("omnichannel/SettingsPage" as string));
-const OmnichannelReportsPage = lazy(() => import("omnichannel/ReportsPage" as string));
+const OmnichannelInboxPage = lazy(
+  () => import("omnichannel/InboxView" as string),
+);
+const OmnichannelDashboardPage = lazy(
+  () => import("omnichannel/DashboardPage" as string),
+);
+const OmnichannelCustomersPage = lazy(
+  () => import("omnichannel/CustomersPage" as string),
+);
+const OmnichannelAgentsPage = lazy(
+  () => import("omnichannel/AgentsPage" as string),
+);
+const OmnichannelTeamsPage = lazy(
+  () => import("omnichannel/TeamsPage" as string),
+);
+const OmnichannelSettingsPage = lazy(
+  () => import("omnichannel/SettingsPage" as string),
+);
+const OmnichannelReportsPage = lazy(
+  () => import("omnichannel/ReportsPage" as string),
+);
 // @ts-nocheck
 const AdminPage = lazy(() => import("admin/App" as string));
 // @ts-nocheck
@@ -86,7 +102,7 @@ function LoadingFallback() {
 const router = createBrowserRouter(
   [
     {
-      Component: ShellLayoutWrapper,
+      Component: RootLayout,
       errorElement: <RouteErrorElement />,
       children: [
         { path: "/", Component: HomePage },
@@ -153,9 +169,7 @@ const router = createBrowserRouter(
               path: "dashboard",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
-                  <ERPLayout>
-                    <ERPDashboardPage />
-                  </ERPLayout>
+                  <ERPDashboardPage />
                 </Suspense>
               ),
             },
@@ -163,39 +177,7 @@ const router = createBrowserRouter(
               path: "catalog",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
-                  <ERPLayout>
-                    <ERPCatalogPage />
-                  </ERPLayout>
-                </Suspense>
-              ),
-            },
-            {
-              path: "catalog/new",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <ERPLayout>
-                    <ERPProductWizardPage />
-                  </ERPLayout>
-                </Suspense>
-              ),
-            },
-            {
-              path: "catalog/:id",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <ERPLayout>
-                    <ERPProductDetailPage />
-                  </ERPLayout>
-                </Suspense>
-              ),
-            },
-            {
-              path: "catalog/:id/edit",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <ERPLayout>
-                    <ERPProductWizardPage />
-                  </ERPLayout>
+                  <ERPCatalogPage />
                 </Suspense>
               ),
             },
@@ -203,9 +185,7 @@ const router = createBrowserRouter(
               path: "inventory",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
-                  <ERPLayout>
-                    <ERPInventoryPage />
-                  </ERPLayout>
+                  <ERPInventoryPage />
                 </Suspense>
               ),
             },
@@ -213,19 +193,7 @@ const router = createBrowserRouter(
               path: "orders",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
-                  <ERPLayout>
-                    <ERPOrdersPage />
-                  </ERPLayout>
-                </Suspense>
-              ),
-            },
-            {
-              path: "orders/:id",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <ERPLayout>
-                    <ERPOrderDetailPage />
-                  </ERPLayout>
+                  <ERPOrdersPage />
                 </Suspense>
               ),
             },
@@ -233,15 +201,17 @@ const router = createBrowserRouter(
               path: "ai-content",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
-                  <ERPLayout>
-                    <ERPAIContentPage />
-                  </ERPLayout>
+                  <ERPAIContentPage />
                 </Suspense>
               ),
             },
             {
               path: "*",
-              element: <Navigate to="/erp/dashboard" replace />,
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <ERPPage />
+                </Suspense>
+              ),
             },
           ],
         },
@@ -511,7 +481,7 @@ const LANG_STORAGE_KEY = "gaqno-lng";
 function AppWithI18n() {
   useEffect(() => {
     const saved = localStorage.getItem(LANG_STORAGE_KEY);
-    const supported = ["en", "pt-BR", "es"];
+    const supported = ["en", "pt-BR", "de", "es", "ko"];
     if (saved && supported.includes(saved)) {
       i18n.changeLanguage(saved);
     }

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+
 import "./styles/index.css";
 import "./styles/sidebar-theme.css";
 
@@ -64,13 +65,20 @@ function showGlobalErrorFallback(message: string, isRejection: boolean): void {
   document.body.appendChild(overlay);
 }
 
+function isDevToolsError(payload: unknown): boolean {
+  const str = typeof payload === "string" ? payload : (payload instanceof Error ? payload.stack ?? payload.message : "");
+  return /installHook|backendManager|proxy\.js|__REACT_DEVTOOLS/.test(str);
+}
+
 window.addEventListener("error", (event) => {
+  if (isDevToolsError(event.error ?? event.message)) return;
   const message = getErrorMessage(event.error ?? event.message, false);
   console.error("[Shell] Uncaught error:", event.error ?? event.message);
   showGlobalErrorFallback(message, false);
 });
 
 window.addEventListener("unhandledrejection", (event) => {
+  if (isDevToolsError(event.reason)) return;
   const message = getErrorMessage(event.reason, true);
   console.error("[Shell] Unhandled promise rejection:", event.reason);
   showGlobalErrorFallback(message, true);

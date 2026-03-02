@@ -4,12 +4,31 @@ import { AnimatePresence, motion } from "motion/react";
 import { AppProvider } from "@gaqno-development/frontcore/components/providers";
 import { WhiteLabelProvider } from "@gaqno-development/frontcore/components/providers";
 import { TenantProvider } from "@gaqno-development/frontcore/contexts";
+import { useAuth } from "@gaqno-development/frontcore/hooks";
 import { MicroFrontendErrorBoundary } from "@/components/microfrontend-error-boundary";
 import { RootErrorBoundary } from "@/components/root-error-boundary";
 import { ShellLayout } from "@/components/shell-layout";
 import { useShellLayout } from "@/hooks/useShellLayout";
 
-export function ShellLayoutWrapper() {
+function ShellLayoutLoading() {
+  return (
+    <RootErrorBoundary>
+      <AppProvider>
+        <WhiteLabelProvider>
+          <TenantProvider>
+            <div className="flex items-center justify-center h-screen w-full bg-background">
+              <div className="animate-pulse text-center">
+                <p className="text-muted-foreground">Carregando...</p>
+              </div>
+            </div>
+          </TenantProvider>
+        </WhiteLabelProvider>
+      </AppProvider>
+    </RootErrorBoundary>
+  );
+}
+
+function AuthenticatedShellLayout() {
   const {
     shouldShowLayout,
     transitionKey,
@@ -58,4 +77,14 @@ export function ShellLayoutWrapper() {
       </AppProvider>
     </RootErrorBoundary>
   );
+}
+
+export function ShellLayoutWrapper() {
+  const { loading } = useAuth();
+
+  if (loading) {
+    return <ShellLayoutLoading />;
+  }
+
+  return <AuthenticatedShellLayout />;
 }
