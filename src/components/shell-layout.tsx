@@ -40,8 +40,32 @@ import ProfileDropdown from "@/components/shadcn-studio/blocks/dropdown-profile"
 import ThemeDropdown from "@/components/shadcn-studio/blocks/dropdown-theme";
 import { MicroFrontendErrorBoundary } from "@/components/microfrontend-error-boundary";
 import type { ShellMenuItem } from "@/components/shell-sidebar";
+import { MobileBottomNav } from "@gaqno-development/frontcore/components/layout";
+import { useIsMobile } from "@gaqno-development/frontcore/hooks";
 
 type ShellLayoutMenuItems = ShellMenuItem[] | undefined;
+
+const SHELL_MOBILE_NAV_MAX = 5;
+
+function getShellMobileNavItems(menuItems: ShellMenuItem[] | undefined) {
+  if (!menuItems?.length) return [];
+  return menuItems.slice(0, SHELL_MOBILE_NAV_MAX).map((item) => {
+    const segment = item.href?.split("/").filter(Boolean)[0];
+    const id = segment ?? item.label.toLowerCase().replace(/\s+/g, "-");
+    const Icon = item.icon;
+    return {
+      id,
+      label: item.label,
+      icon: <Icon className="h-5 w-5" />,
+    };
+  });
+}
+
+function getShellActiveTab(pathname: string, items: { id: string; href?: string }[]): string {
+  const first = pathname.split("/").filter(Boolean)[0];
+  if (first && items.some((i) => i.id === first)) return first;
+  return items[0]?.id ?? "dashboard";
+}
 
 export type PageTransitionConfig = {
   initial: { opacity: number; x?: number };
@@ -79,9 +103,29 @@ export function ShellLayout({
   const { sidebarOpen, setSidebarOpen } = useUIStore();
   const { profile, user, handleSignOut } = useShellHeader();
   const location = useLocation();
+  const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const pathSegments = location.pathname.split("/").filter(Boolean);
   const displayName = profile?.name ?? user?.email ?? null;
   const avatarFallback = displayName?.slice(0, 2).toUpperCase() ?? "?";
+
+  const shellNavItems = React.useMemo(
+    () => getShellMobileNavItems(menuItems),
+    [menuItems]
+  );
+  const shellNavItemsWithHref = React.useMemo(
+    () =>
+      menuItems?.slice(0, SHELL_MOBILE_NAV_MAX).map((item) => ({
+        id: item.href?.split("/").filter(Boolean)[0] ?? item.label.toLowerCase().replace(/\s+/g, "-"),
+        href: item.href,
+      })) ?? [],
+    [menuItems]
+  );
+  const shellActiveTab = getShellActiveTab(location.pathname, shellNavItemsWithHref);
+  const handleShellNavChange = (tabId: string) => {
+    const item = shellNavItemsWithHref.find((i) => i.id === tabId);
+    if (item?.href) navigate(item.href);
+  };
 
   return (
     <SidebarProvider
@@ -168,7 +212,7 @@ export function ShellLayout({
           </div>
         </header>
         <main className="min-h-0 flex-1 flex flex-col overflow-auto bg-background">
-          <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col p-4">
+          <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col p-4 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-4">
             <MicroFrontendErrorBoundary>
               <AnimatePresence mode="wait">
                 <motion.div
@@ -185,6 +229,16 @@ export function ShellLayout({
             </MicroFrontendErrorBoundary>
           </div>
         </main>
+        {isMobile && shellNavItems.length > 0 && (
+          <div className="md:hidden">
+            <MobileBottomNav
+              items={shellNavItems}
+              activeTab={shellActiveTab}
+              onTabChange={handleShellNavChange}
+              layoutId="shellActiveTab"
+            />
+          </div>
+        )}
         <footer className="text-muted-foreground shrink-0 border-t">
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 max-sm:flex-col sm:gap-6 sm:px-6">
             <p className="text-balance text-center text-sm max-sm:w-full sm:text-left">

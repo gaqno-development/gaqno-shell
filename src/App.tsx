@@ -45,11 +45,14 @@ import { lazy, Suspense } from "react";
 // @ts-nocheck
 const AIPage = lazy(() => import("ai/App" as string));
 const CRMPage = lazy(() => import("crm/App" as string));
-const ERPPage = lazy(() => import("erp/App" as string));
+const ERPLayout = lazy(() => import("erp/ERPLayout" as string));
 const ERPDashboardPage = lazy(() => import("erp/DashboardPage" as string));
 const ERPCatalogPage = lazy(() => import("erp/CatalogPage" as string));
+const ERPProductDetailPage = lazy(() => import("erp/ProductDetailPage" as string));
+const ERPProductWizardPage = lazy(() => import("erp/ProductWizardPage" as string));
 const ERPInventoryPage = lazy(() => import("erp/InventoryPage" as string));
 const ERPOrdersPage = lazy(() => import("erp/OrdersListPage" as string));
+const ERPOrderDetailPage = lazy(() => import("erp/OrderDetailPage" as string));
 const ERPAIContentPage = lazy(() => import("erp/AIContentPage" as string));
 const FinancePage = lazy(() => import("finance/App" as string));
 const PDVPage = lazy(() => import("pdv/App" as string));
@@ -150,7 +153,9 @@ const router = createBrowserRouter(
               path: "dashboard",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
-                  <ERPDashboardPage />
+                  <ERPLayout>
+                    <ERPDashboardPage />
+                  </ERPLayout>
                 </Suspense>
               ),
             },
@@ -158,7 +163,39 @@ const router = createBrowserRouter(
               path: "catalog",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
-                  <ERPCatalogPage />
+                  <ERPLayout>
+                    <ERPCatalogPage />
+                  </ERPLayout>
+                </Suspense>
+              ),
+            },
+            {
+              path: "catalog/new",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <ERPLayout>
+                    <ERPProductWizardPage />
+                  </ERPLayout>
+                </Suspense>
+              ),
+            },
+            {
+              path: "catalog/:id",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <ERPLayout>
+                    <ERPProductDetailPage />
+                  </ERPLayout>
+                </Suspense>
+              ),
+            },
+            {
+              path: "catalog/:id/edit",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <ERPLayout>
+                    <ERPProductWizardPage />
+                  </ERPLayout>
                 </Suspense>
               ),
             },
@@ -166,7 +203,9 @@ const router = createBrowserRouter(
               path: "inventory",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
-                  <ERPInventoryPage />
+                  <ERPLayout>
+                    <ERPInventoryPage />
+                  </ERPLayout>
                 </Suspense>
               ),
             },
@@ -174,7 +213,19 @@ const router = createBrowserRouter(
               path: "orders",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
-                  <ERPOrdersPage />
+                  <ERPLayout>
+                    <ERPOrdersPage />
+                  </ERPLayout>
+                </Suspense>
+              ),
+            },
+            {
+              path: "orders/:id",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <ERPLayout>
+                    <ERPOrderDetailPage />
+                  </ERPLayout>
                 </Suspense>
               ),
             },
@@ -182,17 +233,15 @@ const router = createBrowserRouter(
               path: "ai-content",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
-                  <ERPAIContentPage />
+                  <ERPLayout>
+                    <ERPAIContentPage />
+                  </ERPLayout>
                 </Suspense>
               ),
             },
             {
               path: "*",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <ERPPage />
-                </Suspense>
-              ),
+              element: <Navigate to="/erp/dashboard" replace />,
             },
           ],
         },
