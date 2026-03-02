@@ -127,10 +127,12 @@ export default defineConfig(async () => {
           i18next: {
             singleton: true,
             requiredVersion: "^24.0.0",
+            eager: true,
           },
           "react-i18next": {
             singleton: true,
             requiredVersion: "^15.0.0",
+            eager: true,
           },
         },
       }),

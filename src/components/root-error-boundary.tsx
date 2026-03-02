@@ -34,6 +34,13 @@ export class RootErrorBoundary extends React.Component<
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
     console.error("[RootErrorBoundary]", error, errorInfo);
+    // #region agent log
+    (function _dbg() {
+      const payload = { sessionId: 'd5bf67', location: 'root-error-boundary.tsx:componentDidCatch', message: 'RootErrorBoundary caught error', data: { errorMessage: error?.message, componentStack: errorInfo?.componentStack?.slice(0, 200) }, timestamp: Date.now(), hypothesisId: 'A,D' };
+      console.debug('[debug-d5bf67]', payload);
+      try { fetch('http://127.0.0.1:7576/ingest/71308206-a154-49e9-9e17-2126d2469326', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'd5bf67' }, body: JSON.stringify(payload) }).catch(() => {}); } catch (_) {}
+    })();
+    // #endregion
   }
 
   render(): React.ReactNode {

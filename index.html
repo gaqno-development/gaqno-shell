@@ -15,6 +15,7 @@
   </head>
   <body class="font-sans" style="font-family: 'Inter', sans-serif;">
     <div id="root"></div>
+    <script>window.addEventListener('error',function(e){if(document.getElementById('root').children.length===0){document.getElementById('root').innerHTML='<pre style="color:red;padding:2em;font-size:14px">INIT ERROR: '+e.message+'\n'+e.filename+':'+e.lineno+'</pre>';}});</script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
