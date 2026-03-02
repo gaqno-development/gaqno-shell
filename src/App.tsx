@@ -511,7 +511,7 @@ const LANG_STORAGE_KEY = "gaqno-lng";
 function AppWithI18n() {
   useEffect(() => {
     const saved = localStorage.getItem(LANG_STORAGE_KEY);
-    const supported = ["en", "pt-BR", "de", "es", "ko"];
+    const supported = ["en", "pt-BR", "es"];
     if (saved && supported.includes(saved)) {
       i18n.changeLanguage(saved);
     }

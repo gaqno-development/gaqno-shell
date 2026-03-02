@@ -17,17 +17,13 @@ const LANG_STORAGE_KEY = 'gaqno-lng'
 const VALUE_TO_LNG: Record<string, string> = {
   english: 'en',
   portuguese: 'pt-BR',
-  german: 'de',
   spanish: 'es',
-  korean: 'ko',
 }
 
 const LNG_TO_VALUE: Record<string, string> = {
   en: 'english',
   'pt-BR': 'portuguese',
-  de: 'german',
   es: 'spanish',
-  ko: 'korean',
 }
 
 function getValueFromLng(lng: string): string {
@@ -77,22 +73,10 @@ const LanguageDropdown = ({ defaultOpen, align, trigger }: Props) => {
             Português
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem
-            value='german'
-            className='data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground pl-2 text-base [&>span]:hidden'
-          >
-            Deutsch
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem
             value='spanish'
             className='data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground pl-2 text-base [&>span]:hidden'
           >
             Español
-          </DropdownMenuRadioItem>
-          <DropdownMenuRadioItem
-            value='korean'
-            className='data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground pl-2 text-base [&>span]:hidden'
-          >
-            한국어
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
