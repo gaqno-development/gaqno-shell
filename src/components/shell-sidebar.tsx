@@ -1,6 +1,6 @@
 import type { ComponentType } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ChevronDownIcon } from "lucide-react";
+import { ChevronDownIcon, Package } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -54,8 +54,13 @@ type MenuItemContentProps = {
   depth: number;
 };
 
+function safeIcon(item: ShellMenuItem): ComponentType<{ className?: string }> {
+  const Icon = item?.icon;
+  return typeof Icon === "function" ? Icon : Package;
+}
+
 function MenuItemContent({ item, pathname, depth }: MenuItemContentProps) {
-  const Icon = item.icon;
+  const Icon = safeIcon(item);
   const active = isPathActive(pathname, item.href);
   const hasChildren = Boolean(item.children?.length) && depth < MAX_MENU_DEPTH;
   const defaultOpen = hasChildren && hasActiveDescendant(pathname, item);
@@ -132,7 +137,7 @@ function ShellMenuSubItem({
   pathname,
   depth,
 }: MenuItemContentProps) {
-  const Icon = item.icon;
+  const Icon = safeIcon(item);
   const active = isPathActive(pathname, item.href);
   const hasChildren = Boolean(item.children?.length) && depth < MAX_MENU_DEPTH;
   const defaultOpen = hasChildren && hasActiveDescendant(pathname, item);

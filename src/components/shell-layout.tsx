@@ -51,11 +51,12 @@ function getShellMobileNavItems(menuItems: ShellMenuItem[] | undefined) {
   if (!menuItems?.length) return [];
   return menuItems.slice(0, SHELL_MOBILE_NAV_MAX).map((item) => {
     const segment = item.href?.split("/").filter(Boolean)[0];
-    const id = segment ?? item.label.toLowerCase().replace(/\s+/g, "-");
-    const Icon = item.icon;
+    const label = typeof item.label === "string" ? item.label : "";
+    const id = segment ?? label.toLowerCase().replace(/\s+/g, "-");
+    const Icon = typeof item.icon === "function" ? item.icon : () => null;
     return {
       id,
-      label: item.label,
+      label,
       icon: <Icon className="h-5 w-5" />,
     };
   });
