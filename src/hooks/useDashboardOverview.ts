@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { ssoClient } from "@gaqno-development/frontcore/utils/api";
 import { Zap, DollarSign, Activity, Globe } from "lucide-react";
 import type { ChartConfig } from "@gaqno-development/frontcore/components/ui";
@@ -15,19 +16,6 @@ import type {
   ChartDataPoint,
   DashboardOverviewState,
 } from "../types/dashboard-overview.types";
-
-const CHART_CONFIG: ChartConfig = {
-  apiCalls: { label: "API Calls", color: "hsl(217 91% 60%)" },
-  storage: { label: "Storage (GB)", color: "hsl(160 84% 39%)" },
-  bandwidth: { label: "Bandwidth (GB)", color: "hsl(280 68% 60%)" },
-};
-
-const TIME_RANGE_LABELS: Record<TimeRange, string> = {
-  "7d": "7 days",
-  "30d": "30 days",
-  "90d": "90 days",
-  "12m": "12 months",
-};
 
 const CARD_ICON_MAP: Record<string, React.ElementType> = {
   apiCalls: Zap,
@@ -74,18 +62,32 @@ const useActivityFeed = () =>
     refetchInterval: 3 * 60 * 1000,
   });
 
-const formatTimestamp = (iso: string): string => {
-  const diff = Date.now() - new Date(iso).getTime();
-  const mins = Math.floor(diff / 60_000);
-  if (mins < 1) return "just now";
-  if (mins < 60) return `${mins} min ago`;
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs} hr ago`;
-  return `${Math.floor(hrs / 24)}d ago`;
-};
-
 export const useDashboardOverview = (): DashboardOverviewState => {
+  const { t } = useTranslation("navigation");
   const [timeRange, setTimeRange] = useState<TimeRange>("30d");
+
+  const formatTimestamp = (iso: string): string => {
+    const diff = Date.now() - new Date(iso).getTime();
+    const mins = Math.floor(diff / 60_000);
+    if (mins < 1) return t("dashboard.justNow");
+    if (mins < 60) return t("dashboard.minAgo", { count: mins });
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return t("dashboard.hrAgo", { count: hrs });
+    return t("dashboard.dAgo", { count: Math.floor(hrs / 24) });
+  };
+
+  const chartConfig: ChartConfig = useMemo(() => ({
+    apiCalls: { label: t("dashboard.apiCalls"), color: "hsl(217 91% 60%)" },
+    storage: { label: t("dashboard.storageGb"), color: "hsl(160 84% 39%)" },
+    bandwidth: { label: t("dashboard.bandwidthGb"), color: "hsl(280 68% 60%)" },
+  }), [t]);
+
+  const timeRangeLabels: Record<TimeRange, string> = useMemo(() => ({
+    "7d": t("dashboard.range7d"),
+    "30d": t("dashboard.range30d"),
+    "90d": t("dashboard.range90d"),
+    "12m": t("dashboard.range12m"),
+  }), [t]);
 
   const overviewQuery = useOverviewCards();
   const timeSeriesQuery = useUsageTimeSeries(timeRange);
@@ -132,10 +134,10 @@ export const useDashboardOverview = (): DashboardOverviewState => {
   return {
     timeRange,
     chartData,
-    chartConfig: CHART_CONFIG,
+    chartConfig,
     overviewCards,
     activityItems,
-    timeRangeLabels: TIME_RANGE_LABELS,
+    timeRangeLabels,
     isLoading,
     hasError,
     handleTimeRangeChange: setTimeRange,

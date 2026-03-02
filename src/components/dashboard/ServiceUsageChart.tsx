@@ -10,6 +10,7 @@ import {
   ChartTooltipContent,
 } from "@gaqno-development/frontcore/components/ui";
 import type { ChartConfig } from "@gaqno-development/frontcore/components/ui";
+import { useTranslation } from "react-i18next";
 import {
   TIME_RANGES,
   type TimeRange,
@@ -34,12 +35,14 @@ export function ServiceUsageChart({
   timeRangeLabels,
   onTimeRangeChange,
 }: ServiceUsageChartProps) {
+  const { t } = useTranslation("navigation");
+
   return (
     <Card className="border-border/50">
       <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <CardTitle className="text-lg font-semibold">Service Usage</CardTitle>
-          <CardDescription>Cloud service consumption over time</CardDescription>
+          <CardTitle className="text-lg font-semibold">{t("dashboard.serviceUsage")}</CardTitle>
+          <CardDescription>{t("dashboard.serviceUsageDesc")}</CardDescription>
         </div>
         <TimeRangeSelector
           value={timeRange}

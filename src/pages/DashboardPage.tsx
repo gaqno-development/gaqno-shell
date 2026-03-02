@@ -9,6 +9,7 @@ import {
   Skeleton,
 } from "@gaqno-development/frontcore/components/ui";
 import { Plus, ArrowUpRight, AlertCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useDashboardOverview } from "../hooks/useDashboardOverview";
 import { OverviewCard } from "../components/dashboard/OverviewCard";
 import { ActivityItem } from "../components/dashboard/ActivityItem";
@@ -16,6 +17,7 @@ import { ServiceUsageChart } from "../components/dashboard/ServiceUsageChart";
 import { MonitoringWidgets } from "../components/dashboard/MonitoringWidgets";
 
 export default function DashboardPage() {
+  const { t } = useTranslation("navigation");
   const {
     timeRange,
     chartData,
@@ -32,7 +34,7 @@ export default function DashboardPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
         <LoaderPinwheelIcon size={32} />
-        <p className="text-sm text-muted-foreground">Loading dashboard...</p>
+        <p className="text-sm text-muted-foreground">{t("dashboard.loading")}</p>
       </div>
     );
   }
@@ -41,21 +43,21 @@ export default function DashboardPage() {
     <div className="space-8 p-4">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1">
-          <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t("dashboard.welcomeBack")}</h1>
           <p className="text-sm text-muted-foreground">
-            Your cloud services at a glance
+            {t("dashboard.cloudAtGlance")}
           </p>
         </div>
         <Button variant="default" className="gap-2 self-start">
           <Plus className="h-4 w-4" />
-          Create New
+          {t("dashboard.createNew")}
         </Button>
       </div>
 
       {hasError && (
         <div className="flex items-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/5 px-4 py-3 text-sm text-amber-400">
           <AlertCircle className="h-4 w-4 shrink-0" />
-          Some data may be unavailable. Showing what we could load.
+          {t("dashboard.dataUnavailable")}
         </div>
       )}
 
@@ -84,16 +86,16 @@ export default function DashboardPage() {
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
             <CardTitle className="text-lg font-semibold">
-              Recent Activity
+              {t("dashboard.recentActivity")}
             </CardTitle>
-            <CardDescription>Latest events from your services</CardDescription>
+            <CardDescription>{t("dashboard.latestEvents")}</CardDescription>
           </div>
           <Button
             variant="ghost"
             size="sm"
             className="text-xs text-muted-foreground"
           >
-            View all
+            {t("dashboard.viewAll")}
             <ArrowUpRight className="ml-1 h-3 w-3" />
           </Button>
         </CardHeader>
@@ -106,7 +108,7 @@ export default function DashboardPage() {
             </div>
           ) : (
             <p className="py-8 text-center text-sm text-muted-foreground">
-              No recent activity
+              {t("dashboard.noRecentActivity")}
             </p>
           )}
         </CardContent>
