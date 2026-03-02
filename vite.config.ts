@@ -24,6 +24,10 @@ export default defineConfig(async () => {
     process.env.MFE_OMNICHANNEL_URL,
     "http://localhost:3011"
   );
+  const MFE_WELLNESS_URL = ensureUrl(
+    process.env.MFE_WELLNESS_URL,
+    "http://localhost:3012"
+  );
   const MFE_ADMIN_URL = ensureUrl(process.env.MFE_ADMIN_URL, "http://localhost:3010");
 
   return {
@@ -86,6 +90,7 @@ export default defineConfig(async () => {
           saas: MFE_SAAS_URL + "/assets/remoteEntry.js",
           sso: MFE_SSO_URL + "/assets/remoteEntry.js",
           omnichannel: MFE_OMNICHANNEL_URL + "/assets/remoteEntry.js",
+          wellness: MFE_WELLNESS_URL + "/assets/remoteEntry.js",
           admin: MFE_ADMIN_URL + "/assets/remoteEntry.js",
         },
         shared: {

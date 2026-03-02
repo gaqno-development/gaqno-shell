@@ -31,6 +31,7 @@ const SERVICE_NAMES: Record<string, string> = {
   "/sso": "SSO",
   "/rpg": "RPG",
   "/omnichannel": "Omnichannel",
+  "/wellness": "Wellness",
   "/saas": "SAAS",
 }
 

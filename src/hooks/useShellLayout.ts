@@ -16,6 +16,7 @@ const MFE_ROUTES = [
   "/admin",
   "/sso",
   "/omnichannel",
+  "/wellness",
   "/saas",
 ];
 const LAYOUT_ROUTES = ["/dashboard", ...MFE_ROUTES];

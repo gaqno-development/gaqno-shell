@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@gaqno-development/frontcore/components/providers";
 import { QueryProvider } from "@gaqno-development/frontcore/components/providers";
 import { AuthProvider } from "@gaqno-development/frontcore/contexts";
 import { ToastContainer } from "@gaqno-development/frontcore/components/ui";
+import { I18nProvider, i18n } from "@gaqno-development/frontcore/i18n";
 import { ShellLayoutWrapper } from "@/components/shell-layout-wrapper";
 import { RouteErrorElement } from "@/components/route-error-element";
 import HomePage from "./pages/HomePage";
@@ -67,6 +68,7 @@ const OmnichannelReportsPage = lazy(() => import("omnichannel/ReportsPage" as st
 const AdminPage = lazy(() => import("admin/App" as string));
 // @ts-nocheck
 const SaasPage = lazy(() => import("saas/App" as string));
+const WellnessPage = lazy(() => import("wellness/App" as string));
 
 function LoadingFallback() {
   return (
@@ -357,6 +359,28 @@ const router = createBrowserRouter(
           ],
         },
         {
+          path: "/wellness",
+          errorElement: <RouteErrorElement />,
+          children: [
+            {
+              index: true,
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <WellnessPage />
+                </Suspense>
+              ),
+            },
+            {
+              path: "*",
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <WellnessPage />
+                </Suspense>
+              ),
+            },
+          ],
+        },
+        {
           path: "/sso",
           errorElement: <RouteErrorElement />,
           children: [
@@ -433,7 +457,17 @@ const router = createBrowserRouter(
   },
 );
 
-export default function App() {
+const LANG_STORAGE_KEY = "gaqno-lng";
+
+function AppWithI18n() {
+  useEffect(() => {
+    const saved = localStorage.getItem(LANG_STORAGE_KEY);
+    const supported = ["en", "pt-BR", "de", "es", "ko"];
+    if (saved && supported.includes(saved)) {
+      i18n.changeLanguage(saved);
+    }
+  }, []);
+
   return (
     <ThemeProvider
       attribute="class"
@@ -448,5 +482,13 @@ export default function App() {
         </AuthProvider>
       </QueryProvider>
     </ThemeProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <I18nProvider>
+      <AppWithI18n />
+    </I18nProvider>
   );
 }

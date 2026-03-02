@@ -276,6 +276,18 @@ export const SHELL_MENU_ITEMS: ShellMenuItem[] = [
     icon: DicesIcon,
   },
   {
+    label: "Wellness",
+    href: "/wellness/today",
+    icon: LayoutPanelTopIcon,
+    isCollapsible: true,
+    children: [
+      { label: "Hoje", href: "/wellness/today", icon: LayoutPanelTopIcon },
+      { label: "Timeline", href: "/wellness/timeline", icon: FileDescriptionIcon },
+      { label: "Estatísticas", href: "/wellness/stats", icon: LayoutPanelTopIcon },
+      { label: "Insights", href: "/wellness/insights", icon: AnimatedSparklesIcon },
+    ],
+  },
+  {
     label: "Omnichannel",
     href: "/omnichannel",
     icon: BoxesIcon,
