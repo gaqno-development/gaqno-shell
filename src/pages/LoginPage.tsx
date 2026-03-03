@@ -107,7 +107,13 @@ export default function LoginPage() {
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="flex justify-center pt-6 border-t border-white/10">
+        <CardFooter className="flex flex-col items-center gap-2 pt-6 border-t border-white/10">
+          <Link
+            to="/recovery-pass"
+            className="text-sm text-white/60 hover:text-white underline-offset-4 hover:underline transition-colors"
+          >
+            Esqueci minha senha
+          </Link>
           <p className="text-sm text-white/60">
             Não tem uma conta?{" "}
             <Link

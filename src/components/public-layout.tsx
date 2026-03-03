@@ -8,13 +8,11 @@ import { MicroFrontendErrorBoundary } from "@/components/microfrontend-error-bou
 import { RootErrorBoundary } from "@/components/root-error-boundary";
 import { ShellLayoutWrapper } from "@/components/shell-layout-wrapper";
 
-const PUBLIC_PATHS = ["/", "/login", "/register"];
-const STANDALONE_PATHS = ["/application-shell-01", "/dashboard-shell-01"];
+const PUBLIC_PATHS = ["/", "/login", "/register", "/recovery-pass"];
 
 function isPublicRoute(pathname: string): boolean {
-  return (
-    PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/")) ||
-    STANDALONE_PATHS.some((p) => pathname.startsWith(p))
+  return PUBLIC_PATHS.some(
+    (p) => pathname === p || pathname.startsWith(p + "/")
   );
 }
 

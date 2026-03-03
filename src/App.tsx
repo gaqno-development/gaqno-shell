@@ -14,36 +14,10 @@ import { RouteErrorElement } from "@/components/route-error-element";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import RecoveryPassPage from "./pages/RecoveryPassPage";
 import DashboardPage from "./pages/DashboardPage";
-import ManagerDashboardPage from "./pages/ManagerDashboardPage";
-import UserDashboardPage from "./pages/UserDashboardPage";
-import SettingsPage from "./pages/SettingsPage";
-import ProfilePage from "./pages/ProfilePage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import ErrorPage from "./pages/ErrorPage";
-import DomainsPage from "./pages/admin/DomainsPage";
-import DomainFormPage from "./pages/admin/DomainFormPage";
-import DomainEditPage from "./pages/admin/DomainEditPage";
-import SSLStatusPage from "./pages/admin/SSLStatusPage";
-import TenantCostsPage from "./pages/admin/TenantCostsPage";
-import TenantsPage from "./pages/admin/TenantsPage";
-import TenantFormPage from "./pages/admin/TenantFormPage";
-import TenantEditPage from "./pages/admin/TenantEditPage";
-import BranchesPage from "./pages/admin/BranchesPage";
-import BranchFormPage from "./pages/admin/BranchFormPage";
-import BranchEditPage from "./pages/admin/BranchEditPage";
-import UsersPage from "./pages/admin/UsersPage";
-import UserFormPage from "./pages/admin/UserFormPage";
-import UserEditPage from "./pages/admin/UserEditPage";
-import AdminRolesPage from "./pages/admin/AdminRolesPage";
-import AdminMenuPage from "./pages/admin/AdminMenuPage";
-import AdminSettingsPage from "./pages/admin/AdminSettingsPage";
-import AdminUsagePage from "./pages/admin/AdminUsagePage";
-import CostingPage from "./pages/admin/CostingPage";
-import AIModelsPage from "./pages/admin/AIModelsPage";
-import NexAiRequestsPage from "./pages/admin/NexAiRequestsPage";
-import DashboardShell01Page from "./pages/DashboardShell01Page";
-import ApplicationShell01Page from "./pages/ApplicationShell01Page";
 import { lazy, Suspense } from "react";
 import { RootLayout } from "./components/public-layout";
 
@@ -108,13 +82,12 @@ const router = createBrowserRouter(
         { path: "/", Component: HomePage },
         { path: "/login", Component: LoginPage },
         { path: "/register", Component: RegisterPage },
+        { path: "/recovery-pass", Component: RecoveryPassPage },
         { path: "/dashboard", Component: DashboardPage },
-        { path: "/dashboard/manager", Component: ManagerDashboardPage },
-        { path: "/dashboard/user", Component: UserDashboardPage },
-        { path: "/dashboard/settings", Component: SettingsPage },
-        { path: "/dashboard/profile", Component: ProfilePage },
-        { path: "/dashboard-shell-01", Component: DashboardShell01Page },
-        { path: "/application-shell-01", Component: ApplicationShell01Page },
+        { path: "/dashboard/manager", element: <Navigate to="/dashboard" replace /> },
+        { path: "/dashboard/user", element: <Navigate to="/dashboard" replace /> },
+        { path: "/dashboard/settings", element: <Navigate to="/dashboard" replace /> },
+        { path: "/dashboard/profile", element: <Navigate to="/dashboard" replace /> },
         { path: "/unauthorized", Component: UnauthorizedPage },
         { path: "/error", Component: ErrorPage },
         {
@@ -425,28 +398,6 @@ const router = createBrowserRouter(
           path: "/admin",
           errorElement: <RouteErrorElement />,
           children: [
-            { path: "domains", Component: DomainsPage },
-            { path: "domains/new", Component: DomainFormPage },
-            { path: "domains/:id/edit", Component: DomainEditPage },
-            { path: "domains/ssl", Component: SSLStatusPage },
-            { path: "tenants", Component: TenantsPage },
-            { path: "tenants/new", Component: TenantFormPage },
-            { path: "tenants/:id/edit", Component: TenantEditPage },
-            { path: "tenants/costs", Component: TenantCostsPage },
-            { path: "tenants/:tenantId/costs", Component: TenantCostsPage },
-            { path: "branches", Component: BranchesPage },
-            { path: "branches/new", Component: BranchFormPage },
-            { path: "branches/:id/edit", Component: BranchEditPage },
-            { path: "users", Component: UsersPage },
-            { path: "users/new", Component: UserFormPage },
-            { path: "users/:id/edit", Component: UserEditPage },
-            { path: "roles", Component: AdminRolesPage },
-            { path: "menu", Component: AdminMenuPage },
-            { path: "settings", Component: AdminSettingsPage },
-            { path: "usage", Component: AdminUsagePage },
-            { path: "costing", Component: CostingPage },
-            { path: "ai-models", Component: AIModelsPage },
-            { path: "ai-requests", Component: NexAiRequestsPage },
             {
               index: true,
               element: (
