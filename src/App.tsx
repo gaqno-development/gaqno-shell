@@ -43,30 +43,6 @@ const RPGPage = lazy(() => import("rpg/App" as string));
 const SSOPage = lazy(() => import("sso/App" as string));
 // @ts-nocheck
 const OmnichannelPage = lazy(() => import("omnichannel/App" as string));
-const OmnichannelRouteLayout = lazy(
-  () => import("omnichannel/OmnichannelRouteLayout" as string),
-);
-const OmnichannelInboxPage = lazy(
-  () => import("omnichannel/InboxView" as string),
-);
-const OmnichannelDashboardPage = lazy(
-  () => import("omnichannel/DashboardPage" as string),
-);
-const OmnichannelCustomersPage = lazy(
-  () => import("omnichannel/CustomersPage" as string),
-);
-const OmnichannelAgentsPage = lazy(
-  () => import("omnichannel/AgentsPage" as string),
-);
-const OmnichannelTeamsPage = lazy(
-  () => import("omnichannel/TeamsPage" as string),
-);
-const OmnichannelSettingsPage = lazy(
-  () => import("omnichannel/SettingsPage" as string),
-);
-const OmnichannelReportsPage = lazy(
-  () => import("omnichannel/ReportsPage" as string),
-);
 // @ts-nocheck
 const AdminPage = lazy(() => import("admin/App" as string));
 // @ts-nocheck
@@ -339,71 +315,10 @@ const router = createBrowserRouter(
         {
           path: "/omnichannel",
           errorElement: <RouteErrorElement />,
-          element: (
-            <Suspense fallback={<LoadingFallback />}>
-              <OmnichannelRouteLayout />
-            </Suspense>
-          ),
           children: [
             {
               index: true,
               element: <Navigate to="inbox" replace />,
-            },
-            {
-              path: "inbox",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <OmnichannelInboxPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "dashboard",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <OmnichannelDashboardPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "customers",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <OmnichannelCustomersPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "reports",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <OmnichannelReportsPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "agents",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <OmnichannelAgentsPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "teams",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <OmnichannelTeamsPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "settings",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <OmnichannelSettingsPage />
-                </Suspense>
-              ),
             },
             {
               path: "*",

@@ -50,6 +50,17 @@ export function RouteErrorElement() {
       : typeof (error as { message?: string })?.message === "string"
         ? (error as { message: string }).message
         : "Ocorreu um erro inesperado";
+
+  const isRemoteLoadError =
+    typeof errorMessage === "string" &&
+    (errorMessage.includes("Failed to fetch dynamically imported module") ||
+      errorMessage.includes("Can not find remote module") ||
+      errorMessage.includes("remoteEntry"));
+
+  const hint = isRemoteLoadError
+    ? "Verifique se o serviço está implantado e se o proxy encaminha o caminho corretamente para o container do MFE."
+    : null;
+
   const errorDetails =
     error instanceof Error
       ? error.stack
@@ -77,6 +88,11 @@ export function RouteErrorElement() {
               Isso pode acontecer se o serviço não estiver em execução ou se
               houver um problema de conexão.
             </p>
+            {hint && (
+              <p className="mt-2 text-xs text-muted-foreground italic">
+                {hint}
+              </p>
+            )}
             {errorMessage && (
               <p className="mt-2 text-xs text-muted-foreground font-mono break-words">
                 {errorMessage}
