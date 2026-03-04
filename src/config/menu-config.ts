@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   UsersIcon,
 } from "@gaqno-development/frontcore/components/icons";
+import { Heart } from "lucide-react";
 import type { ComponentType } from "react";
 
 export interface MenuItem {
@@ -47,7 +48,7 @@ export const MENU_ITEMS: MenuItem[] = [
     children: [
       { id: "commercial-customers", label: "Clientes", href: "/crm/customers/accounts", icon: UsersIcon, requiredPermissions: ["crm.access"] },
       { id: "commercial-pipeline", label: "Pipeline", href: "/crm/sales/leads", icon: AnimatedTrendingUpIcon, requiredPermissions: ["crm.access"] },
-      { id: "commercial-proposals", label: "Propostas", href: "/crm/sales/proposals", icon: FileDescriptionIcon, requiredPermissions: ["crm.access"] },
+      { id: "commercial-proposals", label: "Propostas", href: "/crm/sales/quotes", icon: FileDescriptionIcon, requiredPermissions: ["crm.access"] },
       { id: "commercial-sales", label: "Vendas", href: "/crm/sales/leads", icon: AnimatedTrendingUpIcon, requiredPermissions: ["crm.access"] },
       { id: "commercial-performance", label: "Desempenho", href: "/crm/reports/analytics", icon: FileDescriptionIcon, requiredPermissions: ["crm.access"] },
     ],
@@ -130,6 +131,19 @@ export const MENU_ITEMS: MenuItem[] = [
       { id: "rpg-campaigns", label: "Campanhas", href: "/rpg/campaigns", icon: FileDescriptionIcon, requiredPermissions: ["rpg.campaigns.read"] },
       { id: "rpg-sessions", label: "Sessões", href: "/rpg/sessions", icon: FileDescriptionIcon, requiredPermissions: ["rpg.sessions.read"] },
       { id: "rpg-wiki", label: "Wiki", href: "/rpg/wiki", icon: FileDescriptionIcon, requiredPermissions: ["rpg.access"] },
+    ],
+  },
+  {
+    id: "wellness",
+    label: "Bem-estar",
+    href: "/wellness",
+    icon: Heart,
+    requiredPermissions: [],
+    children: [
+      { id: "wellness-today", label: "Hoje", href: "/wellness/today", icon: LayoutPanelTopIcon, requiredPermissions: [] },
+      { id: "wellness-timeline", label: "Histórico", href: "/wellness/timeline", icon: FileDescriptionIcon, requiredPermissions: [] },
+      { id: "wellness-stats", label: "Estatísticas", href: "/wellness/stats", icon: FileDescriptionIcon, requiredPermissions: [] },
+      { id: "wellness-insights", label: "Insights", href: "/wellness/insights", icon: AnimatedLightbulbIcon, requiredPermissions: [] },
     ],
   },
   {
@@ -352,4 +366,9 @@ export const ROUTE_PERMISSIONS: Record<string, string[]> = {
   "/saas/usage": ["admin.usage.read"],
   "/saas/settings": ["admin.settings.write"],
   "/saas/branches": ["admin.branches.manage"],
+  "/wellness": [],
+  "/wellness/today": [],
+  "/wellness/timeline": [],
+  "/wellness/stats": [],
+  "/wellness/insights": [],
 };

@@ -17,6 +17,7 @@ import RecoveryPassPage from "./pages/RecoveryPassPage";
 import DashboardPage from "./pages/DashboardPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import ErrorPage from "./pages/ErrorPage";
+import IntelligencePlaceholder from "./pages/IntelligencePlaceholder";
 import { lazy, Suspense } from "react";
 import { RootLayout } from "./components/public-layout";
 
@@ -85,6 +86,9 @@ const router = createBrowserRouter(
         { path: "/register", Component: RegisterPage },
         { path: "/recovery-pass", Component: RecoveryPassPage },
         { path: "/dashboard", Component: DashboardPage },
+        { path: "/dashboard/tasks", Component: DashboardPage },
+        { path: "/dashboard/calendar", Component: DashboardPage },
+        { path: "/dashboard/notifications", Component: DashboardPage },
         { path: "/dashboard/manager", element: <Navigate to="/dashboard" replace /> },
         { path: "/dashboard/user", element: <Navigate to="/dashboard" replace /> },
         { path: "/dashboard/settings", element: <Navigate to="/dashboard" replace /> },
@@ -167,6 +171,20 @@ const router = createBrowserRouter(
                   <AIRetailSection />
                 </Suspense>
               ),
+            },
+          ],
+        },
+        {
+          path: "/intelligence",
+          errorElement: <RouteErrorElement />,
+          children: [
+            {
+              index: true,
+              Component: IntelligencePlaceholder,
+            },
+            {
+              path: "*",
+              Component: IntelligencePlaceholder,
             },
           ],
         },
@@ -366,6 +384,18 @@ const router = createBrowserRouter(
                   <SaasCodemapView />
                 </Suspense>
               ),
+            },
+            {
+              path: "tenants",
+              element: <Navigate to="/admin/tenants" replace />,
+            },
+            {
+              path: "usage",
+              element: <Navigate to="/admin/usage" replace />,
+            },
+            {
+              path: "branches",
+              element: <Navigate to="/admin/branches" replace />,
             },
             {
               path: "settings",

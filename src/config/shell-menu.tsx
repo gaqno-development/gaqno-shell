@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   UsersIcon,
 } from "@gaqno-development/frontcore/components/icons";
+import { Heart } from "lucide-react";
 import type { ShellMenuItem } from "@/components/shell-sidebar";
 
 export const SHELL_MENU_ITEMS: ShellMenuItem[] = [
@@ -36,7 +37,7 @@ export const SHELL_MENU_ITEMS: ShellMenuItem[] = [
     children: [
       { label: "Clientes", href: "/crm/customers/accounts", icon: UsersIcon },
       { label: "Pipeline", href: "/crm/sales/leads", icon: AnimatedTrendingUpIcon },
-      { label: "Propostas", href: "/crm/sales/proposals", icon: FileDescriptionIcon },
+      { label: "Propostas", href: "/crm/sales/quotes", icon: FileDescriptionIcon },
       { label: "Vendas", href: "/crm/sales/leads", icon: AnimatedTrendingUpIcon },
       { label: "Desempenho", href: "/crm/reports/analytics", icon: FileDescriptionIcon },
     ],
@@ -342,6 +343,18 @@ export const SHELL_MENU_ITEMS: ShellMenuItem[] = [
           { label: "Regras", href: "/rpg/rules", icon: FileDescriptionIcon },
         ],
       },
+    ],
+  },
+  {
+    label: "Bem-estar",
+    href: "/wellness",
+    icon: Heart,
+    isCollapsible: true,
+    children: [
+      { label: "Hoje", href: "/wellness/today", icon: LayoutPanelTopIcon },
+      { label: "Histórico", href: "/wellness/timeline", icon: FileDescriptionIcon },
+      { label: "Estatísticas", href: "/wellness/stats", icon: FileDescriptionIcon },
+      { label: "Insights", href: "/wellness/insights", icon: AnimatedLightbulbIcon },
     ],
   },
   {
