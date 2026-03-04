@@ -25,6 +25,7 @@ export default defineConfig(async () => {
   const MFE_OMNICHANNEL_URL = origin ? `${origin}/omnichannel` : ensureUrl(process.env.MFE_OMNICHANNEL_URL, "http://localhost:3011/omnichannel");
   const MFE_WELLNESS_URL = origin ? `${origin}/wellness` : ensureUrl(process.env.MFE_WELLNESS_URL, "http://localhost:3012/wellness");
   const MFE_ADMIN_URL = origin ? `${origin}/admin` : ensureUrl(process.env.MFE_ADMIN_URL, "http://localhost:3010/admin");
+  const MFE_INTELLIGENCE_URL = origin ? `${origin}/intelligence` : ensureUrl(process.env.MFE_INTELLIGENCE_URL, "http://localhost:3013/intelligence");
 
   return {
     server: {
@@ -88,6 +89,7 @@ export default defineConfig(async () => {
           omnichannel: MFE_OMNICHANNEL_URL + "/assets/remoteEntry.js",
           wellness: MFE_WELLNESS_URL + "/assets/remoteEntry.js",
           admin: MFE_ADMIN_URL + "/assets/remoteEntry.js",
+          intelligence: MFE_INTELLIGENCE_URL + "/assets/remoteEntry.js",
         },
         shared: {
           react: {

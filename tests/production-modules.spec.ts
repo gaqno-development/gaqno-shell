@@ -45,7 +45,7 @@ test.describe("Production modules load", () => {
   });
 
   test("AI Audio TTS loads and shows expected heading", async ({ page }) => {
-    await page.goto(BASE_URL + "/ai/audio/tts", { waitUntil: "networkidle", timeout: 25000 });
+    await page.goto(BASE_URL + "/ai/audio#tts", { waitUntil: "networkidle", timeout: 25000 });
     await page.waitForTimeout(3000);
     const body = await page.locator("body").innerText();
     for (const phrase of ERROR_PHRASES) {

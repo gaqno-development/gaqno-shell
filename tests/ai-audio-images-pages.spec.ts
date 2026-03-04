@@ -65,19 +65,24 @@ test.describe("AI Audio and Images child pages", () => {
     ).toBeVisible();
   });
 
-  test("GET /ai/audio redirects to /ai/audio/tts", async ({ page }) => {
-    await page.goto(`${BASE_URL}/ai/audio`);
-    await page.waitForLoadState("networkidle");
-    await expect(page).toHaveURL(/\/ai\/audio\/tts/, { timeout: 15000 });
-  });
-
-  test("/ai/audio/tts shows Texto para Audio as its own page", async ({
+  test("GET /ai/audio shows Audio section with default TTS tab", async ({
     page,
   }) => {
-    await page.goto(`${BASE_URL}/ai/audio/tts`);
+    await page.goto(`${BASE_URL}/ai/audio`);
+    await page.waitForLoadState("networkidle");
+    await expect(page).toHaveURL(/\/ai\/audio/);
+    await expect(
+      page.getByRole("heading", { name: "Texto para Audio" })
+    ).toBeVisible({ timeout: 15000 });
+  });
+
+  test("/ai/audio#tts shows Texto para Audio as active tab", async ({
+    page,
+  }) => {
+    await page.goto(`${BASE_URL}/ai/audio#tts`);
     await page.waitForLoadState("networkidle");
 
-    await expect(page).toHaveURL(/\/ai\/audio\/tts/);
+    await expect(page).toHaveURL(/\/ai\/audio#tts/);
     await expect(
       page.getByRole("heading", { name: "Texto para Audio" })
     ).toBeVisible();

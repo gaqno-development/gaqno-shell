@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense } from "react";
 import {
   Sheet,
   SheetContent,
@@ -6,10 +6,10 @@ import {
   SheetTitle,
 } from "@gaqno-development/frontcore/components/ui";
 import { useOmnichannelDrawer } from "@gaqno-development/frontcore/hooks";
+import { lazyWithTimeout } from "@/lib/lazyWithTimeout";
 
-// Lazy load the chat view from the omnichannel microfrontend
 // @ts-nocheck
-const OmnichannelChatView = lazy(() => import("omnichannel/InboxView" as string));
+const OmnichannelChatView = lazyWithTimeout(() => import("omnichannel/InboxView" as string));
 
 export function GlobalOmnichannelSheet() {
   const { isOpen, setOpen, conversationId, customerId } = useOmnichannelDrawer();

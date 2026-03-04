@@ -23,9 +23,10 @@
 const { chromium } = require("playwright");
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:3000";
-const LOGIN_EMAIL = process.env.LOGIN_EMAIL || "";
-const LOGIN_PASSWORD = process.env.LOGIN_PASSWORD || "";
-const HEADLESS = process.env.HEADLESS === "1" || process.env.HEADLESS === "true";
+const LOGIN_EMAIL = process.env.LOGIN_EMAIL || "gabriel.aquino@outlook.com";
+const LOGIN_PASSWORD = process.env.LOGIN_PASSWORD || "Qesdaw312@";
+const HEADLESS =
+  process.env.HEADLESS === "1" || process.env.HEADLESS === "true";
 const DEBUG = process.env.DEBUG === "1" || process.env.DEBUG === "true";
 
 const ERROR_PHRASES = [
@@ -84,7 +85,19 @@ const PROTECTED_ROUTES = [
   { path: "/admin/audit", name: "Admin Audit" },
 ];
 
-const MFE_PREFIXES = ["/ai/", "/admin", "/crm", "/erp", "/finance", "/pdv", "/rpg", "/omnichannel", "/saas", "/wellness", "/sso"];
+const MFE_PREFIXES = [
+  "/ai/",
+  "/admin",
+  "/crm",
+  "/erp",
+  "/finance",
+  "/pdv",
+  "/rpg",
+  "/omnichannel",
+  "/saas",
+  "/wellness",
+  "/sso",
+];
 const MFE_WAIT_MS = 8000;
 const MFE_RETRIES = 2;
 
@@ -127,8 +140,13 @@ async function checkRoute(page, route, consoleErrors) {
       await page.goto(url, { waitUntil: "networkidle", timeout: 40000 });
       await page.waitForTimeout(waitMs);
 
-      const bodyText = await page.locator("body").innerText().catch(() => "");
-      const foundPhrase = ERROR_PHRASES.find((phrase) => bodyText.includes(phrase));
+      const bodyText = await page
+        .locator("body")
+        .innerText()
+        .catch(() => "");
+      const foundPhrase = ERROR_PHRASES.find((phrase) =>
+        bodyText.includes(phrase),
+      );
       if (foundPhrase) {
         if (attempt < maxAttempts) {
           await page.waitForTimeout(2000);
@@ -142,15 +160,23 @@ async function checkRoute(page, route, consoleErrors) {
             consoleErrors: [...consoleErrors],
           };
         }
-        const ref = consoleErrors.find((e) => e.includes("ERR_CONNECTION_REFUSED"));
+        const ref = consoleErrors.find((e) =>
+          e.includes("ERR_CONNECTION_REFUSED"),
+        );
         if (ref) {
           const m = ref.match(/localhost:(\d+)/);
-          result.error += m ? ` (MFE not running on port ${m[1]} - start the corresponding dev server)` : "";
+          result.error += m
+            ? ` (MFE not running on port ${m[1]} - start the corresponding dev server)`
+            : "";
         }
         return result;
       }
 
-      const rootContent = await page.locator("#root").first().innerHTML().catch(() => "");
+      const rootContent = await page
+        .locator("#root")
+        .first()
+        .innerHTML()
+        .catch(() => "");
       if (rootContent.length < 200) {
         result.status = "FAIL";
         result.error = `Root content too small (${rootContent.length} chars)`;
@@ -166,7 +192,8 @@ async function checkRoute(page, route, consoleErrors) {
       result.status = "OK";
       return result;
     } catch (e) {
-      const errMsg = e && e.message ? e.message.slice(0, 150) : String(e).slice(0, 150);
+      const errMsg =
+        e && e.message ? e.message.slice(0, 150) : String(e).slice(0, 150);
       if (attempt === maxAttempts) {
         result.status = "ERR";
         result.error = errMsg;
@@ -185,14 +212,21 @@ async function checkRoute(page, route, consoleErrors) {
 async function main() {
   if (!LOGIN_EMAIL || !LOGIN_PASSWORD) {
     console.error("[verify] Set LOGIN_EMAIL and LOGIN_PASSWORD.");
-    console.error("[verify] Example: LOGIN_EMAIL=user@example.com LOGIN_PASSWORD=secret node scripts/verify-production-modules.js");
+    console.error(
+      "[verify] Example: LOGIN_EMAIL=user@example.com LOGIN_PASSWORD=secret node scripts/verify-production-modules.js",
+    );
     process.exit(1);
   }
 
-  const isLocal = BASE_URL.includes("localhost") || BASE_URL.includes("127.0.0.1");
-  console.log(`\n[verify] BASE_URL=${BASE_URL} (${isLocal ? "local" : "production"}) headless=${HEADLESS} debug=${DEBUG}`);
+  const isLocal =
+    BASE_URL.includes("localhost") || BASE_URL.includes("127.0.0.1");
+  console.log(
+    `\n[verify] BASE_URL=${BASE_URL} (${isLocal ? "local" : "production"}) headless=${HEADLESS} debug=${DEBUG}`,
+  );
   if (isLocal) {
-    console.log("[verify] Ensure all MFEs are running (e.g. npm run dev:frontends, dev:admin, dev:omnichannel, dev:saas, dev:wellness, dev:sso).");
+    console.log(
+      "[verify] Ensure all MFEs are running (e.g. npm run dev:frontends, dev:admin, dev:omnichannel, dev:saas, dev:wellness, dev:sso).",
+    );
   }
   console.log(`[verify] ${PROTECTED_ROUTES.length} routes to check\n`);
 
@@ -214,20 +248,30 @@ async function main() {
   try {
     await login(page);
     const atDashboard = page.url().includes("dashboard");
-    console.log(atDashboard ? "[verify] Login OK\n" : "[verify] Login may have failed; continuing...\n");
+    console.log(
+      atDashboard
+        ? "[verify] Login OK\n"
+        : "[verify] Login may have failed; continuing...\n",
+    );
 
     for (const route of PROTECTED_ROUTES) {
       const r = await checkRoute(page, route, consoleErrors);
       results.push(r);
       const statusStr = r.status.padEnd(4);
       const errStr = r.error ? `  ${r.error}` : "";
-      console.log(`  ${statusStr} ${route.path.padEnd(28)} ${route.name}${errStr}`);
+      console.log(
+        `  ${statusStr} ${route.path.padEnd(28)} ${route.name}${errStr}`,
+      );
       if (DEBUG && r.debug) {
         if (r.debug.consoleErrors && r.debug.consoleErrors.length) {
-          console.log(`      [debug] console errors: ${r.debug.consoleErrors.slice(0, 3).join(" | ")}`);
+          console.log(
+            `      [debug] console errors: ${r.debug.consoleErrors.slice(0, 3).join(" | ")}`,
+          );
         }
         if (r.debug.bodySnippet) {
-          console.log(`      [debug] body snippet: ${r.debug.bodySnippet.slice(0, 120)}...`);
+          console.log(
+            `      [debug] body snippet: ${r.debug.bodySnippet.slice(0, 120)}...`,
+          );
         }
       }
     }
@@ -236,19 +280,29 @@ async function main() {
   }
 
   const passed = results.filter((r) => r.status === "OK").length;
-  const failed = results.filter((r) => r.status === "FAIL" || r.status === "ERR");
+  const failed = results.filter(
+    (r) => r.status === "FAIL" || r.status === "ERR",
+  );
   const warned = results.filter((r) => r.status === "WARN");
 
-  console.log(`\n[verify] ${passed}/${results.length} passed, ${warned.length} warnings, ${failed.length} failed.`);
+  console.log(
+    `\n[verify] ${passed}/${results.length} passed, ${warned.length} warnings, ${failed.length} failed.`,
+  );
   if (failed.length) {
     console.log("\n[verify] Failed routes:");
     failed.forEach((r) => console.log(`  - ${r.path} (${r.name}): ${r.error}`));
-    const connectionRefused = failed.filter((r) => r.error && r.error.includes("port"));
+    const connectionRefused = failed.filter(
+      (r) => r.error && r.error.includes("port"),
+    );
     if (connectionRefused.length) {
-      console.log("\n[verify] Hint: start missing MFEs (e.g. npm run dev:rpg, dev:omnichannel, dev:saas, dev:wellness, dev:sso, dev:admin).");
+      console.log(
+        "\n[verify] Hint: start missing MFEs (e.g. npm run dev:rpg, dev:omnichannel, dev:saas, dev:wellness, dev:sso, dev:admin).",
+      );
     }
     if (!DEBUG) {
-      console.log("\n[verify] Re-run with DEBUG=1 to see console errors and body snippet for failures.");
+      console.log(
+        "\n[verify] Re-run with DEBUG=1 to see console errors and body snippet for failures.",
+      );
     }
   }
   console.log("");

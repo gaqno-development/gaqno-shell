@@ -17,8 +17,10 @@ import RecoveryPassPage from "./pages/RecoveryPassPage";
 import DashboardPage from "./pages/DashboardPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import ErrorPage from "./pages/ErrorPage";
-import IntelligencePlaceholder from "./pages/IntelligencePlaceholder";
+// Intelligence MFE
+const IntelligencePage = lazy(() => import("intelligence/App" as string));
 import { lazy, Suspense } from "react";
+import { lazyWithTimeout } from "@/lib/lazyWithTimeout";
 import { RootLayout } from "./components/public-layout";
 
 // @ts-nocheck
@@ -43,7 +45,7 @@ const PDVPage = lazy(() => import("pdv/App" as string));
 const RPGPage = lazy(() => import("rpg/App" as string));
 const SSOPage = lazy(() => import("sso/App" as string));
 // @ts-nocheck
-const OmnichannelPage = lazy(() => import("omnichannel/App" as string));
+const OmnichannelPage = lazyWithTimeout(() => import("omnichannel/App" as string));
 // @ts-nocheck
 const AdminPage = lazy(() => import("admin/App" as string));
 // @ts-nocheck
@@ -177,14 +179,19 @@ const router = createBrowserRouter(
         {
           path: "/intelligence",
           errorElement: <RouteErrorElement />,
+          element: (
+            <Suspense fallback={<LoadingFallback />}>
+              <IntelligencePage />
+            </Suspense>
+          ),
           children: [
             {
-              index: true,
-              Component: IntelligencePlaceholder,
-            },
-            {
               path: "*",
-              Component: IntelligencePlaceholder,
+              element: (
+                <Suspense fallback={<LoadingFallback />}>
+                  <IntelligencePage />
+                </Suspense>
+              ),
             },
           ],
         },
