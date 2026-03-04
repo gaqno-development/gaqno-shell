@@ -76,7 +76,6 @@ export function RouteErrorElement() {
     (errorMessage.includes("Failed to fetch dynamically imported module") ||
       errorMessage.includes("Can not find remote module") ||
       errorMessage.includes("remoteEntry") ||
-      errorMessage.includes("Remote module load timeout") ||
       /loading chunk \d+ failed/i.test(errorMessage) ||
       /Loading chunk .* failed/i.test(errorMessage));
 

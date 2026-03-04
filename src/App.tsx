@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -17,13 +17,10 @@ import RecoveryPassPage from "./pages/RecoveryPassPage";
 import DashboardPage from "./pages/DashboardPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import ErrorPage from "./pages/ErrorPage";
-// Intelligence MFE
-const IntelligencePage = lazy(() => import("intelligence/App" as string));
-import { lazy, Suspense } from "react";
-import { lazyWithTimeout } from "@/lib/lazyWithTimeout";
 import { RootLayout } from "./components/public-layout";
 
 // @ts-nocheck
+const IntelligencePage = lazy(() => import("intelligence/App" as string));
 const AIRouteLayout = lazy(() => import("ai/AIRouteLayout" as string));
 const AIBookPage = lazy(() => import("ai/BookPage" as string));
 const AIAudioSection = lazy(() => import("ai/AudioSection" as string));
@@ -45,7 +42,7 @@ const PDVPage = lazy(() => import("pdv/App" as string));
 const RPGPage = lazy(() => import("rpg/App" as string));
 const SSOPage = lazy(() => import("sso/App" as string));
 // @ts-nocheck
-const OmnichannelPage = lazyWithTimeout(() => import("omnichannel/App" as string));
+const OmnichannelPage = lazy(() => import("omnichannel/App" as string));
 // @ts-nocheck
 const AdminPage = lazy(() => import("admin/App" as string));
 // @ts-nocheck
