@@ -221,7 +221,7 @@ export function ShellLayout({
           </div>
         </header>
         <main className="min-h-0 flex-1 flex flex-col overflow-auto bg-background">
-          <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-4">
+          <div className="flex min-h-0 w-full min-w-0 flex-1 flex-col">
             <MicroFrontendErrorBoundary>
               <AnimatePresence mode="wait">
                 <motion.div
