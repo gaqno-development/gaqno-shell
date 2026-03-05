@@ -125,7 +125,7 @@ const router = createBrowserRouter(
               element: <Navigate to="/ai/books" replace />,
             },
             {
-              path: "books",
+              path: "books/*",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
                   <AIBookPage />
@@ -133,7 +133,7 @@ const router = createBrowserRouter(
               ),
             },
             {
-              path: "audio",
+              path: "audio/*",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
                   <AIAudioSection />
@@ -141,7 +141,7 @@ const router = createBrowserRouter(
               ),
             },
             {
-              path: "images",
+              path: "images/*",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
                   <AIImagesSection />
@@ -149,7 +149,7 @@ const router = createBrowserRouter(
               ),
             },
             {
-              path: "video",
+              path: "video/*",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
                   <AIVideoSection />
@@ -157,7 +157,7 @@ const router = createBrowserRouter(
               ),
             },
             {
-              path: "studio",
+              path: "studio/*",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
                   <AIStudioDashboard />
@@ -165,7 +165,7 @@ const router = createBrowserRouter(
               ),
             },
             {
-              path: "social",
+              path: "social/*",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
                   <AISocialAccountsPage />
@@ -173,7 +173,7 @@ const router = createBrowserRouter(
               ),
             },
             {
-              path: "discovery",
+              path: "discovery/*",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
                   <AIProductDataDiscoveryPage />
@@ -181,7 +181,7 @@ const router = createBrowserRouter(
               ),
             },
             {
-              path: "retail",
+              path: "retail/*",
               element: (
                 <Suspense fallback={<LoadingFallback />}>
                   <AIRetailSection />
