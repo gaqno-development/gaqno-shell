@@ -132,6 +132,7 @@ export const WELLNESS_MFE_CONFIG: MfeRouteLayoutConfig = {
   basePath: "/wellness",
   titleKey: "wellness.title",
   layoutId: "wellnessActiveTab",
+  mobileTabsLimit: 8,
   mobileNavActiveIndicatorClassName: "absolute inset-x-2 -top-px h-0.5 bg-emerald-500 rounded-full",
   mobileNavActiveLabelClassName: "text-emerald-500 font-medium",
   tabs: [

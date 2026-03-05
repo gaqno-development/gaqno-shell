@@ -21,6 +21,7 @@ export interface MfeRouteLayoutConfig {
   layoutId: string;
   tabs: MfeRouteLayoutTabConfig[];
   tabGroups?: MfeRouteLayoutTabGroupConfig[];
+  mobileTabsLimit?: number;
   mobileNavActiveIndicatorClassName?: string;
   mobileNavActiveLabelClassName?: string;
 }
@@ -72,6 +73,7 @@ export function MfeRouteLayout({ config }: { config: MfeRouteLayoutConfig }) {
       activeTab={activeTab}
       onTabChange={handleTabChange}
       layoutId={layoutId}
+      mobileTabsLimit={config.mobileTabsLimit}
       mobileNavActiveIndicatorClassName={config.mobileNavActiveIndicatorClassName}
       mobileNavActiveLabelClassName={config.mobileNavActiveLabelClassName}
     >
