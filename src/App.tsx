@@ -12,7 +12,6 @@ import { I18nProvider, i18n } from "@gaqno-development/frontcore/i18n";
 import { RouteErrorElement } from "@/components/route-error-element";
 import { MfeRouteLayout } from "@/components/MfeRouteLayout";
 import {
-  CRM_MFE_CONFIG,
   ERP_MFE_CONFIG,
   INTELLIGENCE_MFE_CONFIG,
   CONSUMER_MFE_CONFIG,
@@ -240,27 +239,16 @@ const router = createBrowserRouter(
         },
         {
           path: "/crm",
+          element: <Navigate to="/crm/dashboard/overview" replace />,
+        },
+        {
+          path: "/crm/*",
           errorElement: <RouteErrorElement />,
           element: (
             <Suspense fallback={<SectionLoadingFallback />}>
-              <MfeRouteLayout config={CRM_MFE_CONFIG} />
+              <CRMPage />
             </Suspense>
           ),
-          children: [
-            {
-              index: true,
-              element: <Navigate to="dashboard/overview" replace />,
-            },
-            {
-              path: "*",
-              errorElement: <RouteErrorElement />,
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <CRMPage />
-                </Suspense>
-              ),
-            },
-          ],
         },
         {
           path: "/erp",
