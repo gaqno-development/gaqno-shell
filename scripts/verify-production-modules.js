@@ -42,7 +42,7 @@ const PROTECTED_ROUTES = [
   { path: "/dashboard/notifications", name: "Dashboard Notifications" },
   { path: "/ai/books", name: "AI Books" },
   { path: "/ai/audio", name: "AI Audio" },
-  { path: "/ai/audio#tts", name: "AI Audio TTS" },
+  { path: "/ai/audio/tts", name: "AI Audio TTS" },
   { path: "/ai/images", name: "AI Images" },
   { path: "/ai/video", name: "AI Video" },
   { path: "/ai/studio", name: "AI Studio" },
