@@ -47,6 +47,24 @@ type ShellLayoutMenuItems = ShellMenuItem[] | undefined;
 
 const SHELL_MOBILE_NAV_MAX = 5;
 
+const MFE_BASE_PATHS_WITH_SUB_NAV = [
+  "/ai",
+  "/crm",
+  "/erp",
+  "/intelligence",
+  "/wellness",
+  "/saas",
+  "/admin",
+  "/consumer",
+  "/omnichannel",
+  "/finance",
+  "/pdv",
+] as const;
+
+function isInsideMfeWithSubNav(pathname: string): boolean {
+  return MFE_BASE_PATHS_WITH_SUB_NAV.some((p) => pathname.startsWith(p));
+}
+
 function getShellMobileNavItems(menuItems: ShellMenuItem[] | undefined) {
   if (!menuItems?.length) return [];
   return menuItems.slice(0, SHELL_MOBILE_NAV_MAX).map((item) => {
@@ -238,7 +256,9 @@ export function ShellLayout({
             </MicroFrontendErrorBoundary>
           </div>
         </main>
-        {isMobile && shellNavItems.length > 0 && (
+        {isMobile &&
+          shellNavItems.length > 0 &&
+          !isInsideMfeWithSubNav(location.pathname) && (
           <div className="md:hidden">
             <MobileBottomNav
               items={shellNavItems}
