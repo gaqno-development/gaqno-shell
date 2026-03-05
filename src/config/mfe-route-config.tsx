@@ -33,12 +33,6 @@ export const CRM_MFE_CONFIG: MfeRouteLayoutConfig = {
   basePath: "/crm",
   titleKey: "crm.title",
   layoutId: "crmActiveTab",
-  tabGroups: [
-    { groupKey: "crm.groupOverview", tabIds: ["dashboard"] },
-    { groupKey: "crm.groupBusiness", tabIds: ["sales", "customers", "inventory", "operations", "finance"] },
-    { groupKey: "crm.groupInsights", tabIds: ["reports", "automation", "ai-marketing"] },
-    { groupKey: "crm.groupAdministration", tabIds: ["administration", "settings"] },
-  ],
   tabs: [
     { id: "dashboard", path: "dashboard/overview", labelKey: "crm.dashboard", icon: <LayoutDashboard className={iconCls} /> },
     { id: "sales", path: "sales/leads", labelKey: "crm.sales", icon: <TrendingUp className={iconCls} /> },
