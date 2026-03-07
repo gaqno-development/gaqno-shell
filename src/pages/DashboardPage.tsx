@@ -32,7 +32,7 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4" data-testid="dashboard-loading">
         <LoaderPinwheelIcon size={32} />
         <p className="text-sm text-muted-foreground">{t("dashboard.loading")}</p>
       </div>
@@ -40,9 +40,9 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="mx-auto size-full max-w-7xl flex-1 px-4 py-6 sm:px-6">
+    <main className="mx-auto size-full max-w-7xl flex-1 px-4 py-6 sm:px-6" data-testid="dashboard-main">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
-        <div className="space-y-1">
+        <div className="space-y-1" data-testid="dashboard-welcome">
           <h1 className="text-3xl font-bold tracking-tight">
             {t("dashboard.welcomeBack")}
           </h1>

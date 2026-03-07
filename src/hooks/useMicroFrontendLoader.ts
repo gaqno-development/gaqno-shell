@@ -29,7 +29,9 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 }
 
 function normalizeErrorMessage(err: unknown, remoteName: string): string {
-  const msg = err instanceof Error ? err.message : String(err);
+  const msg = (typeof err === "object" && err !== null && err instanceof Error)
+    ? (err as Error).message
+    : String(err);
   const lower = msg.toLowerCase();
   if (
     lower.includes("502") ||
