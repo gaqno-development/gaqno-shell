@@ -12,6 +12,9 @@ import { AlertCircle, Home, RefreshCw, Construction } from "lucide-react";
 
 const SERVICE_NAMES: Record<string, string> = {
   "/dashboard/profile": "Perfil",
+  "/dashboard/tasks": "Tarefas",
+  "/dashboard/calendar": "Agenda",
+  "/dashboard/notifications": "Notificações",
   "/dashboard/finance": "Finance",
   "/dashboard/crm": "CRM",
   "/dashboard/erp": "ERP",
@@ -26,7 +29,6 @@ const SERVICE_NAMES: Record<string, string> = {
   "/sso": "SSO",
   "/omnichannel": "Omnichannel",
   "/wellness": "Wellness",
-  "/saas": "SAAS",
   "/consumer": "Consumer",
   "/intelligence": "Intelligence",
 };

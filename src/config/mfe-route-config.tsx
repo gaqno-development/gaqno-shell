@@ -77,17 +77,6 @@ export const ERP_MFE_CONFIG: MfeRouteLayoutConfig = {
   ],
 };
 
-export const SAAS_MFE_CONFIG: MfeRouteLayoutConfig = {
-  basePath: "/saas",
-  titleKey: "saas.title",
-  layoutId: "saasActiveTab",
-  tabs: [
-    { id: "dashboard", path: "dashboard", labelKey: "saas.dashboard", icon: <LayoutDashboard className={iconCls} /> },
-    { id: "costing", path: "costing", labelKey: "saas.costing", icon: <DollarSign className={iconCls} /> },
-    { id: "codemap", path: "codemap", labelKey: "saas.codemap", icon: <Network className={iconCls} /> },
-  ],
-};
-
 export const INTELLIGENCE_MFE_CONFIG: MfeRouteLayoutConfig = {
   basePath: "/intelligence",
   titleKey: "intelligence.title",
@@ -114,11 +103,13 @@ export const ADMIN_MFE_CONFIG: MfeRouteLayoutConfig = {
   titleKey: "admin.title",
   layoutId: "adminActiveTab",
   tabs: [
+    { id: "dashboard", path: "dashboard", labelKey: "saas.dashboard", icon: <LayoutDashboard className={iconCls} /> },
     { id: "organization", path: "organization", labelKey: "admin.organization", icon: <GearIcon className={iconCls} /> },
     { id: "users", path: "users", labelKey: "admin.users", icon: <UsersIcon className={iconCls} /> },
     { id: "integrations", path: "integrations", labelKey: "admin.integrations", icon: <Network className={iconCls} /> },
     { id: "audit", path: "audit", labelKey: "admin.audit", icon: <FileSearch className={iconCls} /> },
     { id: "settings", path: "settings", labelKey: "admin.settings", icon: <GearIcon className={iconCls} /> },
+    { id: "codemap", path: "codemap", labelKey: "saas.codemap", icon: <Network className={iconCls} /> },
   ],
 };
 

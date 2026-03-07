@@ -23,6 +23,9 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import RecoveryPassPage from "./pages/RecoveryPassPage";
 import DashboardPage from "./pages/DashboardPage";
+import DashboardTasksPage from "./pages/DashboardTasksPage";
+import DashboardCalendarPage from "./pages/DashboardCalendarPage";
+import DashboardNotificationsPage from "./pages/DashboardNotificationsPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage";
 import ErrorPage from "./pages/ErrorPage";
 import { RootLayout } from "./components/public-layout";
@@ -53,14 +56,6 @@ const SSOPage = lazy(() => import("sso/App" as string));
 const OmnichannelPage = lazy(() => import("omnichannel/App" as string));
 // @ts-nocheck
 const AdminPage = lazy(() => import("admin/App" as string));
-// @ts-nocheck
-const SaasRouteLayout = lazy(() => import("saas/SaasRouteLayout" as string));
-// @ts-nocheck
-const SaasDashboardPage = lazy(() => import("saas/DashboardPage" as string));
-// @ts-nocheck
-const SaasCostingPage = lazy(() => import("saas/SaasCostingPage" as string));
-// @ts-nocheck
-const SaasCodemapView = lazy(() => import("saas/CodemapView" as string));
 // @ts-nocheck
 const WellnessPages = lazy(() => import("wellness/Pages" as string));
 // @ts-nocheck
@@ -101,9 +96,9 @@ const router = createBrowserRouter(
         { path: "/register", Component: RegisterPage },
         { path: "/recovery-pass", Component: RecoveryPassPage },
         { path: "/dashboard", Component: DashboardPage },
-        { path: "/dashboard/tasks", Component: DashboardPage },
-        { path: "/dashboard/calendar", Component: DashboardPage },
-        { path: "/dashboard/notifications", Component: DashboardPage },
+        { path: "/dashboard/tasks", Component: DashboardTasksPage },
+        { path: "/dashboard/calendar", Component: DashboardCalendarPage },
+        { path: "/dashboard/notifications", Component: DashboardNotificationsPage },
         { path: "/dashboard/manager", element: <Navigate to="/dashboard" replace /> },
         { path: "/dashboard/user", element: <Navigate to="/dashboard" replace /> },
         { path: "/dashboard/settings", element: <Navigate to="/dashboard" replace /> },
@@ -405,58 +400,35 @@ const router = createBrowserRouter(
         },
         {
           path: "/saas",
-          errorElement: <RouteErrorElement />,
-          element: (
-            <Suspense fallback={<LoadingFallback />}>
-              <SaasRouteLayout />
-            </Suspense>
-          ),
-          children: [
-            {
-              index: true,
-              element: <Navigate to="/saas/dashboard" replace />,
-            },
-            {
-              path: "dashboard",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <SaasDashboardPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "costing",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <SaasCostingPage />
-                </Suspense>
-              ),
-            },
-            {
-              path: "codemap",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <SaasCodemapView />
-                </Suspense>
-              ),
-            },
-            {
-              path: "tenants",
-              element: <Navigate to="/admin/tenants" replace />,
-            },
-            {
-              path: "usage",
-              element: <Navigate to="/admin/usage" replace />,
-            },
-            {
-              path: "branches",
-              element: <Navigate to="/admin/branches" replace />,
-            },
-            {
-              path: "settings",
-              element: <Navigate to="/saas/dashboard" replace />,
-            },
-          ],
+          element: <Navigate to="/admin/dashboard" replace />,
+        },
+        {
+          path: "/saas/dashboard",
+          element: <Navigate to="/admin/dashboard" replace />,
+        },
+        {
+          path: "/saas/costing",
+          element: <Navigate to="/admin/costing" replace />,
+        },
+        {
+          path: "/saas/codemap",
+          element: <Navigate to="/admin/codemap" replace />,
+        },
+        {
+          path: "/saas/tenants",
+          element: <Navigate to="/admin/tenants" replace />,
+        },
+        {
+          path: "/saas/usage",
+          element: <Navigate to="/admin/usage" replace />,
+        },
+        {
+          path: "/saas/branches",
+          element: <Navigate to="/admin/branches" replace />,
+        },
+        {
+          path: "/saas/settings",
+          element: <Navigate to="/admin/settings" replace />,
         },
         {
           path: "/wellness",

@@ -17,7 +17,6 @@ const MFE_ROUTES = [
   "/sso",
   "/omnichannel",
   "/wellness",
-  "/saas",
   "/intelligence",
   "/consumer",
 ];

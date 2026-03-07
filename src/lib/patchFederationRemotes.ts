@@ -10,7 +10,6 @@ export const REMOTE_PATHS: Record<string, string> = {
   finance: "/finance",
   pdv: "/pdv",
   rpg: "/rpg",
-  saas: "/saas",
   sso: "/sso",
   omnichannel: "/omnichannel",
   wellness: "/wellness",
@@ -27,10 +26,22 @@ function patchFederationRemotes(): void {
   }
   const fed = (window as unknown as { __FEDERATION__?: Record<string, { entry?: string }> }).__FEDERATION__;
   if (!fed) return;
+  const currentHost = window.location.host;
   for (const [name, path] of Object.entries(REMOTE_PATHS)) {
     const entry = fed[name];
-    if (entry && typeof entry.entry === "string" && entry.entry.includes("localhost")) {
-      (fed[name] as { entry: string }).entry = `${origin}${path}/assets/remoteEntry.js`;
+    if (entry && typeof entry.entry === "string") {
+      try {
+        const entryHost = new URL(entry.entry).host;
+        const isLocalhost = entry.entry.includes("localhost") || entry.entry.includes("127.0.0.1");
+        const isWrongHost = entryHost !== currentHost;
+        if (isLocalhost || isWrongHost) {
+          (fed[name] as { entry: string }).entry = `${origin}${path}/assets/remoteEntry.js`;
+        }
+      } catch {
+        if (entry.entry.includes("localhost")) {
+          (fed[name] as { entry: string }).entry = `${origin}${path}/assets/remoteEntry.js`;
+        }
+      }
     }
   }
 }

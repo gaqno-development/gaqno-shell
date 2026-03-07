@@ -21,7 +21,6 @@ export default defineConfig(async () => {
   const MFE_PDV_URL = origin ? `${origin}/pdv` : ensureUrl(process.env.MFE_PDV_URL, "http://localhost:3006");
   const MFE_RPG_URL = origin ? `${origin}/rpg` : ensureUrl(process.env.MFE_RPG_URL, "http://localhost:3007");
   const MFE_SSO_URL = origin ? `${origin}/sso` : ensureUrl(process.env.MFE_SSO_URL, "http://localhost:3001");
-  const MFE_SAAS_URL = origin ? `${origin}/saas` : ensureUrl(process.env.MFE_SAAS_URL, "http://localhost:3008/saas");
   const MFE_OMNICHANNEL_URL = origin ? `${origin}/omnichannel` : ensureUrl(process.env.MFE_OMNICHANNEL_URL, "http://localhost:3011/omnichannel");
   const MFE_WELLNESS_URL = origin ? `${origin}/wellness` : ensureUrl(process.env.MFE_WELLNESS_URL, "http://localhost:3012/wellness");
   const MFE_ADMIN_URL = origin ? `${origin}/admin` : ensureUrl(process.env.MFE_ADMIN_URL, "http://localhost:3010/admin");
@@ -85,7 +84,6 @@ export default defineConfig(async () => {
           finance: MFE_FINANCE_URL + "/assets/remoteEntry.js",
           pdv: MFE_PDV_URL + "/assets/remoteEntry.js",
           rpg: MFE_RPG_URL + "/assets/remoteEntry.js",
-          saas: MFE_SAAS_URL + "/assets/remoteEntry.js",
           sso: MFE_SSO_URL + "/assets/remoteEntry.js",
           omnichannel: MFE_OMNICHANNEL_URL + "/assets/remoteEntry.js",
           wellness: MFE_WELLNESS_URL + "/assets/remoteEntry.js",

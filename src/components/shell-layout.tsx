@@ -53,7 +53,6 @@ const MFE_BASE_PATHS_WITH_SUB_NAV = [
   "/erp",
   "/intelligence",
   "/wellness",
-  "/saas",
   "/admin",
   "/consumer",
   "/omnichannel",

@@ -17,6 +17,9 @@ interface Props {
 }
 
 const SERVICE_NAMES: Record<string, string> = {
+  "/dashboard/tasks": "Tarefas",
+  "/dashboard/calendar": "Agenda",
+  "/dashboard/notifications": "Notificações",
   "/dashboard/finance": "Finance",
   "/dashboard/crm": "CRM",
   "/dashboard/erp": "ERP",
@@ -32,7 +35,6 @@ const SERVICE_NAMES: Record<string, string> = {
   "/rpg": "RPG",
   "/omnichannel": "Omnichannel",
   "/wellness": "Wellness",
-  "/saas": "SAAS",
   "/consumer": "Consumer",
   "/intelligence": "Intelligence",
 };

@@ -13,7 +13,7 @@ import {
   ShieldCheck,
   UsersIcon,
 } from "@gaqno-development/frontcore/components/icons";
-import { Activity, Heart } from "lucide-react";
+import { Activity, Heart, Network } from "lucide-react";
 import type { ShellMenuItem } from "@/components/shell-sidebar";
 
 export const SHELL_MENU_ITEMS: ShellMenuItem[] = [
@@ -368,17 +368,18 @@ export const SHELL_MENU_ITEMS: ShellMenuItem[] = [
   },
   {
     label: "Administração",
-    href: "/admin/users",
+    href: "/admin/dashboard",
     icon: AnimatedGearIcon,
     isCollapsible: true,
     children: [
+      { label: "Dashboard", href: "/admin/dashboard", icon: LayoutPanelTopIcon },
       {
         label: "Organização",
         href: "/admin/organization",
         icon: AnimatedGearIcon,
         children: [
           { label: "Empresas", href: "/admin/organization", icon: AnimatedGearIcon },
-          { label: "Filiais", href: "/saas/branches", icon: AnimatedGearIcon },
+          { label: "Filiais", href: "/admin/branches", icon: AnimatedGearIcon },
           { label: "Estrutura", href: "/admin/organization", icon: AnimatedGearIcon },
         ],
       },
@@ -404,16 +405,17 @@ export const SHELL_MENU_ITEMS: ShellMenuItem[] = [
       },
       {
         label: "Plataforma",
-        href: "/saas/costing",
+        href: "/admin/costing",
         icon: AnimatedGearIcon,
         children: [
-          { label: "Tenants", href: "/saas/tenants", icon: AnimatedGearIcon },
-          { label: "Custos", href: "/saas/costing", icon: DollarSignIcon },
-          { label: "Uso", href: "/saas/usage", icon: FileDescriptionIcon },
-          { label: "Planos", href: "/saas/settings", icon: FileDescriptionIcon },
+          { label: "Tenants", href: "/admin/tenants", icon: AnimatedGearIcon },
+          { label: "Custos", href: "/admin/costing", icon: DollarSignIcon },
+          { label: "Uso", href: "/admin/usage", icon: FileDescriptionIcon },
+          { label: "Planos", href: "/admin/settings", icon: FileDescriptionIcon },
         ],
       },
       { label: "Auditoria", href: "/admin/audit", icon: FileDescriptionIcon },
+      { label: "Arquitetura", href: "/admin/codemap", icon: Network },
       { label: "Configurações", href: "/admin/settings", icon: AnimatedGearIcon },
     ],
   },

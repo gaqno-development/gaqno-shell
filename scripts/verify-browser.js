@@ -24,7 +24,7 @@ const PROTECTED_ROUTES = [
   { path: "/finance", name: "Finance" },
   { path: "/pdv", name: "PDV" },
   { path: "/omnichannel", name: "Omnichannel" },
-  { path: "/saas", name: "SaaS" },
+  { path: "/admin/dashboard", name: "Admin Dashboard" },
   { path: "/wellness", name: "Wellness" },
   { path: "/sso", name: "SSO" },
   { path: "/admin", name: "Admin" },
