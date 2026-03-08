@@ -28,6 +28,7 @@ vi.mock("@gaqno-development/frontcore/contexts", () => ({
 
 vi.mock("@gaqno-development/frontcore/components/ui", () => ({
   ToastContainer: () => null,
+  Toaster: () => null,
   SidebarInset: ({ children }: { children: React.ReactNode }) => React.createElement("div", null, children),
   SidebarProvider: ({ children }: { children: React.ReactNode }) => React.createElement("div", null, children),
   SidebarTrigger: () => React.createElement("button", null, "Toggle"),

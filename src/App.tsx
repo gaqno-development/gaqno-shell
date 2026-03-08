@@ -7,7 +7,7 @@ import {
 import { ThemeProvider } from "@gaqno-development/frontcore/components/providers";
 import { QueryProvider } from "@gaqno-development/frontcore/components/providers";
 import { AuthProvider } from "@gaqno-development/frontcore/contexts";
-import { ToastContainer } from "@gaqno-development/frontcore/components/ui";
+import { ToastContainer, Toaster } from "@gaqno-development/frontcore/components/ui";
 import { I18nProvider, i18n } from "@gaqno-development/frontcore/i18n";
 import "@gaqno-development/frontcore/hooks/erp";
 import { RouteErrorElement } from "@/components/route-error-element";
@@ -561,6 +561,7 @@ function AppWithI18n() {
         <AuthProvider>
           <RouterProvider router={router} />
           <ToastContainer />
+          <Toaster />
         </AuthProvider>
       </QueryProvider>
     </ThemeProvider>
