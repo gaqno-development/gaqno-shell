@@ -66,8 +66,7 @@ type MenuItemContentProps = {
 };
 
 function safeIcon(item: ShellMenuItem): ComponentType<{ className?: string }> {
-  const Icon = item?.icon;
-  return typeof Icon === "function" ? Icon : Package;
+  return item?.icon ?? Package;
 }
 
 function MenuItemContent({ item, pathname, depth }: MenuItemContentProps) {
