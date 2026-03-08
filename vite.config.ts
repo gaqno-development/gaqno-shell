@@ -126,6 +126,14 @@ export default defineConfig(async () => {
             singleton: true,
             requiredVersion: "^1.5.0",
           },
+          "lucide-react": {
+            singleton: true,
+            requiredVersion: "^0.560.0",
+          },
+          motion: {
+            singleton: true,
+            requiredVersion: "^11.0.0",
+          },
         },
       }),
     ],
@@ -136,6 +144,7 @@ export default defineConfig(async () => {
       alias: {
         "@": path.resolve(__dirname, "./src"),
       },
+      dedupe: ["react", "react-dom", "lucide-react", "motion"],
     },
     build: {
       modulePreload: false,
