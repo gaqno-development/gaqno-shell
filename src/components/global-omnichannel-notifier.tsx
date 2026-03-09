@@ -1,8 +1,10 @@
 import React, { Suspense, lazy } from "react";
 
-// @ts-nocheck
 const OmnichannelGlobalNotifier = lazy(
-  () => import("omnichannel/GlobalNotifier" as string),
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  () => (import("omnichannel/GlobalNotifier" as string) as Promise<any>).then(
+    (m) => ({ default: m.default ?? m.GlobalOmnichannelNotifier ?? m }),
+  ),
 );
 
 export function GlobalOmnichannelNotifier() {
