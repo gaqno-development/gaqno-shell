@@ -12,7 +12,7 @@ import {
 
 import { ShellSidebar } from "@/components/shell-sidebar";
 import { GlobalOmnichannelSheet } from "@/components/global-omnichannel-sheet";
-import { GlobalOmnichannelNotifier } from "@/components/global-omnichannel-notifier";
+import { GlobalNotificationHub } from "@/components/global-omnichannel-notifier";
 import { useAuth } from "@gaqno-development/frontcore/hooks";
 import { useUIStore } from "@gaqno-development/frontcore/store/uiStore";
 import {
@@ -291,7 +291,7 @@ export function ShellLayout({
         </footer>
       </SidebarInset>
       <GlobalOmnichannelSheet />
-      <GlobalOmnichannelNotifier />
+      <GlobalNotificationHub />
     </SidebarProvider>
   );
 }
