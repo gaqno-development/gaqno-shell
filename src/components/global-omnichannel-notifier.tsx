@@ -30,6 +30,7 @@ export function GlobalNotificationHub() {
     (s) => s.incrementOmnichannelUnread,
   );
   const resetOmnichannelUnread = useUIStore((s) => s.resetOmnichannelUnread);
+  const addShellNotification = useUIStore((s) => s.addShellNotification);
 
   useEffect(() => {
     if (pathname.startsWith("/omnichannel")) {
@@ -39,9 +40,11 @@ export function GlobalNotificationHub() {
 
   useEffect(() => {
     const handleNotification = (e: Event) => {
-      const { app, direction } = (
-        e as CustomEvent<ShellNotificationPayload>
-      ).detail;
+      const payload = (e as CustomEvent<ShellNotificationPayload>).detail;
+      const { app, direction } = payload;
+
+      addShellNotification(payload);
+
       if (
         app === "omnichannel" &&
         direction === "inbound" &&
@@ -54,8 +57,7 @@ export function GlobalNotificationHub() {
     window.addEventListener(SHELL_NOTIFICATION_EVENT, handleNotification);
     return () =>
       window.removeEventListener(SHELL_NOTIFICATION_EVENT, handleNotification);
-  }, [pathname, incrementOmnichannelUnread]);
+  }, [pathname, incrementOmnichannelUnread, addShellNotification]);
 
   return null;
 }
-

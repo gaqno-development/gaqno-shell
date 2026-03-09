@@ -15,10 +15,11 @@ vi.mock("react-router-dom", async (importOriginal) => {
 
 const incrementOmnichannelUnread = vi.fn();
 const resetOmnichannelUnread = vi.fn();
+const addShellNotification = vi.fn();
 
 vi.mock("@gaqno-development/frontcore/store/uiStore", () => ({
   useUIStore: (selector: (s: Record<string, unknown>) => unknown) =>
-    selector({ incrementOmnichannelUnread, resetOmnichannelUnread }),
+    selector({ incrementOmnichannelUnread, resetOmnichannelUnread, addShellNotification }),
 }));
 
 beforeEach(() => {

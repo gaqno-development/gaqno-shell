@@ -186,6 +186,10 @@ const uiStoreMockState = {
   incrementOmnichannelUnread: vi.fn(),
   setOmnichannelUnreadCount: vi.fn(),
   resetOmnichannelUnread: vi.fn(),
+  shellNotifications: [] as unknown[],
+  addShellNotification: vi.fn(),
+  markAllShellNotificationsRead: vi.fn(),
+  clearShellNotifications: vi.fn(),
 };
 vi.mock("@gaqno-development/frontcore/store/uiStore", () => ({
   useUIStore: (selector?: (s: typeof uiStoreMockState) => unknown) =>

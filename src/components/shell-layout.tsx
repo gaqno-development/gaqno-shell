@@ -37,6 +37,7 @@ import { Button } from "@gaqno-development/frontcore/components/ui";
 import { Separator } from "@gaqno-development/frontcore/components/ui";
 
 import LanguageDropdown from "@/components/shadcn-studio/blocks/dropdown-language";
+import { NotificationsDropdown } from "@/components/shadcn-studio/blocks/dropdown-notifications";
 import ProfileDropdown from "@/components/shadcn-studio/blocks/dropdown-profile";
 import ThemeDropdown from "@/components/shadcn-studio/blocks/dropdown-theme";
 import { MicroFrontendErrorBoundary } from "@/components/microfrontend-error-boundary";
@@ -219,6 +220,7 @@ export function ShellLayout({
                   </Button>
                 }
               />
+              <NotificationsDropdown />
               <ProfileDropdown
                 profile={profile}
                 user={user}

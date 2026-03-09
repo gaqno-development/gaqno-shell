@@ -7,35 +7,86 @@ import {
   CardTitle,
 } from "@gaqno-development/frontcore/components/ui";
 import { Badge } from "@gaqno-development/frontcore/components/ui";
-import { Bell, CheckCheck } from "lucide-react";
+import { useUIStore } from "@gaqno-development/frontcore/store/uiStore";
+import type { ShellNotificationItem } from "@gaqno-development/frontcore/store/uiStore";
+import { Bell, CheckCheck, MessageSquare, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { formatDistanceToNow } from "date-fns";
 
-interface NotificationItem {
-  id: string;
-  title: string;
-  message: string;
-  read: boolean;
-  time: string;
+const APP_LABELS: Record<string, string> = {
+  omnichannel: "Omnichannel",
+  crm: "CRM",
+  ai: "AI",
+  erp: "ERP",
+  finance: "Finance",
+};
+
+function NotificationRow({
+  item,
+  onMarkRead,
+}: {
+  item: ShellNotificationItem;
+  onMarkRead: (id: string) => void;
+}) {
+  const timeLabel = formatDistanceToNow(new Date(item.receivedAt), {
+    addSuffix: true,
+  });
+
+  return (
+    <li
+      role={!item.read ? "button" : undefined}
+      tabIndex={!item.read ? 0 : undefined}
+      onClick={() => !item.read && onMarkRead(item.id)}
+      onKeyDown={(e) => {
+        if ((e.key === "Enter" || e.key === " ") && !item.read) {
+          e.preventDefault();
+          onMarkRead(item.id);
+        }
+      }}
+      className={`flex items-start gap-4 rounded-lg px-4 py-3 transition-colors hover:bg-muted/50 ${
+        !item.read ? "cursor-pointer bg-muted/30" : ""
+      }`}
+    >
+      <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10">
+        <MessageSquare className="size-4 text-primary" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-medium text-muted-foreground">
+            {APP_LABELS[item.app] ?? item.app}
+          </span>
+          {!item.read && (
+            <span className="size-1.5 rounded-full bg-primary" />
+          )}
+        </div>
+        <p className="mt-0.5 text-sm font-medium">
+          {item.title ?? "New notification"}
+        </p>
+        {item.body && (
+          <p className="mt-0.5 text-sm text-muted-foreground">{item.body}</p>
+        )}
+        <p className="mt-1 text-xs text-muted-foreground">{timeLabel}</p>
+      </div>
+    </li>
+  );
 }
-
-const MOCK_NOTIFICATIONS: NotificationItem[] = [];
 
 export default function DashboardNotificationsPage() {
   const { t } = useTranslation("navigation");
-  const [notifications, setNotifications] =
-    useState<NotificationItem[]>(MOCK_NOTIFICATIONS);
+  const shellNotifications = useUIStore((s) => s.shellNotifications);
+  const markAllShellNotificationsRead = useUIStore(
+    (s) => s.markAllShellNotificationsRead,
+  );
+  const clearShellNotifications = useUIStore((s) => s.clearShellNotifications);
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
-
-  const handleMarkAllRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
-  };
+  const unreadCount = shellNotifications.filter((n) => !n.read).length;
 
   const handleMarkRead = (id: string) => {
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
-    );
+    useUIStore.setState((state) => ({
+      shellNotifications: state.shellNotifications.map((n) =>
+        n.id === id ? { ...n, read: true } : n,
+      ),
+    }));
   };
 
   return (
@@ -49,17 +100,30 @@ export default function DashboardNotificationsPage() {
             {t("dashboard.notificationsSubtitle")}
           </p>
         </div>
-        {unreadCount > 0 && (
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-2 self-start"
-            onClick={handleMarkAllRead}
-          >
-            <CheckCheck className="h-4 w-4" />
-            {t("dashboard.notificationsMarkAllRead")}
-          </Button>
-        )}
+        <div className="flex items-center gap-2 self-start">
+          {unreadCount > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2"
+              onClick={markAllShellNotificationsRead}
+            >
+              <CheckCheck className="h-4 w-4" />
+              {t("dashboard.notificationsMarkAllRead")}
+            </Button>
+          )}
+          {shellNotifications.length > 0 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="gap-2 text-destructive hover:text-destructive"
+              onClick={clearShellNotifications}
+            >
+              <Trash2 className="h-4 w-4" />
+              Clear all
+            </Button>
+          )}
+        </div>
       </div>
 
       <Card className="border-border/50">
@@ -79,38 +143,14 @@ export default function DashboardNotificationsPage() {
           )}
         </CardHeader>
         <CardContent className="px-2 pt-0">
-          {notifications.length > 0 ? (
+          {shellNotifications.length > 0 ? (
             <ul className="divide-y divide-border/50">
-              {notifications.map((n) => (
-                <li
+              {shellNotifications.map((n) => (
+                <NotificationRow
                   key={n.id}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => !n.read && handleMarkRead(n.id)}
-                  onKeyDown={(e) => {
-                    if (
-                      (e.key === "Enter" || e.key === " ") &&
-                      !n.read
-                    ) {
-                      e.preventDefault();
-                      handleMarkRead(n.id);
-                    }
-                  }}
-                  className={`flex items-start gap-4 rounded-lg px-4 py-3 transition-colors hover:bg-muted/50 ${
-                    !n.read ? "bg-muted/30" : ""
-                  }`}
-                >
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium">{n.title}</p>
-                    <p className="mt-0.5 text-sm text-muted-foreground">
-                      {n.message}
-                    </p>
-                    <p className="mt-1 text-xs text-muted-foreground">{n.time}</p>
-                  </div>
-                  {!n.read && (
-                    <span className="h-2 w-2 shrink-0 rounded-full bg-primary" />
-                  )}
-                </li>
+                  item={n}
+                  onMarkRead={handleMarkRead}
+                />
               ))}
             </ul>
           ) : (
