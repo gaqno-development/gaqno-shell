@@ -28,6 +28,7 @@ const mfeAliases: Array<{ find: string; replacement: string }> = [
   "sso/App",
   "omnichannel/App",
   "omnichannel/InboxView",
+  "omnichannel/GlobalNotifier",
   "admin/App",
   "wellness/Pages",
   "consumer/App",

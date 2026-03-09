@@ -179,8 +179,17 @@ vi.mock("@gaqno-development/frontcore/utils/api/sso-client", () => ({
   ssoAxiosClient: { patch: vi.fn().mockResolvedValue({ data: {} }) },
 }));
 
+const uiStoreMockState = {
+  sidebarOpen: false,
+  setSidebarOpen: vi.fn(),
+  omnichannelUnreadCount: 0,
+  incrementOmnichannelUnread: vi.fn(),
+  setOmnichannelUnreadCount: vi.fn(),
+  resetOmnichannelUnread: vi.fn(),
+};
 vi.mock("@gaqno-development/frontcore/store/uiStore", () => ({
-  useUIStore: () => ({ sidebarOpen: false, setSidebarOpen: vi.fn() }),
+  useUIStore: (selector?: (s: typeof uiStoreMockState) => unknown) =>
+    selector ? selector(uiStoreMockState) : uiStoreMockState,
 }));
 
 vi.mock("@gaqno-development/frontcore/i18n", () => ({

@@ -5,6 +5,7 @@ import { useFilteredMenu } from "@gaqno-development/frontcore/hooks";
 import { useIsMobile } from "@gaqno-development/frontcore/hooks";
 import { useUIStore } from "@gaqno-development/frontcore/store/uiStore";
 import { SHELL_MENU_ITEMS } from "@/config/shell-menu";
+import type { ShellMenuItem } from "@/components/shell-sidebar";
 
 const MFE_ROUTES = [
   "/ai",
@@ -63,10 +64,21 @@ export function useShellLayout() {
   const setSidebarOpen = useUIStore((state) => state.setSidebarOpen);
   const [shouldShowLayout, setShouldShowLayout] = useState(false);
   const [isMicroFrontend, setIsMicroFrontend] = useState(false);
+  const omnichannelUnreadCount = useUIStore((s) => s.omnichannelUnreadCount);
   const backendMenu = useFilteredMenu();
-  const menuItems = useMemo(
+  const baseMenuItems = useMemo(
     () => (backendMenu.length > 0 ? backendMenu : SHELL_MENU_ITEMS),
-    [backendMenu]
+    [backendMenu],
+  );
+  const menuItems = useMemo(
+    () =>
+      baseMenuItems.map((item): ShellMenuItem => {
+        if (item.href?.startsWith("/omnichannel")) {
+          return { ...item, notificationCount: omnichannelUnreadCount };
+        }
+        return item;
+      }),
+    [baseMenuItems, omnichannelUnreadCount],
   );
   const transitionKey = getTransitionKey(pathname, location.key);
 
