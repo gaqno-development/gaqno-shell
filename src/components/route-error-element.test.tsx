@@ -46,4 +46,33 @@ describe("RouteErrorElement", () => {
     });
     expect(navigate).toHaveBeenCalledWith("/dashboard");
   });
+
+  it("renders not deployed state for consumer", () => {
+    vi.mocked(useRouteError).mockReturnValue(new Error("err"));
+    render(<TestWrapper pathname="/consumer/something" />);
+    expect(screen.getByText(/Módulo em implantação/i)).toBeInTheDocument();
+  });
+
+  it("shows remote load hint when error message indicates chunk/remote failure", () => {
+    vi.mocked(useRouteError).mockReturnValue(
+      new Error("Loading chunk 123 failed.")
+    );
+    render(<TestWrapper pathname="/crm" />);
+    expect(screen.getByText(/Serviço Indisponível/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Verifique se o serviço está implantado/i)
+    ).toBeInTheDocument();
+  });
+
+  it("shows Try again button when not notDeployed", () => {
+    vi.mocked(useRouteError).mockReturnValue(new Error("err"));
+    render(<TestWrapper />);
+    expect(screen.getByRole("button", { name: /Tentar novamente/i })).toBeInTheDocument();
+  });
+
+  it("renders public route layout when pathname is login", () => {
+    vi.mocked(useRouteError).mockReturnValue(new Error("err"));
+    render(<TestWrapper pathname="/login" />);
+    expect(screen.getByText(/Serviço Indisponível/i)).toBeInTheDocument();
+  });
 });

@@ -236,4 +236,16 @@ describe("useOnboarding", () => {
       expect(step.icon).toBeDefined();
     }
   });
+
+  it("does not retry progress fetch on 401", async () => {
+    const { AxiosError } = await import("axios");
+    mockGet.mockRejectedValue(
+      new AxiosError("Unauthorized", "401", undefined, {}, { status: 401 } as never)
+    );
+
+    renderHook(() => useOnboarding(), { wrapper: createWrapper() });
+
+    await waitFor(() => expect(mockGet).toHaveBeenCalled());
+    expect(mockGet).toHaveBeenCalledTimes(1);
+  });
 });

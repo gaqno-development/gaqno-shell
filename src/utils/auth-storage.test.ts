@@ -62,4 +62,29 @@ describe("authStorage", () => {
     expect(authStorage.get()).toBeNull();
     spy.mockRestore();
   });
+
+  it("set catches localStorage errors", () => {
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const setItemSpy = vi.spyOn(localStorage, "setItem").mockImplementation(() => {
+      throw new Error("QuotaExceeded");
+    });
+    expect(() =>
+      authStorage.set({ id: "1", email: "a@b.com" }, { access_token: "t" })
+    ).not.toThrow();
+    expect(errSpy).toHaveBeenCalledWith("Error writing auth storage:", expect.any(Error));
+    errSpy.mockRestore();
+    setItemSpy.mockRestore();
+  });
+
+  it("clear catches localStorage errors", () => {
+    const errSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    authStorage.set({ id: "1" }, { access_token: "t" });
+    const removeItemSpy = vi.spyOn(localStorage, "removeItem").mockImplementation(() => {
+      throw new Error("Storage error");
+    });
+    expect(() => authStorage.clear()).not.toThrow();
+    expect(errSpy).toHaveBeenCalledWith("Error clearing auth storage:", expect.any(Error));
+    errSpy.mockRestore();
+    removeItemSpy.mockRestore();
+  });
 });

@@ -4,10 +4,12 @@ import { useShellLayout } from "./useShellLayout";
 import { MemoryRouter } from "react-router-dom";
 import * as uiStoreModule from "@gaqno-development/frontcore/store/uiStore";
 
-function wrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <MemoryRouter initialEntries={["/dashboard"]}>{children}</MemoryRouter>
-  );
+function createWrapper(initialPath = "/dashboard") {
+  return function Wrapper({ children }: { children: React.ReactNode }) {
+    return (
+      <MemoryRouter initialEntries={[initialPath]}>{children}</MemoryRouter>
+    );
+  };
 }
 
 describe("useShellLayout", () => {
@@ -16,7 +18,9 @@ describe("useShellLayout", () => {
   });
 
   it("returns layout state", () => {
-    const { result } = renderHook(() => useShellLayout(), { wrapper });
+    const { result } = renderHook(() => useShellLayout(), {
+      wrapper: createWrapper(),
+    });
     expect(typeof result.current.shouldShowLayout).toBe("boolean");
     expect(typeof result.current.isMicroFrontend).toBe("boolean");
     expect(result.current.transitionKey).toBeDefined();
@@ -25,7 +29,9 @@ describe("useShellLayout", () => {
   });
 
   it("injects notificationCount into the omnichannel menu item", () => {
-    const { result } = renderHook(() => useShellLayout(), { wrapper });
+    const { result } = renderHook(() => useShellLayout(), {
+      wrapper: createWrapper(),
+    });
     const omnichannelItem = result.current.menuItems.find((item) =>
       item.href?.startsWith("/omnichannel"),
     );
@@ -47,10 +53,13 @@ describe("useShellLayout", () => {
         return selector ? selector(state) : state;
       },
     );
-    const { result } = renderHook(() => useShellLayout(), { wrapper });
+    const { result } = renderHook(() => useShellLayout(), {
+      wrapper: createWrapper(),
+    });
     const omnichannelItem = result.current.menuItems.find((item) =>
       item.href?.startsWith("/omnichannel"),
     );
     expect(omnichannelItem?.notificationCount).toBe(7);
   });
+
 });

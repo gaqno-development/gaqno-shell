@@ -42,4 +42,27 @@ describe("patchFederationRemotes", () => {
       (window as unknown as { __FEDERATION__?: Record<string, { entry?: string }> }).__FEDERATION__?.ai?.entry
     ).toBe("https://portal.gaqno.com.br/ai/assets/remoteEntry.js");
   });
+
+  it("patches entry when URL constructor throws but entry contains localhost", () => {
+    Object.defineProperty(window, "location", {
+      value: { origin: "https://portal.gaqno.com.br", host: "portal.gaqno.com.br" },
+      writable: true,
+    });
+    const fed = (window as unknown as { __FEDERATION__?: Record<string, { entry?: string }> }).__FEDERATION__ = {
+      ai: { entry: "http://localhost:3002/assets/remoteEntry.js" },
+    };
+    const OriginalURL = global.URL;
+    vi.stubGlobal(
+      "URL",
+      class MockURL extends OriginalURL {
+        constructor(input: string) {
+          if (input.includes("localhost")) throw new Error("Invalid URL");
+          super(input);
+        }
+      }
+    );
+    ensureFederationRemotesPatched();
+    expect(fed.ai?.entry).toBe("https://portal.gaqno.com.br/ai/assets/remoteEntry.js");
+    vi.stubGlobal("URL", OriginalURL);
+  });
 });
