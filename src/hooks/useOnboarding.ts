@@ -126,7 +126,7 @@ export function useOnboarding() {
   });
 
   const completedCount = useMemo(
-    () => progress?.steps.filter((s) => s.status === "completed").length ?? 0,
+    () => progress?.steps?.filter((s) => s.status === "completed").length ?? 0,
     [progress]
   );
 
@@ -156,7 +156,7 @@ export function useOnboarding() {
 
   const getStepStatus = useCallback(
     (stepId: OnboardingStepId) =>
-      progress?.steps.find((s) => s.id === stepId)?.status ?? "pending",
+      progress?.steps?.find((s) => s.id === stepId)?.status ?? "pending",
     [progress]
   );
 
