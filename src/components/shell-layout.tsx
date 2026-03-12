@@ -41,6 +41,7 @@ import { NotificationsDropdown } from "@/components/shadcn-studio/blocks/dropdow
 import ProfileDropdown from "@/components/shadcn-studio/blocks/dropdown-profile";
 import ThemeDropdown from "@/components/shadcn-studio/blocks/dropdown-theme";
 import { MicroFrontendErrorBoundary } from "@/components/microfrontend-error-boundary";
+import { OnboardingWidget } from "@/components/onboarding/OnboardingWidget";
 import type { ShellMenuItem } from "@/components/shell-sidebar";
 import { MobileBottomNav } from "@gaqno-development/frontcore/components/layout";
 import { useIsMobile } from "@gaqno-development/frontcore/hooks";
@@ -294,6 +295,7 @@ export function ShellLayout({
       </SidebarInset>
       <GlobalOmnichannelSheet />
       <GlobalNotificationHub />
+      <OnboardingWidget />
     </SidebarProvider>
   );
 }
