@@ -12,6 +12,8 @@ const mfeAliases: Array<{ find: string; replacement: string }> = [
   "ai/ImagesSection",
   "ai/VideoSection",
   "ai/StudioDashboard",
+  "ai/NewProjectPage",
+  "ai/ProjectDetailPage",
   "ai/SocialAccountsPage",
   "ai/ProductDataDiscoveryPage",
   "ai/RetailSection",
