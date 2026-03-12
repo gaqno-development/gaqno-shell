@@ -39,6 +39,8 @@ const AIAudioSection = lazy(() => import("ai/AudioSection" as string));
 const AIImagesSection = lazy(() => import("ai/ImagesSection" as string));
 const AIVideoSection = lazy(() => import("ai/VideoSection" as string));
 const AIStudioDashboard = lazy(() => import("ai/StudioDashboard" as string));
+const AINewProjectPage = lazy(() => import("ai/NewProjectPage" as string));
+const AIProjectDetailPage = lazy(() => import("ai/ProjectDetailPage" as string));
 const AISocialAccountsPage = lazy(() => import("ai/SocialAccountsPage" as string));
 const AIProductDataDiscoveryPage = lazy(() => import("ai/ProductDataDiscoveryPage" as string));
 const AIRetailSection = lazy(() => import("ai/RetailSection" as string));
@@ -152,12 +154,33 @@ const router = createBrowserRouter(
               ),
             },
             {
-              path: "studio/*",
-              element: (
-                <Suspense fallback={<LoadingFallback />}>
-                  <AIStudioDashboard />
-                </Suspense>
-              ),
+              path: "studio",
+              children: [
+                {
+                  index: true,
+                  element: (
+                    <Suspense fallback={<LoadingFallback />}>
+                      <AIStudioDashboard />
+                    </Suspense>
+                  ),
+                },
+                {
+                  path: "new",
+                  element: (
+                    <Suspense fallback={<LoadingFallback />}>
+                      <AINewProjectPage />
+                    </Suspense>
+                  ),
+                },
+                {
+                  path: ":projectId",
+                  element: (
+                    <Suspense fallback={<LoadingFallback />}>
+                      <AIProjectDetailPage />
+                    </Suspense>
+                  ),
+                },
+              ],
             },
             {
               path: "social/*",
